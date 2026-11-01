@@ -16,10 +16,8 @@ library(stringr)
 ### 1. load ###################################################################
 load("./path/to/intermediate/data/list_cluster.dat")
 
-in_d2  <- "/path/to/your/local/directory/orignail_data"
-in_f2 <- "/20230830/result_enrichment_ATC_code_KEGGdrugBackground_20230825.csv"
-
-ATC        <- read.csv(paste0(in_d2, in_f2), row.names = 1)
+# ATC enrichment p-values (computed by collaborators; Supplementary Data 7)
+ATC        <- read.csv("../../data/Supplementary_Data_7_Enrichment_ATC.txt", row.names = 1)
 
 # FDR correction
 # Convert data to matrix

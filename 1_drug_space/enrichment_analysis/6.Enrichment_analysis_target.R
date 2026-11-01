@@ -15,10 +15,8 @@ library(cowplot)
 ### 1. load ###################################################################
 load("./path/to/intermediate/data/list_cluster.dat")
 
-in_d2  <- "/path/to/your/local/directory/orignail_data"
-in_f1 <- "/result_enrichment_Target_class_20230811.csv"
-
-Target      <- read.csv(paste0(in_d2, in_f1), row.names = 1)
+# Drug target class enrichment p-values (computed by collaborators; Supplementary Data 8)
+Target      <- read.csv("../../data/Supplementary_Data_8_Enrichment_Target.txt", row.names = 1)
 
 ### 2. cluster ################################################################
 clusters <- list_cluster$clusters
