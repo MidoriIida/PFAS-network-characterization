@@ -16,6 +16,13 @@ PFAS-network-characterization/
 ├── function.R                        # Shared R functions (network proximity calculation)
 ├── function.py                       # Shared Python utilities
 │
+├── 0_data_preparation/               # Input data construction
+│   ├── ppi/                          # Human PPI network construction
+│   ├── pfas_genes/                   # PFAS-associated gene retrieval (CTD, LINCS)
+│   ├── drug_genes/                   # Drug-associated gene data
+│   ├── disease_genes/                # Disease-associated gene retrieval (OMIM, ClinVar, GWAS, PheWAS)
+│   └── modules/                      # Gene module construction for PFAS and diseases
+│
 ├── 1_drug_space/                     # Drug-space analysis
 │   ├── 2.Calculate_45PFAS_on_900drug_space.R   # Network proximity: PFAS vs. drugs
 │   └── enrichment_analysis/          # ATC and target enrichment
@@ -79,10 +86,11 @@ Intermediate data files (network proximity scores, UMAP coordinates, clustering 
 Scripts in `4_figures_tables/` load pre-computed intermediate data (`.dat` files) from local paths.  
 To reproduce the full analysis pipeline, run scripts in the following order:
 
-1. `1_drug_space/` → network proximity calculation
-2. `2_disease_space/` → network proximity calculation
-3. `3_ml_classification/` → fingerprints → classification → SHAP
-4. `4_figures_tables/` → generate figures and tables
+1. `0_data_preparation/` → PPI construction, gene retrieval, module building
+2. `1_drug_space/` → network proximity calculation (PFAS vs. drugs)
+3. `2_disease_space/` → network proximity calculation (PFAS vs. diseases)
+4. `3_ml_classification/` → fingerprints → classification → SHAP
+5. `4_figures_tables/` → generate figures and tables
 
 ---
 
