@@ -65,7 +65,7 @@ p <-
   guides(color = guide_legend(override.aes = list(size = 3))) # 凡例の点のサイズを固定で5に設定
 p
 
-#ggsave("./Analysis_240819/plot_UMAP.eps", plot = p, width = 24, height = 23, units = "in", device = "eps")
+#ggsave("./path/to/intermediate/data/plot_UMAP.eps", plot = p, width = 24, height = 23, units = "in", device = "eps")
 ggsave("Figure2a_UMAP_drug_space.pdf", plot = p, width = 8, height = 6, units = "in", device = "pdf")
 
 

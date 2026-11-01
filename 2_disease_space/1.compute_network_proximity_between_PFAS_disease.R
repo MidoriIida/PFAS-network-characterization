@@ -73,7 +73,7 @@ compute_dc_parallel <- function(n, distance_matrix, node_set_S, node_set_T, hash
 
 ### 1.load data ############################
 #PPI network object
-g_PPI_ext <- get(load("./Analysis_230701/0.make_data/g_comp.dat"))
+g_PPI_ext <- get(load("./path/to/intermediate/data/0.make_data/g_comp.dat"))
 
 # extract the largest connected component
 cls <- clusters(g_PPI_ext, "weak")
@@ -87,12 +87,12 @@ distance_matrix <- distances(g)
 node_degrees <- degree(g)
 
 # load chemical-gene interactions
-load("./Analysis_230701/0.make_data/human_PFAS_genes/human_PFAS_genes_230712_iida.dat")
+load("./path/to/intermediate/data/0.make_data/human_PFAS_genes/human_PFAS_genes_230712_iida.dat")
 chemical_gene_pairs <- list_PFAS_genes$Merged
 #rm(list_PFAS_genes)
 
 # load disease-gene interactions
-in3 =  "./Analysis_230701/0.make_data/human_disease_genes/human_disease_genes_230714_iida.dat"
+in3 =  "./path/to/intermediate/data/0.make_data/human_disease_genes/human_disease_genes_230714_iida.dat"
 load(in3) #"human_disease_genes/human_disease_genes_230714_iida.dat"
 
 # get disease and chemical names
@@ -131,7 +131,7 @@ for(chemical in chemical_casrn ){ #c("103055-07-8")
   }
   list_dist_mat[[chemical]] <- as.data.frame(dist_mat)
 }
-save(list_dist_mat, file = "./Analysis_250707/list_dist_mat_disease_PFAS.dat")
+save(list_dist_mat, file = "./path/to/intermediate/data/list_dist_mat_disease_PFAS.dat")
 #system("python3.9 notification.py")
 
 

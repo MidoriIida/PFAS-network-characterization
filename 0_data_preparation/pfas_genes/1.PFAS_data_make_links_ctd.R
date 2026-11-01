@@ -18,13 +18,13 @@ CTD_chems <- read.csv(in_f2, skip=29, header = F)
 colnames(CTD_chems) <- c("ChemicalName","ChemicalID","CasRN","Definition","ParentIDs","TreeNumbers","ParentTreeNumbers","Synonyms")
 
 #CTD Chem-genes
-load(file = "./Analysis_230701/0.data_make/ctd_hPPI.dat")
+load(file = "./path/to/intermediate/data/0.data_make/ctd_hPPI.dat")
 
 #Lincks PFAS-genes
-load(file = "./Analysis_230701/0.data_make//df_EPA_PFAS_target_Lincs.dat")
+load(file = "./path/to/intermediate/data/0.data_make//df_EPA_PFAS_target_Lincs.dat")
 
 #CTD PFAS-genes
-load(file="./Analysis_230701/0.data_make//df_EPA_PFAS_target_ctd.dat")
+load(file="./path/to/intermediate/data/0.data_make//df_EPA_PFAS_target_ctd.dat")
 
 ### 2. Check ######################################
 x <- unique(df_EPA_PFAS_target_Lincs$CASRN) %in% unique(df_EPA_PFAS_target_ctd$CASRN)

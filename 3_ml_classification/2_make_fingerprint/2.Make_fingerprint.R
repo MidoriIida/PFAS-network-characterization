@@ -5,7 +5,7 @@ library(rcdk)
 library(fingerprint)
 
 ### 1. load #################################
-df = read.csv("./Analysis_250412/cas_to_smiles.csv")
+df = read.csv("./path/to/intermediate/data/cas_to_smiles.csv")
 
 ### 2. get fingerprints #####################
 mols <- parse.smiles(df$SMILES)

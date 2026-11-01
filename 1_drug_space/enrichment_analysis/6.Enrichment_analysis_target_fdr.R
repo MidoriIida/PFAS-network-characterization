@@ -13,7 +13,7 @@ library(reshape2)
 library(cowplot)
 
 ### 1. load ###################################################################
-load("./Analysis_240819/list_cluster.dat")
+load("./path/to/intermediate/data/list_cluster.dat")
 
 in_d2  <- "/path/to/your/local/directory/orignail_data"
 in_f1 <- "/result_enrichment_Target_class_20230811.csv"
@@ -84,5 +84,5 @@ g_Target_v
 
 ### 6. save ##########################################################
 list_graph_enriched_target <- list(h = g_Target_h, v = g_Target_v, n= g_Target)
-save(list_graph_enriched_target, file = "./Analysis_240819/6.Enrichment_analysis/list_graph_enriched_target_fdr.dat")
+save(list_graph_enriched_target, file = "./path/to/intermediate/data/6.Enrichment_analysis/list_graph_enriched_target_fdr.dat")
 

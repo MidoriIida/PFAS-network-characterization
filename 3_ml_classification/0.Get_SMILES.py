@@ -12,7 +12,7 @@ def cas_to_smiles(cas_number):
         return None
 
 # 1. list_cluster.csv を読み込む（Rで出力したもの）
-df = pd.read_csv("./Analysis_250412/list_cluster.csv")  # CAS, cluster
+df = pd.read_csv("./path/to/intermediate/data/list_cluster.csv")  # CAS, cluster
 df.reset_index(inplace=True)
 df.columns = ['Unnamed: 0','CAS', 'label']  # 列名を明示
 
@@ -30,7 +30,7 @@ df['SMILES'] = smiles_list
 df_clean = df.dropna(subset=['SMILES'])
 
 # 5. CSVに保存（変換結果）
-df_clean.to_csv("./Analysis_250412/cas_to_smiles.csv", index=False)
+df_clean.to_csv("./path/to/intermediate/data/cas_to_smiles.csv", index=False)
 
 print("done!")
 

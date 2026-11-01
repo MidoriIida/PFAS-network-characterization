@@ -13,16 +13,16 @@ import pickle
 import json
 
 # 1. データの読み込み（前ステップで保存したテキスト）
-with open("./Analysis_250412/4.Feature_Selection/rfe_results_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/rfe_results_Morgan.pkl", "rb") as f:
     rfe_results = pickle.load(f)
 
-with open("./Analysis_250412/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
     X_train = pickle.load(f)
     
-with open("./Analysis_250412//4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data//4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
     y_train = pickle.load(f)
     
-with open("./Analysis_250412//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
     feature_names_filtered = pickle.load(f)
     
 #2. 特徴量数の候補
@@ -75,7 +75,7 @@ plt.show()
 stats.f_oneway(pd.Series(rfe_5fcv_results[1]),pd.Series(rfe_5fcv_results[3]), pd.Series(rfe_5fcv_results[5]), pd.Series(rfe_5fcv_results[10]),pd.Series(rfe_5fcv_results[20]), pd.Series(rfe_5fcv_results[30]), pd.Series(rfe_5fcv_results[50]))
 
 # 保存先ファイル名を決めておく
-with open("./Analysis_250412/4.Feature_Selection/rfe_5fcv_results_Morgan.pkl", "wb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/rfe_5fcv_results_Morgan.pkl", "wb") as f:
     pickle.dump(rfe_5fcv_results, f)
     
 # 辞書を長形式に展開してcsvで保存（UTF-8で出力）
@@ -85,4 +85,4 @@ for key, array in rfe_5fcv_results.items():
         records.append({"key": key, "index": idx, "value": val})
 
 df = pd.DataFrame(records)
-df.to_csv("./Analysis_250412/4.Feature_Selection/rfe_5fcv_results_Morgan.csv", index=False)
+df.to_csv("./path/to/intermediate/data/4.Feature_Selection/rfe_5fcv_results_Morgan.csv", index=False)

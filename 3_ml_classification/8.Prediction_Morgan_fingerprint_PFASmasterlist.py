@@ -11,19 +11,19 @@ import pickle
 import seaborn as sns
 
 ### 1. load data ##########################
-with open("./Analysis_250412/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
     X_train = pickle.load(f)
 
-with open("./Analysis_250412/4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
     y_train = pickle.load(f)
 
-with open("./Analysis_250412/4.Feature_Selection/rfe_results_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/rfe_results_Morgan.pkl", "rb") as f:
     rfe_results = pickle.load(f)
 
-with open("./Analysis_250412//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
     feature_names_filtered = pickle.load(f)
 
-df = pd.read_csv("./Analysis_250412/Fingerprint_Morgan_2048_pfas_masterlist.csv", header=None)
+df = pd.read_csv("./path/to/intermediate/data/Fingerprint_Morgan_2048_pfas_masterlist.csv", header=None)
 
 ### 2. モデルの準備 ######################
 n_features = 3 #特徴量数の候補
@@ -59,7 +59,7 @@ df_feature = pd.DataFrame(df_selected)
 df_pred = pd.concat([df_pred, df_feature])
 
 # 保存
-output_path = "./Analysis_250412/Prediction_pfas_masterlist.csv"
+output_path = "./path/to/intermediate/data/Prediction_pfas_masterlist.csv"
 df_pred.to_csv(output_path, index=False, header=False)
 
 

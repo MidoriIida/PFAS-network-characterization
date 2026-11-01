@@ -9,11 +9,11 @@ library(ggplot2)
 library(reshape2)
 
 ### 1. load ############################
-X_train <- read.csv("./Analysis_250412/4.Feature_Selection/X_train_filtered_Morgan.csv", header = F)
-Y_train <- read.csv("./Analysis_250412/4.Feature_Selection/Y_train_filtered_Morgan.csv", header = F)
-X_test <- read.csv("./Analysis_250412/4.Feature_Selection/X_test_filtered_Morgan.csv", header = F)
-Y_test <- read.csv("./Analysis_250412/4.Feature_Selection/Y_test_filtered_Morgan.csv", header = F)
-Feature_names <- read.csv("./Analysis_250412/4.Feature_Selection/feature_names_selected_Morgan.csv", header = F)
+X_train <- read.csv("./path/to/intermediate/data/4.Feature_Selection/X_train_filtered_Morgan.csv", header = F)
+Y_train <- read.csv("./path/to/intermediate/data/4.Feature_Selection/Y_train_filtered_Morgan.csv", header = F)
+X_test <- read.csv("./path/to/intermediate/data/4.Feature_Selection/X_test_filtered_Morgan.csv", header = F)
+Y_test <- read.csv("./path/to/intermediate/data/4.Feature_Selection/Y_test_filtered_Morgan.csv", header = F)
+Feature_names <- read.csv("./path/to/intermediate/data/4.Feature_Selection/feature_names_selected_Morgan.csv", header = F)
 
 ### 2. data 再構築 ########################
 data_train           <- X_train

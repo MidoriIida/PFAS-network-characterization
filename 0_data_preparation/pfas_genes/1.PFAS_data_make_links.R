@@ -65,5 +65,5 @@ for(i in 1:dim(df_LINCS_target_exp_mean)[1]){
 ### 4. dataをmerge ##############################################################
 df_EPA_PFAS_target_Lincs <- merge(df_EPA_PFAS_target, PFAS_LINCS_Proteins, by.x = "INCHIKEY", by.y = "V1")
 
-save(df_EPA_PFAS_target_Lincs, file="./Analysis_230701/0.data_check/df_EPA_PFAS_target_Lincs.dat")
+save(df_EPA_PFAS_target_Lincs, file="./path/to/intermediate/data/0.data_check/df_EPA_PFAS_target_Lincs.dat")
 

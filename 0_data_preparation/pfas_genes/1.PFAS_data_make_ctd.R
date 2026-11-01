@@ -29,7 +29,7 @@ CTD_chems <- fread(in_f2, skip=29, header = F)
 colnames(CTD_chems) <- c("ChemicalName","ChemicalID","CasRN","Definition","ParentIDs","TreeNumbers","ParentTreeNumbers","Synonyms")
 
 #Takemoto lab PFAS
-load("./Analysis_230701/test.dat")
+load("./path/to/intermediate/data/test.dat")
 
 
 ### 2. Chem-genes data selection ######################
@@ -37,7 +37,7 @@ load("./Analysis_230701/test.dat")
 ctd_human <- ctd[ctd$Organism == "Homo sapiens",]        #1120037 interactions
 ctd_hPPI <- ctd_human[ctd_human$GeneForms == "protein",] #364122 interactions for 9914 chemicals
 
-save(ctd_hPPI, file = "./Analysis_230701/0.data_make/ctd_hPPI.dat")
+save(ctd_hPPI, file = "./path/to/intermediate/data/0.data_make/ctd_hPPI.dat")
 
 ### 3. PFAS data selection ############################
 #EPAに名前のあったPFASのうちCTDにも名前があったPFAS
@@ -69,10 +69,10 @@ length(unique(CTD_PFAS_genes_conf$ChemicalName)) #50 PFAS
 ### 6. check CTD ##############################################
 #上記50個のPFASを一旦外に出して、CAS numberを入れる
 df <- as.data.frame(table(CTD_PFAS_genes_conf$ChemicalName))
-write.xlsx(df, file = "./Analysis_230701/0.data_make/df_CTD_EPA_PFAS_20230712.xlsx")
+write.xlsx(df, file = "./path/to/intermediate/data/0.data_make/df_CTD_EPA_PFAS_20230712.xlsx")
 
 #上記PFASのうちCASが確認できたPFASは49個だった
-df_conf <- read.xlsx("./Analysis_230701/0.data_make/df_CTD_EPA_PFAS_20230712.xlsx")
+df_conf <- read.xlsx("./path/to/intermediate/data/0.data_make/df_CTD_EPA_PFAS_20230712.xlsx")
 
 #上記PFASのうちCASがEPAリストに確認できたPFASは41個だった
 df_conf_EPA <- df_conf[sapply(strsplit(df_conf$CAS, "\\|"), function(x){sum(x %in% df_EPA_PFAS$CASRN)}) > 0,]
@@ -91,4 +91,4 @@ df_conf_CTD <- ctd_hPPI[ctd_hPPI$ChemicalName  %in% df_conf_EPA$Var1,]
 df_EPA_PFAS_conf      <- merge(df_EPA_PFAS, df_conf_EPA[, c(1,4)], by.x = "CASRN", by.y = "CAS_1")
 df_EPA_PFAS_target_ctd <- merge(df_conf_CTD, df_EPA_PFAS_conf, by.x = "ChemicalName", by.y = "Var1")
 
-save(df_EPA_PFAS_target_ctd, file="./Analysis_230701/0.data_make//df_EPA_PFAS_target_ctd.dat")
+save(df_EPA_PFAS_target_ctd, file="./path/to/intermediate/data/0.data_make//df_EPA_PFAS_target_ctd.dat")

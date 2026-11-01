@@ -10,16 +10,16 @@ import pickle
 import seaborn as sns
 
 ### 1. load data ##########################
-with open("./Analysis_250412/4.Feature_Selection/X_test_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/X_test_filtered_Morgan.pkl", "rb") as f:
     X_test = pickle.load(f)
 
-with open("./Analysis_250412/4.Feature_Selection/y_test_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/y_test_filtered_Morgan.pkl", "rb") as f:
     y_test = pickle.load(f)
 
-with open("./Analysis_250412/4.Feature_Selection/rfe_results_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/rfe_results_Morgan.pkl", "rb") as f:
     rfe_results = pickle.load(f)
 
-with open("./Analysis_250412//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
     feature_names_filtered = pickle.load(f)
 
 ### 2. データを抽出 #######################
@@ -86,5 +86,5 @@ plt.show()
 # 保存
 res = mean_shap_by_class[['cluster_1', 'cluster_2']]
 df_res = pd.DataFrame(res)
-df_res.to_csv("./Analysis_250412/5.SHAP/SHAPvalue_Morgan_classification.csv", index=False)
+df_res.to_csv("./path/to/intermediate/data/5.SHAP/SHAPvalue_Morgan_classification.csv", index=False)
 

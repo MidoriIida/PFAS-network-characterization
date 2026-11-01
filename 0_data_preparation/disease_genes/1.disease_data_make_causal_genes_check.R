@@ -7,8 +7,8 @@
 
 
 ### 1. load ####################
-load(file="./Analysis_230501/0.make_data/list_disease_module_causalgenes.dat")
-load(file="./Analysis_230701/0.data_make/causal_genes/list_Disease_GeneIDs.dat")
+load(file="./path/to/intermediate/data/0.make_data/list_disease_module_causalgenes.dat")
+load(file="./path/to/intermediate/data/0.data_make/causal_genes/list_Disease_GeneIDs.dat")
 
 ### 2. load ####################
 names(list_disease_module)
@@ -38,4 +38,4 @@ MESH_Disease_name <-
 list_disease_EntrezIDs <- c(list_disease_module, list_Disease_GeneIDs)
 names(list_disease_EntrezIDs) <- paste0(names(list_disease_EntrezIDs), "_", c(KEGG_Disease_name_module, KEGG_Disease_name_GeneIDs))
 
-save(list_disease_EntrezIDs, file = "./Analysis_230701/0.data_make/causal_genes/list_disease_EntrezIDs.dat")
+save(list_disease_EntrezIDs, file = "./path/to/intermediate/data/0.data_make/causal_genes/list_disease_EntrezIDs.dat")

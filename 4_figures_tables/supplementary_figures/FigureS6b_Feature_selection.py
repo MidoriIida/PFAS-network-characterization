@@ -11,10 +11,10 @@ from sklearn.model_selection import cross_val_score
 from xgboost import XGBClassifier
 
 # 0. load data
-with open('./Analysis_251010/Final_xgboost_model_shap_Morgan_2048_chem.pkl', 'rb') as f:
+with open('./path/to/intermediate/data/Final_xgboost_model_shap_Morgan_2048_chem.pkl', 'rb') as f:
   data = pickle.load(f)
 
-with open('./Analysis_251010/Fingerprint_Morgan_2048_chem.pkl', 'rb') as f:
+with open('./path/to/intermediate/data/Fingerprint_Morgan_2048_chem.pkl', 'rb') as f:
   data2 = pickle.load(f)
 
 shap_values = data['shap_values']
@@ -80,7 +80,7 @@ print("="*60)
 print(cv_df.round(3))
 
 # CSVに保存
-cv_df.to_csv('./Analysis_251010/cv_scores_by_features.csv', index=True)
+cv_df.to_csv('./path/to/intermediate/data/cv_scores_by_features.csv', index=True)
 print("\nCV結果を保存: cv_scores_by_features.csv")
 
 # ===== t検定で統計的に比較 =====
@@ -128,7 +128,7 @@ for label, scores in cv_results.items():
 
 # 比較結果をDataFrameに
 comparison_df = pd.DataFrame(comparison_results)
-comparison_df.to_csv('./Analysis_251010/t_test_results.csv', index=False)
+comparison_df.to_csv('./path/to/intermediate/data/t_test_results.csv', index=False)
 print("\nt検定結果を保存: t_test_results.csv")
 
 # ===== ボックスプロット =====
@@ -166,7 +166,7 @@ ax.set_ylim(0.5, 1.0)
 
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
-plt.savefig('./Analysis_251010/cv_boxplot.png', dpi=300, bbox_inches='tight')
+plt.savefig('./path/to/intermediate/data/cv_boxplot.png', dpi=300, bbox_inches='tight')
 print("ボックスプロットを保存: cv_boxplot.png")
 plt.close()
 
@@ -185,7 +185,7 @@ ax.set_ylim(0.5, 1.0)
 
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
-plt.savefig('./Analysis_251010/cv_violinplot.png', dpi=300, bbox_inches='tight')
+plt.savefig('./path/to/intermediate/data/cv_violinplot.png', dpi=300, bbox_inches='tight')
 print("バイオリンプロットを保存: cv_violinplot.png")
 plt.close()
 
@@ -199,7 +199,7 @@ summary_stats['median'] = cv_df.median()
 summary_stats = summary_stats[['mean', 'median', 'std', 'min', 'max']]
 
 print(summary_stats.round(4))
-summary_stats.to_csv('./Analysis_251010/cv_summary_stats.csv')
+summary_stats.to_csv('./path/to/intermediate/data/cv_summary_stats.csv')
 print("\nサマリー統計を保存: cv_summary_stats.csv")
 
 print("\n分析完了！")

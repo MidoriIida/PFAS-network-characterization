@@ -14,7 +14,7 @@ library(cowplot)
 library(stringr)
 
 ### 1. load ###################################################################
-load("./Analysis_240819/list_cluster.dat")
+load("./path/to/intermediate/data/list_cluster.dat")
 
 in_d2  <- "/path/to/your/local/directory/orignail_data"
 in_f2 <- "/20230830/result_enrichment_ATC_code_KEGGdrugBackground_20230825.csv"
@@ -69,6 +69,6 @@ g_ATC_v
 
 ### 6. save ##########################################################
 list_graph_enriched_ATC <- list(h = g_ATC_h, v = g_ATC_v, n = g_ATC)
-save(list_graph_enriched_ATC, file = "./Analysis_240819/6.Enrichment_analysis/list_graph_enriched_ATC.dat")
+save(list_graph_enriched_ATC, file = "./path/to/intermediate/data/6.Enrichment_analysis/list_graph_enriched_ATC.dat")
 
 

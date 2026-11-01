@@ -5,7 +5,7 @@ from rdkit.Chem.rdFingerprintGenerator import GetMorganGenerator
 import numpy as np
 
 # 1. データ読み込み（前ステップで保存したもの）
-df = pd.read_csv("./Analysis_250412/cas_to_smiles.csv")
+df = pd.read_csv("./path/to/intermediate/data/cas_to_smiles.csv")
 
 # SMILESとCAS列を取得
 smiles_list = df['SMILES']
@@ -32,5 +32,5 @@ fp_df = pd.DataFrame(fingerprints)
 fp_df['label'] = y  # 最後の列にクラスタラベルを追加
 
 # 保存
-output_path = "./Analysis_250412/Fingerprint_Morgan_2048.csv"
+output_path = "./path/to/intermediate/data/Fingerprint_Morgan_2048.csv"
 fp_df.to_csv(output_path, index=False, header=False)

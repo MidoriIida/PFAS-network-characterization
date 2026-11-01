@@ -3,16 +3,16 @@ import shap
 import pickle
 
 # 1. データの読み込み（前ステップで保存したテキスト）
-with open("./Analysis_250412/4.Feature_Selection/rfe_results_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/rfe_results_Morgan.pkl", "rb") as f:
     rfe_results = pickle.load(f)
 
-with open("./Analysis_250412/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
     X_train = pickle.load(f)
     
-with open("./Analysis_250412//4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data//4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
     y_train = pickle.load(f)
 
-with open("./Analysis_250412//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
     feature_names_filtered = pickle.load(f)
     
 # 2. 最適な特徴数（例：10）

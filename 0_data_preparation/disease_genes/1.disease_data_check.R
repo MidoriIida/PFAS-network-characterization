@@ -7,8 +7,8 @@ library(dplyr)
 
 
 ### 1. load #############################
-load(file = "./Analysis_230701/0.make_data/causal_genes/list_disease_EntrezIDs.dat")
-load(file = "./Analysis_230701/0.make_data/causal_genes/list_disease_genes_PheWAS_GWAS.dat")
+load(file = "./path/to/intermediate/data/0.make_data/causal_genes/list_disease_EntrezIDs.dat")
+load(file = "./path/to/intermediate/data/0.make_data/causal_genes/list_disease_genes_PheWAS_GWAS.dat")
 
 ### 2. 型を揃える #############################
 list_disease_genes_PheWAS_GWAS <- sapply(list_disease_genes_PheWAS_GWAS, as.integer)
@@ -16,7 +16,7 @@ list_disease_genes_PheWAS_GWAS <- sapply(list_disease_genes_PheWAS_GWAS, as.inte
 ### 3. 合体 ##################################
 list_disease_genes <- c(list_disease_EntrezIDs, list_disease_genes_PheWAS_GWAS)
 
-save(list_disease_genes, file = "./Analysis_230701/0.data_make/human_disease_genes/human_disease_genes_230714_iida.dat")
+save(list_disease_genes, file = "./path/to/intermediate/data/0.data_make/human_disease_genes/human_disease_genes_230714_iida.dat")
 
 ### 4. 出力 ##################################
 df_genes <- as.data.frame(unlist(list_disease_genes))
@@ -25,4 +25,4 @@ colnames(df_genes)[1] <- "GeneID"
 rownames(df_genes)    <- 1:length(df_genes$GeneID)
 df_genes <- df_genes[,c(2,1)]
 
-write.xlsx(df_genes, file = "./Analysis_230701/0.data_make/human_disease_genes/human_disease_genes_230714_iida.xlsx")
+write.xlsx(df_genes, file = "./path/to/intermediate/data/0.data_make/human_disease_genes/human_disease_genes_230714_iida.xlsx")

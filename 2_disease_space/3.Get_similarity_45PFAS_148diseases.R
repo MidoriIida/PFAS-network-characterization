@@ -19,7 +19,7 @@ min_max_norm <- function(x) {
 }
 
 ### 1. load ##############################################################
-load("./Analysis_250707/df_dist_45PFAS_disease.dat")
+load("./path/to/intermediate/data/df_dist_45PFAS_disease.dat")
 
 in_d  <- "/path/to/your/local/directory/original_data"
 in_f3 <- "hsPPARalpha_PFASs_wash_descriptors_Sscore_IC50_data.xlsx"
@@ -60,7 +60,7 @@ list_mat <- list(
 
 list_umap <- lapply(list_mat, function(x){umap(t(x), n_components = 2)})
 
-save(list_umap, file = "./Analysis_250707/list_umap_45PFAS_148disease.dat")
+save(list_umap, file = "./path/to/intermediate/data/list_umap_45PFAS_148disease.dat")
 
 ### 6. PCAの実行##############################################################
 list_pca <- lapply(list_mat, function(x){prcomp(t(x), scale. = T)})

@@ -11,7 +11,7 @@ library(openxlsx)
 library(enrichR)
 
 ### 1. load ####################
-in_d <- "./Analysis_230701/0.data_make/causal_genes/"
+in_d <- "./path/to/intermediate/data/0.data_make/causal_genes/"
 in_f <- list.files(in_d)
 
 list_causal_genes <- lapply(paste0(in_d, in_f), function(x){get(load(x))})
@@ -45,18 +45,18 @@ list_GeneIDs_OMIM  <-  lapply(list_causal_genes, function(y){lapply(y[1], My_get
 for(i in 1:length(list_GeneIDs_OMIM)){
   list_GeneIDs[[i]]$OMIM<- list_GeneIDs_OMIM[[i]]$OMIM
 }
-save(list_GeneIDs, file = "./Analysis_230701/0.data_make/causal_genes/list_GeneIDs.dat")
+save(list_GeneIDs, file = "./path/to/intermediate/data/0.data_make/causal_genes/list_GeneIDs.dat")
 
 
 ### 5. unlist and unique ####################
 list_Disease_GeneIDs <- sapply(list_GeneIDs, function(x){unique(unlist(sapply(x, function(x){x$entrezgene_id })))})
-save(list_Disease_GeneIDs, file = "./Analysis_230701/0.data_make/causal_genes/list_Disease_GeneIDs.dat")
+save(list_Disease_GeneIDs, file = "./path/to/intermediate/data/0.data_make/causal_genes/list_Disease_GeneIDs.dat")
 
 
 ### 6. 出力 ####################
 for (i in names(list_GeneIDs)) {
-  #write.xlsx(list_GeneIDs[[i]],          file = paste0("./Analysis_230701/0.data_make/causal_genes/list_GeneIDs_", i, ".xlsx"))
-  write.table(list_Disease_GeneIDs[[i]], file = paste0("./Analysis_230701/0.data_make/causal_genes/list_Disease_GeneIDs_", i, ".txt"), quote = F, row.names = F, col.names = F)
+  #write.xlsx(list_GeneIDs[[i]],          file = paste0("./path/to/intermediate/data/0.data_make/causal_genes/list_GeneIDs_", i, ".xlsx"))
+  write.table(list_Disease_GeneIDs[[i]], file = paste0("./path/to/intermediate/data/0.data_make/causal_genes/list_Disease_GeneIDs_", i, ".txt"), quote = F, row.names = F, col.names = F)
 }
 
 ### 4. check #####################

@@ -52,6 +52,6 @@ df_valid['SMILES'] = valid_smiles
 df_valid['CASRN'] = valid_cas
 
 # 保存
-output_path = "./Analysis_250412/Fingerprint_Morgan_2048_pfas_masterlist.csv"
+output_path = "./path/to/intermediate/data/Fingerprint_Morgan_2048_pfas_masterlist.csv"
 df_valid.to_csv(output_path, index=False, header=False)
 

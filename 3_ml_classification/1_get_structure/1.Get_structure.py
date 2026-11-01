@@ -3,7 +3,7 @@ from rdkit import Chem
 from rdkit.Chem import Draw
 
 # 1. データ読み込み（前ステップで保存したもの）
-df = pd.read_csv("./Analysis_250412/cas_to_smiles.csv")
+df = pd.read_csv("./path/to/intermediate/data/cas_to_smiles.csv")
 
 # 2. データを分割
 df_cl1 = df[df['label'] == 1]
@@ -22,8 +22,8 @@ img_cl1 = Draw.MolsToGridImage(mols_cl1, molsPerRow=4, subImgSize=(250, 250), le
 img_cl2 = Draw.MolsToGridImage(mols_cl2, molsPerRow=4, subImgSize=(250, 250), legends=df_cl2['CAS'].tolist())
 
 # 6. 保存
-img_path_cl1 = "./Analysis_250412/smiles_structures_grid_cl1.png"
-img_path_cl2 = "./Analysis_250412/smiles_structures_grid_cl2.png"
+img_path_cl1 = "./path/to/intermediate/data/smiles_structures_grid_cl1.png"
+img_path_cl2 = "./path/to/intermediate/data/smiles_structures_grid_cl2.png"
 img_cl1.save(img_path_cl1)
 img_cl2.save(img_path_cl2)
 

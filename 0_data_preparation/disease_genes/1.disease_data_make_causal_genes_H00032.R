@@ -85,7 +85,7 @@ list_VG_H00032 <- list(OMIM     = OMIM_H00032,
                        PheWAS   = unique(PheWAS_H00032$gene_name[PheWAS_H00032$gene_name != "NULL"]))
 
 
-save(list_VG_H00032, file="./Analysis_230701/Causal_genes_H00032.dat")
+save(list_VG_H00032, file="./path/to/intermediate/data/Causal_genes_H00032.dat")
 
 
 

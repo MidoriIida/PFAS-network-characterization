@@ -6,7 +6,7 @@ from rdkit.Chem import AllChem, Draw
 import pandas as pd
 
 # 1. データ読み込み（前ステップで保存したもの）
-df = pd.read_csv("./Analysis_250412/cas_to_smiles.csv")
+df = pd.read_csv("./path/to/intermediate/data/cas_to_smiles.csv")
 
 # 2. データを分割
 df_cl1 = df[df['label'] == 1]
@@ -93,7 +93,7 @@ img_cl2 = Draw.MolsToGridImage(
 )
 
 # 6. 保存
-img_path_cl1 = "./Analysis_250412/highlighted_molecules_grid_cl1.png"
-img_path_cl2 = "./Analysis_250412/highlighted_molecules_grid_cl2.png"
+img_path_cl1 = "./path/to/intermediate/data/highlighted_molecules_grid_cl1.png"
+img_path_cl2 = "./path/to/intermediate/data/highlighted_molecules_grid_cl2.png"
 img_cl1.save(img_path_cl1)
 img_cl2.save(img_path_cl2)

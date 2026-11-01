@@ -9,13 +9,13 @@ import numpy as np
 import json
 
 # 1. データの読み込み（前ステップで保存したテキスト）
-with open("./Analysis_250412/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
     X = pickle.load(f)
     
-with open("./Analysis_250412//4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data//4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
     y = pickle.load(f)
 
-with open("./Analysis_250412//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
     feature_names = pickle.load(f)
 
 # 2. 特徴量数の候補
@@ -46,10 +46,10 @@ for n_features in feature_counts:
     rfe_results[n_features] = selected_features
 
 # 保存先ファイル名を決めておく
-with open("./Analysis_250412/4.Feature_Selection/rfe_results_Morgan.pkl", "wb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/rfe_results_Morgan.pkl", "wb") as f:
     pickle.dump(rfe_results, f)
     
 # JSONファイルとして保存（UTF-8で出力）
-with open("./Analysis_250412/4.Feature_Selection/rfe_results_Morgan.json", "w", encoding="utf-8") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/rfe_results_Morgan.json", "w", encoding="utf-8") as f:
     json.dump(rfe_results, f, ensure_ascii=False, indent=2)
     

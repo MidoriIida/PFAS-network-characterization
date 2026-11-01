@@ -54,7 +54,7 @@ list_umap <- list(sim0    = umap_sim_result_0,
                   dist0   = umap_dist_result_0,
                   distnon = umap_dist_result_non)
 
-save(list_umap, file = "./Analysis_240819/list_umap_PFAS_drug.dat")
+save(list_umap, file = "./path/to/intermediate/data/list_umap_PFAS_drug.dat")
 
 
 

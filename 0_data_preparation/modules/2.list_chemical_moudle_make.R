@@ -10,8 +10,8 @@ library(igraph)
 
 ### 1. load ##############################
 out_f <- "/path/to/your/local/directory/0.make_data"
-load("./Analysis_230701/0.make_data/g_vg_cop.dat")    #human interactome
-load("./Analysis_230701/0.make_data/human_PFAS_genes/human_PFAS_genes_230712_iida.dat")
+load("./path/to/intermediate/data/0.make_data/g_vg_cop.dat")    #human interactome
+load("./path/to/intermediate/data/0.make_data/human_PFAS_genes/human_PFAS_genes_230712_iida.dat")
 
 ### 2. list_chemに戻す ##############################
 list_chems <- tapply(list_PFAS_genes$Merged$GeneID, list_PFAS_genes$Merged$CASRN, list)

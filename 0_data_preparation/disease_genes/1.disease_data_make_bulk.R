@@ -164,4 +164,4 @@ result <- lapply(c("GWAS_GeneID", "PheWAS_GeneID"),
 list_disease_genes_PheWAS_GWAS <- sapply(1:dim(PheWAS_GWAS)[1], function(y){unique(c(result[[1]][[y]],result[[2]][[y]]))})
 names(list_disease_genes_PheWAS_GWAS) <- PheWAS_GWAS$`phewas phenotype`
 
-save(list_disease_genes_PheWAS_GWAS, file = "./Analysis_230701/0.data_make/causal_genes/list_disease_genes_PheWAS_GWAS.dat")
+save(list_disease_genes_PheWAS_GWAS, file = "./path/to/intermediate/data/0.data_make/causal_genes/list_disease_genes_PheWAS_GWAS.dat")

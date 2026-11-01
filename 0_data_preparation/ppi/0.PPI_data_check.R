@@ -14,5 +14,5 @@ g_PPI_ext <- upgrade_graph(g_PPI_ext)
 ### 2. output #################
 df <- as_edgelist(g_PPI_ext)
 
-save(g_PPI_ext, file = "./Analysis_230701/0.data_check/human_PPI_230710_iida.dat")
-write.table(df, file = "./Analysis_230701/0.data_check/human_PPI_230710_iida.txt", row.names = F, col.names = F, quote = F)
+save(g_PPI_ext, file = "./path/to/intermediate/data/0.data_check/human_PPI_230710_iida.dat")
+write.table(df, file = "./path/to/intermediate/data/0.data_check/human_PPI_230710_iida.txt", row.names = F, col.names = F, quote = F)

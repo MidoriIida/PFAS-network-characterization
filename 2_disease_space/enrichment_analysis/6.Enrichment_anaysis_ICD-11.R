@@ -24,7 +24,7 @@ MyFisher <- function(my_h, h_in_category, all_h){
 load(file = "/path/to/your/local/directory/df_H_numbers.dat") #df_H_numbers
 
 #Proximityのリストを読み込む
-load(file = "./Analysis_250707/df_dist_45PFAS_disease.dat") #df_dist
+load(file = "./path/to/intermediate/data/df_dist_45PFAS_disease.dat") #df_dist
 
 # テキストファイルを読み込む（必要に応じて file.choose() などを使用）
 lines <- readLines("/path/to/your/local/directory/br08403_KEGG BRITE_ Human Diseases in ICD-11 Classification.txt")
@@ -47,7 +47,7 @@ for (line in lines) {
   }
 }
 
-save(list_brite, file = "./Analysis_250707/6.Enrichment_anaysis/list_brite.dat")
+save(list_brite, file = "./path/to/intermediate/data/6.Enrichment_anaysis/list_brite.dat")
        
 ### 3. Make dist mat ##############################
 df_z <- df_dist[which(!duplicated(sapply(strsplit(rownames(df_dist), "_"), function(x){x[length(x)]}))),]
@@ -100,4 +100,4 @@ colSums(df_results < 0.05) #あまり変わり映えしないようだ...
 colSums(df_fdr < 0.05)     #いくつかは有意に異なる結果として出るけど、結構少なめ
 
 save(df_results, file="/path/to/your/local/directory/df_results_enrichment_KEGG_ICD11.dat")
-save(df_fdr,     file="./Analysis_250707/df_results_enrichment_KEGG_ICD11_fdr.dat")
+save(df_fdr,     file="./path/to/intermediate/data/df_results_enrichment_KEGG_ICD11_fdr.dat")

@@ -43,7 +43,7 @@ desc_names = [
 n_fp = 2048
 feature_names = [f'FP_{i}' for i in range(n_fp)] + desc_names
 
-with open('./Analysis_251010/Final_xgboost_model_shap_Morgan_2048_chem.pkl', 'wb') as f:
+with open('./path/to/intermediate/data/Final_xgboost_model_shap_Morgan_2048_chem.pkl', 'wb') as f:
   pickle.dump({'shap_values': shap_values, 'feature_names': feature_names}, f)
   
 # ===== グローバルな重要度（平均絶対SHAP値） =====
@@ -131,7 +131,7 @@ ax[1].set_xlabel('Mean |SHAP value|')
 ax[1].set_title('SHAP Importance')
 
 plt.tight_layout()
-plt.savefig('./Analysis_251010/importance_comparison.png', dpi=300, bbox_inches='tight')
+plt.savefig('./path/to/intermediate/data/importance_comparison.png', dpi=300, bbox_inches='tight')
 print("\n比較プロットを保存: importance_comparison.png")
 plt.close()
 

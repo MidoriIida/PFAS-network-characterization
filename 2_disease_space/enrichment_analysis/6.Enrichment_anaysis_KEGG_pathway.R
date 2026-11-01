@@ -21,10 +21,10 @@ MyFisher <- function(my_h, h_in_category, all_h){
 
 ### 1. load data ##########################
 #疾患のリストを読み込む
-load(file = "./Analysis_250707/df_H_numbers.dat") #df_H_numbers
+load(file = "./path/to/intermediate/data/df_H_numbers.dat") #df_H_numbers
 
 #Proximityのリストを読み込む
-load(file = "./Analysis_250707/df_dist_45PFAS_disease.dat") #df_dist
+load(file = "./path/to/intermediate/data/df_dist_45PFAS_disease.dat") #df_dist
 
 # テキストファイルを読み込む（必要に応じて file.choose() などを使用）
 lines <- readLines("/path/to/your/local/directory/br08402_KEGG BRITE_ Human Diseases in pathway Classification.txt")
@@ -97,4 +97,4 @@ list_res <- sapply(1:45, function(i){which((df_results[i,] < 0.05))})
 colSums(df_results < 0.05) #あまり変わり映えしないようだ...
 colSums(df_fdr < 0.05) #ない
 
-save(df_results, file="./Analysis_250707/df_results_enrichment_KEGG_pathway.dat")
+save(df_results, file="./path/to/intermediate/data/df_results_enrichment_KEGG_pathway.dat")

@@ -12,16 +12,16 @@ import matplotlib.pyplot as plt
 import pickle
 
 # 1. データの読み込み（前ステップで保存したテキスト）
-with open("./Analysis_250412/3.Constract_Full_Model//X_train_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/3.Constract_Full_Model//X_train_Morgan.pkl", "rb") as f:
     X_train = pickle.load(f)
 
-with open("./Analysis_250412/3.Constract_Full_Model//X_test_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/3.Constract_Full_Model//X_test_Morgan.pkl", "rb") as f:
     X_test = pickle.load(f)
 
-with open("./Analysis_250412/3.Constract_Full_Model/y_train_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/3.Constract_Full_Model/y_train_Morgan.pkl", "rb") as f:
     y_train = pickle.load(f)
 
-with open("./Analysis_250412/3.Constract_Full_Model/y_test_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/3.Constract_Full_Model/y_test_Morgan.pkl", "rb") as f:
     y_test = pickle.load(f)
 
 # 3. モデル構築（ロジスティック回帰）
@@ -54,6 +54,6 @@ print(confusion_matrix(y_test, y_pred))
 #  [0 7]]
 
 # 保存先ファイル名を決めておく
-with open("./Analysis_250412/3.Constract_Full_Model/rf_model_Morgan.pkl", "wb") as f:
+with open("./path/to/intermediate/data/3.Constract_Full_Model/rf_model_Morgan.pkl", "wb") as f:
     pickle.dump(rf, f)
 

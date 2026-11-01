@@ -8,11 +8,11 @@ library(dplyr)
 library(openxlsx)
 
 ### 1.load ####################
-load("./Analysis_230701/0.data_make/df_EPA_PFAS_target_ctd.dat")
-load("./Analysis_230701/0.data_make/df_EPA_PFAS_target_Lincs.dat")
+load("./path/to/intermediate/data/0.data_make/df_EPA_PFAS_target_ctd.dat")
+load("./path/to/intermediate/data/0.data_make/df_EPA_PFAS_target_Lincs.dat")
 
 #Takemoto lab PFAS
-load("./Analysis_230701/test.dat")
+load("./path/to/intermediate/data/test.dat")
 
 ### 2. check ####################
 x <- unique(df_EPA_PFAS_target_Lincs$CASRN) %in% unique(df_EPA_PFAS_target_ctd$CASRN)
@@ -65,8 +65,8 @@ list_PFAS_genes <- list(Merged = df_PFAS_genes,
                         CTD    = df_EPA_PFAS_target_ctd,
                         Lincs  = df_EPA_PFAS_target_Lincs)
 
-save(list_PFAS_genes, file="./Analysis_230701/0.data_make/human_PFAS_genes/human_PFAS_genes_230712_iida.dat")
-write.xlsx(list_PFAS_genes, file="./Analysis_230701/0.data_make/human_PFAS_genes/human_PFAS_genes_230712_iida.xlsx")
+save(list_PFAS_genes, file="./path/to/intermediate/data/0.data_make/human_PFAS_genes/human_PFAS_genes_230712_iida.dat")
+write.xlsx(list_PFAS_genes, file="./path/to/intermediate/data/0.data_make/human_PFAS_genes/human_PFAS_genes_230712_iida.xlsx")
 
 ### 6. 確認 ################################
 #竹本LabでとってたPFAS分子種との比較
