@@ -5,7 +5,7 @@
 library(readxl)
 
 #### 1. load ###############################
-in_f <- "/Users/iida/Documents/Lab_Takemoto/2023_Takahashi/orignail_data/20230716/summary_PFAS_diseaes_iidaData_20230716.xlsx"
+in_f <- "/path/to/your/local/directory/summary_PFAS_diseaes_iidaData_20230716.xlsx"
 data <- read_excel(in_f)
 colnames(data)[c(5,6)] <- c("sd(dc_null)", "Zdc(dc_null)")
 

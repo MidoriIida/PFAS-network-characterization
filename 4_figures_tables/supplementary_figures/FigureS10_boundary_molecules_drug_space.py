@@ -20,7 +20,7 @@ random.seed(42)
 # ============================================================
 
 df = pd.read_csv(
-    "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250412/Prediction_pfas_masterlist.csv",
+    "/path/to/your/local/directory/Prediction_pfas_masterlist.csv",
     header=None
 )
 df.columns = ['url', 'SMILES', 'CASRN',
@@ -88,6 +88,6 @@ img = Draw.MolsToGridImage(
     highlightAtomLists=highlight_atom_lists
 )
 
-out_dir = "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Supplymentary_Figures"
+out_dir = "/path/to/your/local/directory/Supplymentary_Figures"
 img.save(f"{out_dir}/FigureS10_boundary_molecules_drug_space.png")
 print(f"Saved: FigureS10_boundary_molecules_drug_space.png  ({len(mols)} molecules)")

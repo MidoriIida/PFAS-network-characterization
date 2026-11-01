@@ -6,8 +6,8 @@ library(readxl)
 library(openxlsx)
 
 ### 1. load #########################
-#"/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI/Analysis_250707/df_fdr_enrichment_KEGG_pathway.dat"
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250707/6.Enrichment_anaysis/df_results_enrichment_KEGG_pathway.dat")
+#"/path/to/your/local/directory/df_fdr_enrichment_KEGG_pathway.dat"
+load("/path/to/your/local/directory/df_results_enrichment_KEGG_pathway.dat")
 legacyPFAS <- c("375-22-4", "375-85-9", "335-67-1", "375-95-1", "335-76-2", "2058-94-8", "307-55-1",
                 "375-73-5", "355-46-4", "375-92-8", "1763-23-1", "754-91-6")
 AbbPFAS <- c(

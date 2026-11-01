@@ -32,7 +32,7 @@ library("readxl")
 #3 choose MIM Number Prefix:* and +
 #4 search
 #5 Download as excel file
-in_fa <- "/Users/iida/Documents/Lab_Iida/Orignal_data/OMIM/OMIM-Entry-Retrieval_H00048_LIVER CANCER.xlsx"
+in_fa <- "/path/to/your/local/directory/OMIM-Entry-Retrieval_H00048_LIVER CANCER.xlsx"
 
 OMIM_H00048  <- read_excel(in_fa, skip = 4)
 OMIM_H00048   <- na.omit(unique(c(OMIM_H00048$`Entrez Gene ID`, OMIM_H00048$`Entrez Gene ID`)))
@@ -44,7 +44,7 @@ OMIM_H00048   <- na.omit(unique(c(OMIM_H00048$`Entrez Gene ID`, OMIM_H00048$`Ent
 #4 Format: tabular  sort by: location
 #5 create file
 
-in_fa <- "/Users/iida/Documents/Lab_Iida/Orignal_data/Clinver/clinvar_result_H00048_Hepatocellular_carcinoma.xlsx"
+in_fa <- "/path/to/your/local/directory/clinvar_result_H00048_Hepatocellular_carcinoma.xlsx"
 
 CinVar_H00048 <- read_excel(in_fa)
 
@@ -54,7 +54,7 @@ CinVar_H00048 <- read_excel(in_fa)
 #  "hepatocellular carcinoma"のみ登録があった
 #3 Associations
 #4 Click the arrow button
-in_fa  <- "/Users/iida/Documents/Lab_Iida/Orignal_data/GWAS/gwas-association-downloaded_2023-07-14-EFO_0008505-withChildTraits_H00048.xlsx"
+in_fa  <- "/path/to/your/local/directory/gwas-association-downloaded_2023-07-14-EFO_0008505-withChildTraits_H00048.xlsx"
 
 GWAS_H00048    <- read_excel(in_fa)
 GWAS_H00048 <- GWAS_H00048[as.numeric(sapply(strsplit(as.character(GWAS_H00048$`P-VALUE`), "-"), function(x){x[2]})) >= 8,]
@@ -65,7 +65,7 @@ GWAS_H00048 <- GWAS_H00048[as.numeric(sapply(strsplit(as.character(GWAS_H00048$`
 #3 Download this full catalog 
 #4 this operation could retrieve all the file
 
-in_f   <- "/Users/iida/Documents/Lab_Yamanishi/2023_Yamanaka/data/PheWAS/phewas-catalog_2023-03-2.csv"
+in_f   <- "/path/to/your/local/directory/phewas-catalog_2023-03-2.csv"
 PheWAS <- read_csv(in_f)
 PheWAS_a   　 <- PheWAS[grep("Hepatic cancer, primary",PheWAS$`phewas phenotype`),]     #"Hepatic cancer, primary"のみ登録あり
 PheWAS_H00048 <- PheWAS_a[PheWAS_a$`p-value` < 0.05,]

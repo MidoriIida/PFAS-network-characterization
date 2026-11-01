@@ -23,16 +23,16 @@ library(openxlsx)
 # ============================================================
 
 ## Drug-space UMAP
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_240819/list_umap_PFAS_drug.dat")
+load("/path/to/your/local/directory/list_umap_PFAS_drug.dat")
 list_umap_drug <- list_umap
 
 ## Disease-space UMAP
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250707/list_umap_45PFAS_148disease.dat")
+load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
 list_umap_dis <- list_umap
 
 ## 事前計算クラスター（階層的クラスタリングの再計算は行わない）
-drug_cl_dat  <- get(load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_240819/list_cluster.dat"))
-dis_cl_dat   <- get(load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250707/7.Clustering_PFAS_from_diseases/list_cluster_2.dat"))
+drug_cl_dat  <- get(load("/path/to/your/local/directory/list_cluster.dat"))
+dis_cl_dat   <- get(load("/path/to/your/local/directory/list_cluster_2.dat"))
 
 clusters_drug    <- drug_cl_dat$clusters    # named vector, 35 PFAS
 clusters_disease <- dis_cl_dat$clusters     # named vector, 44 PFAS
@@ -41,7 +41,7 @@ cat("Drug-space cluster sizes:\n");    print(table(clusters_drug))
 cat("Disease-space cluster sizes:\n"); print(table(clusters_disease))
 
 ## PFAS略称
-in_f  <- "/Users/iida/Documents/論文/Published/2023_Maeda/参考文献/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
+in_f  <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri <- read.xlsx(in_f)
 abbri <- abbri[!is.na(abbri$Acronym), ]
 abbri <- abbri[!duplicated(abbri$CASRN), ]
@@ -187,7 +187,7 @@ p
 # 7. 保存
 # ============================================================
 
-out_dir <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript"
+out_dir <- "/path/to/your/local/directory/Code_for_Manuscript"
 ggsave(file.path(out_dir, "Figure4_integrated_space.pdf"),
        plot = p, width = 7, height = 7, units = "in", device = "pdf")
 cat("Saved: Figure4_integrated_space.pdf\n")

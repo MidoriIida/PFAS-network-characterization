@@ -9,13 +9,13 @@ import pickle
 import matplotlib.pyplot as plt
 
 # 1. データとモデルを読み込み
-with open('/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_251010/Final_xgboost_model_Morgan_2048_chem.pkl', 'rb') as f:
+with open('/path/to/your/local/directory/Final_xgboost_model_Morgan_2048_chem.pkl', 'rb') as f:
     final_model = pickle.load(f)
 
-with open('/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_251010/Fingerprint_Morgan_2048.pkl', 'rb') as f:
+with open('/path/to/your/local/directory/Fingerprint_Morgan_2048.pkl', 'rb') as f:
     data = pickle.load(f)
 
-with open('/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_251010/Fingerprint_Morgan_2048_chem.pkl', 'rb') as f:
+with open('/path/to/your/local/directory/Fingerprint_Morgan_2048_chem.pkl', 'rb') as f:
     data2 = pickle.load(f)
 
 df = data['df']
@@ -84,7 +84,7 @@ for rank, i in enumerate(top10_idx, 1):
     print(f"  {rank:2d}. {desc_names[i]:20s}: {mean_abs_desc[i]:.6f}")
 
 # Top 10 に絞って summary_plot を出力
-out_dir = "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Supplymentary_Figures"
+out_dir = "/path/to/your/local/directory/Supplymentary_Figures"
 
 plt.figure(figsize=(8, 5))
 shap.summary_plot(shap_desc[:, top10_idx], X_desc[:, top10_idx],

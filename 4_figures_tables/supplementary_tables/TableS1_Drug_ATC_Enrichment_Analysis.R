@@ -6,7 +6,7 @@ library(readxl)
 library(openxlsx)
 
 ### 1. load data  ####################
-in_d2  <- "/Users/iida/Documents/Lab_others/Lab_Takemoto/2023_Takahashi/orignail_data/"
+in_d2  <- "/path/to/your/local/directory/orignail_data"
 in_f2 <- "/20230830/result_enrichment_ATC_code_KEGGdrugBackground_20230825.csv"
 
 ATC        <- read.csv(paste0(in_d2, in_f2), row.names = 1)

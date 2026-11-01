@@ -27,10 +27,10 @@ library(ggrepel)
 # ============================================================
 
 ## --- パス設定 ---
-in_f_ppi      <- "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_230701/0.make_data/human_PPI/human_PPI_230710_iida.dat"
-in_f_pfas     <- "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_230701/0.make_data/human_PFAS_genes/human_PFAS_genes_230712_iida.dat"
-in_f_zscore   <- "/Users/iida/Documents/Lab_others/Lab_Takemoto/2023_Takahashi/orignail_data/20230716/summary_PFAS_appdrug_iidaData_20230716.xlsx"
-in_f_ctd      <- "/Users/iida/Documents/Lab_Iida/Orignal_data/CTD/CTD_chem_gene_ixns.csv"
+in_f_ppi      <- "/path/to/your/local/directory/human_PPI_230710_iida.dat"
+in_f_pfas     <- "/path/to/your/local/directory/human_PFAS_genes_230712_iida.dat"
+in_f_zscore   <- "/path/to/your/local/directory/summary_PFAS_appdrug_iidaData_20230716.xlsx"
+in_f_ctd      <- "/path/to/your/local/directory/CTD_chem_gene_ixns.csv"
 
 ## --- 1-1. PPIネットワーク（igraphオブジェクト）---
 g_PPI <- get(load(in_f_ppi))
@@ -371,7 +371,7 @@ p <- ggraph(tg, layout = "kk") +   # Kamada-Kawai: 共通近傍が多いほど�
   ))
 
 ## 出力
-out_dir  <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript"
+out_dir  <- "/path/to/your/local/directory/Code_for_Manuscript"
 out_path <- file.path(out_dir, "Figure1A.pdf")
 ggsave(out_path, plot = p, width = 21, height = 10, units = "in")
 cat("Saved:", out_path, "\n")

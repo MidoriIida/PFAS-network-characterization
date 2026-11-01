@@ -16,7 +16,7 @@ min_max_norm <- function(x) {
 }
 
 ### 1. load ##############################################################
-in_f <- "/Users/iida/Documents/Lab_others/Lab_Takemoto/2023_Takahashi/orignail_data/20230716/summary_PFAS_appdrug_iidaData_20230716.xlsx"
+in_f <- "/path/to/your/local/directory/summary_PFAS_appdrug_iidaData_20230716.xlsx"
 PFAS_drug <- read_excel(in_f, col_names = T)
 
 ### 2. Make z matrix ####################################################

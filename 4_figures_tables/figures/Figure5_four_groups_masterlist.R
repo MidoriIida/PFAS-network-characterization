@@ -17,7 +17,7 @@ library(dplyr)
 # 1. データ読み込み
 # ============================================================
 
-base <- "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS"
+base <- "/path/to/your/local/directory/Human_PPI_PFAS"
 
 df_M <- read.csv(file.path(base, "Analysis_250412/Prediction_pfas_masterlist.csv"),
                  header = FALSE)
@@ -151,7 +151,7 @@ p
 # 5. 保存
 # ============================================================
 
-out_dir <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript"
+out_dir <- "/path/to/your/local/directory/Code_for_Manuscript"
 ggsave(file.path(out_dir, "Figure5_four_groups_masterlist.pdf"),
        plot = p, width = 6, height = 6, units = "in", device = "pdf")
 cat("Saved: Figure5_four_groups_masterlist.pdf\n")

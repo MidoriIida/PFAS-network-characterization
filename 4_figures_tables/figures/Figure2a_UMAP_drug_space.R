@@ -14,10 +14,10 @@ library(cowplot)
 library(openxlsx)
 
 ### 1. load ###################################################################
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_240819/list_umap_PFAS_drug.dat")
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/umap_data_non.dat")
+load("/path/to/your/local/directory/list_umap_PFAS_drug.dat")
+load("/path/to/your/local/directory/umap_data_non.dat")
 
-in_f <- "/Users/iida/Documents/論文/Published/2023_Maeda/参考文献/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
+in_f <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri <- read.xlsx(in_f)
 Acronym <- abbri$Acronym
 names(Acronym) <- abbri$CASRN

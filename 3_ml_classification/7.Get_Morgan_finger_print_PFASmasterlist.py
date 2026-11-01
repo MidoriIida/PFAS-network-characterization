@@ -10,7 +10,7 @@ from rdkit import DataStructs
 from rdkit.Chem.rdFingerprintGenerator import GetMorganGenerator
 
 ### 1. load data ##########################
-masterlist = pd.read_csv('/Users/iida/Documents/Lab_Iida/Orignal_data/PFAS_masterlist/Chemical List pfasmaster-2025-05-08.csv')
+masterlist = pd.read_csv('/path/to/your/local/directory/Chemical List pfasmaster-2025-05-08.csv')
 
 ### 2. smiles を Morgan fingerprintへ ########
 # SMILESとCAS列を取得

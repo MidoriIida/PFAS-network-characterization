@@ -6,7 +6,7 @@
 library(igraph)
 
 ### 1. load #################
-in_f <- "/Users/iida/Documents/Lab_Yamanishi/2022_Adverse/Analysis_220517/g_PPI_ext.dat"
+in_f <- "/path/to/your/local/directory/g_PPI_ext.dat"
 load(in_f)
 
 g_PPI_ext <- upgrade_graph(g_PPI_ext)

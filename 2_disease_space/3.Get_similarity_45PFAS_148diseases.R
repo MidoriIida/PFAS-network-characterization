@@ -21,12 +21,12 @@ min_max_norm <- function(x) {
 ### 1. load ##############################################################
 load("./Analysis_250707/df_dist_45PFAS_disease.dat")
 
-in_d  <- "/Users/iida/Documents/Lab_Ishibashi/original_data/"
+in_d  <- "/path/to/your/local/directory/original_data"
 in_f3 <- "hsPPARalpha_PFASs_wash_descriptors_Sscore_IC50_data.xlsx"
 
 discriptors <- read.xlsx(paste0(in_d, in_f3))
 
-in_f <- "/Users/iida/Documents/論文/Published/2023_Maeda/参考文献/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
+in_f <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri <- read.xlsx(in_f)
 
 ### 2. Make z matrix ####################################################

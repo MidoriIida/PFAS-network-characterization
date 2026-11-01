@@ -6,7 +6,7 @@ library(readxl)
 library(openxlsx)
 
 ### 1. load ######################
-in_d2  <- "/Users/iida/Documents/Lab_others/Lab_Takemoto/2023_Takahashi/orignail_data/"
+in_d2  <- "/path/to/your/local/directory/orignail_data"
 in_f1 <- "/20230811/result_enrichment_Target_class_20230811.csv"
 
 Target      <- read.csv(paste0(in_d2, in_f1), row.names = 1)

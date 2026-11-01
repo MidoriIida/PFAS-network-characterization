@@ -15,13 +15,13 @@ library(jsonlite)
 
 ## Table 1
 table1 <- read_excel(
-  "/Users/iida/Documents/論文/2024_Iida/第一稿/Code_for_Manuscript/Table1_PFAS_drug_proximity.xlsx"
+  "/path/to/your/local/directory/Table1_PFAS_drug_proximity.xlsx"
 )
 colnames(table1) <- c("ID", "Name", "dc_real", "Zdc")
 
 ## ATC分類データ（複数コードは";"結合）
 atc_raw <- read.table(
-  "/Users/iida/Documents/Lab_others/Lab_Takemoto/2017_Iida/ATC_code.txt",
+  "/path/to/your/local/directory/ATC_code.txt",
   sep = "\t", header = FALSE, quote = "", fill = TRUE,
   stringsAsFactors = FALSE
 )
@@ -276,6 +276,6 @@ result <- joined %>%
     `KEGG Drug action (D)`        = kegg_cat_D
   )
 
-out_path <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Table1_PFAS_drug_proximity_ATC.xlsx"
+out_path <- "/path/to/your/local/directory/Table1_PFAS_drug_proximity_ATC.xlsx"
 write.xlsx(result, file = out_path, rowNames = FALSE)
 cat("\nSaved:", out_path, "\n")

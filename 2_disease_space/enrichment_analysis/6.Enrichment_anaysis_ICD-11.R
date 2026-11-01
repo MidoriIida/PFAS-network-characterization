@@ -21,13 +21,13 @@ MyFisher <- function(my_h, h_in_category, all_h){
 
 ### 1. load data ##########################
 #疾患のリストを読み込む
-load(file = "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250707/5.ID_conversionList_KEGG_disease/df_H_numbers.dat") #df_H_numbers
+load(file = "/path/to/your/local/directory/df_H_numbers.dat") #df_H_numbers
 
 #Proximityのリストを読み込む
 load(file = "./Analysis_250707/df_dist_45PFAS_disease.dat") #df_dist
 
 # テキストファイルを読み込む（必要に応じて file.choose() などを使用）
-lines <- readLines("/Users/iida/Documents/Lab_Iida/Orignal_data/KEGG/KEGG_2025/br08403_KEGG BRITE_ Human Diseases in ICD-11 Classification.txt")
+lines <- readLines("/path/to/your/local/directory/br08403_KEGG BRITE_ Human Diseases in ICD-11 Classification.txt")
 
 ### 2. make H list  ########################
 # 結果を格納するリスト
@@ -99,5 +99,5 @@ list_res <- sapply(1:45, function(i){which((df_results[i,] < 0.05))})
 colSums(df_results < 0.05) #あまり変わり映えしないようだ...
 colSums(df_fdr < 0.05)     #いくつかは有意に異なる結果として出るけど、結構少なめ
 
-save(df_results, file="/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250707/6.Enrichment_anaysis/df_results_enrichment_KEGG_ICD11.dat")
+save(df_results, file="/path/to/your/local/directory/df_results_enrichment_KEGG_ICD11.dat")
 save(df_fdr,     file="./Analysis_250707/df_results_enrichment_KEGG_ICD11_fdr.dat")

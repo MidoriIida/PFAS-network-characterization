@@ -16,15 +16,15 @@ library(openxlsx)
 # ============================================================
 
 ## disease space UMAP結果
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250707/list_umap_45PFAS_148disease.dat")
+load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
 
 ## PFAS略称
-in_f  <- "/Users/iida/Documents/論文/Published/2023_Maeda/参考文献/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
+in_f  <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri   <- read.xlsx(in_f)
 Acronym <- setNames(abbri$Acronym, abbri$CASRN)
 
 ## フッ素原子数（nF）
-in_d  <- "/Users/iida/Documents/Lab_Ishibashi/original_data/"
+in_d  <- "/path/to/your/local/directory/original_data"
 in_f3 <- "hsPPARalpha_PFASs_wash_descriptors_Sscore_IC50_data.xlsx"
 discriptors <- read.xlsx(paste0(in_d, in_f3))
 nF <- setNames(discriptors$a_nF, discriptors$CASRN)
@@ -82,7 +82,7 @@ p
 # 5. 保存
 # ============================================================
 
-out_dir <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript"
+out_dir <- "/path/to/your/local/directory/Code_for_Manuscript"
 ggsave(file.path(out_dir, "Figure3a_UMAP_disease_space.pdf"),
        plot = p, width = 8, height = 6, units = "in", device = "pdf")
 cat("Saved: Figure3a_UMAP_disease_space.pdf\n")

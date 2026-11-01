@@ -18,10 +18,10 @@ library(stringr)
 # ============================================================
 
 ## KEGG pathway エンリッチメント結果（rows = PFAS, cols = KEGG pathways）
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250707/6.Enrichment_anaysis/df_results_enrichment_KEGG_pathway.dat")
+load("/path/to/your/local/directory/df_results_enrichment_KEGG_pathway.dat")
 
 ## UMAP + クラスタリング（Figure3aと同じ設定で再現）
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250707/list_umap_45PFAS_148disease.dat")
+load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
 hc       <- hclust(dist(list_umap$distnon$layout), method = "complete")
 clusters <- cutree(hc, k = 2)
 umap_df  <- as.data.frame(list_umap$distnon$layout)
@@ -101,7 +101,7 @@ g_c
 # 4. 保存
 # ============================================================
 
-out_dir <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript"
+out_dir <- "/path/to/your/local/directory/Code_for_Manuscript"
 ggsave(file.path(out_dir, "Figure3c_enrichment_KEGGnetwork.pdf"),
        plot = g_c, width = 5, height = 8, units = "in", device = "pdf")
 cat("Saved: Figure3c_enrichment_KEGGnetwork.pdf\n")

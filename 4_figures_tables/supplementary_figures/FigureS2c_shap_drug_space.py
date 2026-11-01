@@ -25,7 +25,7 @@ import pickle
 # 1. データ読み込み（train + test）
 # ============================================================
 
-base = "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS"
+base = "/path/to/your/local/directory/Human_PPI_PFAS"
 
 with open(f"{base}/Analysis_250412/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
     X_train = pickle.load(f)
@@ -118,7 +118,7 @@ ax.legend(title="Class", fontsize=9, title_fontsize=9,
 
 plt.tight_layout()
 
-out_dir = "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Supplymentary_Figures"
+out_dir = "/path/to/your/local/directory/Supplymentary_Figures"
 plt.savefig(f"{out_dir}/FigureS2c_shap_drug_space.png", dpi=300, bbox_inches='tight')
 print(f"\nSaved: FigureS2c_shap_drug_space.png")
 plt.close()

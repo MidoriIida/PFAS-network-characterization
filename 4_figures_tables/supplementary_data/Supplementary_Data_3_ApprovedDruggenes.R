@@ -9,14 +9,14 @@ library(stringr)
 ### 1. load ######################
 
 # 900薬物リスト（Takahashiラボ提供の近接性解析データから）
-in_drugs <- "~/Documents/Lab_others/Lab_Takemoto/2023_Takahashi/orignail_data/20230703/summary_PFAS_appdrug_new_20230703.txt"
+in_drugs <- "/path/to/your/local/directory/summary_PFAS_appdrug_new_20230703.txt"
 PFAS_drugs <- read.table(in_drugs, header=FALSE, sep="\t",
                          comment.char="", quote='"')
 drug_names <- unique(PFAS_drugs$V2)
 cat("ユニーク薬物数:", length(drug_names), "\n")  # 900
 
 # CTD (accessed Jun 29, 2023)
-in_ctd <- "/Users/iida/Documents/Lab_Iida/Orignal_data/CTD/CTD_chem_gene_ixns.csv"
+in_ctd <- "/path/to/your/local/directory/CTD_chem_gene_ixns.csv"
 ctd <- read.csv(in_ctd, skip=29, header=FALSE)
 colnames(ctd) <- c("ChemicalName", "ChemicalID", "CasRN", "GeneSymbol",
                    "GeneID", "GeneForms", "Organism", "OrganismID",

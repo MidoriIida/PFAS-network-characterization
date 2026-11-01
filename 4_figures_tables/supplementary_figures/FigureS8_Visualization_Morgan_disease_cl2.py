@@ -16,7 +16,7 @@ import pandas as pd
 # ============================================================
 
 df = pd.read_csv(
-    "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_251010/cas_to_smiles.csv"
+    "/path/to/your/local/directory/cas_to_smiles.csv"
 )
 
 df_cl2    = df[df['label'] == 2]
@@ -63,6 +63,6 @@ img = Draw.MolsToGridImage(
     highlightAtomLists=highlight_atom_lists
 )
 
-out_dir = "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Supplymentary_Figures"
+out_dir = "/path/to/your/local/directory/Supplymentary_Figures"
 img.save(f"{out_dir}/FigureS8_disease_molecules_cl2.png")
 print(f"Saved: FigureS8_disease_molecules_cl2.png")

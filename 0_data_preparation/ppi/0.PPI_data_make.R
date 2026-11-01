@@ -7,8 +7,8 @@ library(igraph)
 source("function.R")
 
 ### 1. load #################
-out_f <- "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI/Analysis_230701/0.make_data/"
-in_f <- "/Users/iida/Documents/Lab_Yamanishi/2022_Adverse/Analysis_220517/g_PPI_ext.dat"
+out_f <- "/path/to/your/local/directory/0.make_data"
+in_f <- "/path/to/your/local/directory/g_PPI_ext.dat"
 load(in_f)
 
 g_PPI_ext <- upgrade_graph(g_PPI_ext)

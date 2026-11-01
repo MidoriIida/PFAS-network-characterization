@@ -12,15 +12,15 @@ library(data.table)
 
 ### 1. load ##############
 #EPAのPFAS list
-in_f <- "/Users/iida/Documents/Lab_Ishibashi/original_data/EPA/Chemical List pfasmaster-2023-01-16/Chemical List pfasmaster-2023-01-16.csv"
+in_f <- "/path/to/your/local/directory/Chemical List pfasmaster-2023-01-16/Chemical List pfasmaster-2023-01-16.csv"
 df_EPA_PFAS <- read.csv(in_f)
 
 #Links drugs
-in_f2 <- "/Users/iida/Documents/Lab_Yamanishi/2020_Takeda/Original data/LINCS2/L1000_level5_signatures_978genes.tabs"
+in_f2 <- "/path/to/your/local/directory/Original data/LINCS2/L1000_level5_signatures_978genes.tabs"
 df_LINKS <- fread(in_f2)
 
 #drug-protein
-in_f <- "/Users/iida/Documents/Lab_Iida//Orignal_data/CTD/CTD_chem_gene_ixns.csv"
+in_f <- "/path/to/your/local/directory/CTD_chem_gene_ixns.csv"
 ctd <- read.csv(paste0(in_f), skip=29, header = F) #2502394 interactions
 colnames(ctd) <- c("ChemicalName",	"ChemicalID",	"CasRN",	"GeneSymbol",
                    "GeneID", "GeneForms",	"Organism",	"OrganismID",

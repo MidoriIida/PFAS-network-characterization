@@ -5,7 +5,7 @@
 library(igraph)
 
 ### 1. load #################################
-in_f <- "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI/Analysis_230701/0.make_data/human_PFAS_genes/human_PFAS_genes_230712_iida.dat"
+in_f <- "/path/to/your/local/directory/human_PFAS_genes_230712_iida.dat"
 load(in_f)
 
 ### 2. output ##################

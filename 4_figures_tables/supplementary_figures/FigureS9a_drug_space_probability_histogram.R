@@ -13,7 +13,7 @@ library(dplyr)
 # ============================================================
 
 df_pred <- read.csv(
-  "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250412/Prediction_pfas_masterlist.csv",
+  "/path/to/your/local/directory/Prediction_pfas_masterlist.csv",
   header = FALSE
 )
 df_pred <- df_pred[, 1:6]
@@ -62,7 +62,7 @@ p
 # 3. 保存
 # ============================================================
 
-out_dir <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Supplymentary_Figures"
+out_dir <- "/path/to/your/local/directory/Supplymentary_Figures"
 ggsave(file.path(out_dir, "FigureS9a_drug_space_probability_histogram.pdf"),
        plot = p, width = 6, height = 4, units = "in", device = "pdf")
 cat("Saved: FigureS9a_drug_space_probability_histogram.pdf\n")

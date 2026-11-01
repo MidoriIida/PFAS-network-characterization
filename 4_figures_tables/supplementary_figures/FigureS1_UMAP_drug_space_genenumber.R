@@ -19,16 +19,16 @@ library(tibble)
 # ============================================================
 
 ## UMAP・クラスタリング結果
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_240819/list_umap_PFAS_drug.dat")
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_240819/umap_data_non.dat")
+load("/path/to/your/local/directory/list_umap_PFAS_drug.dat")
+load("/path/to/your/local/directory/umap_data_non.dat")
 
 ## PFAS略称
-in_f <- "/Users/iida/Documents/論文/Published/2023_Maeda/参考文献/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
+in_f <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri   <- read.xlsx(in_f)
 Acronym <- setNames(abbri$Acronym, abbri$CASRN)
 
 ## PFAS関連遺伝子データ
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_230701/0.make_data/human_PFAS_genes/human_PFAS_genes_230712_iida.dat")
+load("/path/to/your/local/directory/human_PFAS_genes_230712_iida.dat")
 
 # ============================================================
 # 2. 階層的クラスタリング
@@ -98,7 +98,7 @@ p
 # 6. 保存
 # ============================================================
 
-out_dir  <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Supplymentary_Figures/"
+out_dir  <- "/path/to/your/local/directory/"
 ggsave(file.path(out_dir, "FigureS1_UMAP_drug_space_genenumber.pdf"),
        plot = p, width = 8, height = 6, units = "in", device = "pdf")
 cat("Saved: FigureS1_UMAP_drug_space_genenumber.pdf\n")

@@ -18,10 +18,10 @@ library(stringr)
 # ============================================================
 
 ## ICD-11 エンリッチメント結果（rows = PFAS, cols = ICD-11 chapters）
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250707/6.Enrichment_anaysis/df_results_enrichment_KEGG_ICD11.dat")
+load("/path/to/your/local/directory/df_results_enrichment_KEGG_ICD11.dat")
 
 ## UMAP + クラスタリング（Figure3aと同じ設定で再現）
-load("/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_250707/list_umap_45PFAS_148disease.dat")
+load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
 hc       <- hclust(dist(list_umap$distnon$layout), method = "complete")
 clusters <- cutree(hc, k = 2)
 umap_df  <- as.data.frame(list_umap$distnon$layout)
@@ -100,7 +100,7 @@ g_b
 # 4. 保存
 # ============================================================
 
-out_dir <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript"
+out_dir <- "/path/to/your/local/directory/Code_for_Manuscript"
 ggsave(file.path(out_dir, "Figure3b_enrichment_ICD11.pdf"),
        plot = g_b, width = 5, height = 8, units = "in", device = "pdf")
 cat("Saved: Figure3b_enrichment_ICD11.pdf\n")

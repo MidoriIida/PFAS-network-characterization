@@ -13,7 +13,7 @@ library(dplyr)
 # ============================================================
 
 df_pred <- read.csv(
-  "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_251010/final_predictions_XGBoost_Morgan_chems_PFASmastelist.csv"
+  "/path/to/your/local/directory/final_predictions_XGBoost_Morgan_chems_PFASmastelist.csv"
 )
 
 cat("Total PFAS:", nrow(df_pred), "\n")
@@ -58,7 +58,7 @@ p
 # 3. 保存
 # ============================================================
 
-out_dir <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Supplymentary_Figures"
+out_dir <- "/path/to/your/local/directory/Supplymentary_Figures"
 ggsave(file.path(out_dir, "FigureS9b_disease_space_probability_histogram.pdf"),
        plot = p, width = 6, height = 4, units = "in", device = "pdf")
 cat("Saved: FigureS9b_disease_space_probability_histogram.pdf\n")

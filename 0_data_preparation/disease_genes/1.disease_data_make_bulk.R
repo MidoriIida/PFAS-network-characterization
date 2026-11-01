@@ -14,8 +14,8 @@ library(dplyr)
 
 ### 1. OMIM database genes ################
 #2018年のOMIM...
-in_fomim  <- "/Users/iida/Documents/Lab_Yamanishi/2018_iida/original_data/OMIM/morbidmap.xlsx"
-in_fomim1 <- "/Users/iida/Documents/Lab_Yamanishi/2018_iida/original_data/OMIM/mim2gene.txt"
+in_fomim  <- "/path/to/your/local/directory/morbidmap.xlsx"
+in_fomim1 <- "/path/to/your/local/directory/mim2gene.txt"
 
 OMIM      <- read_excel(in_fomim)
 OMIM_gene <- fread(in_fomim1)
@@ -53,7 +53,7 @@ colnames(df_OMIM) <- c("DiseaseMIM", "OMIM_GeneID")
 #1 access to https://phewascatalog.org
 #2 choose "PheWAS of GWAS Catalog of SNPs"
 
-in_f_phewas   <- "/Users/iida/Documents/Lab_Yamanishi/2023_Yamanaka/data/PheWAS/phewas-catalog_2023-03-2.csv"
+in_f_phewas   <- "/path/to/your/local/directory/phewas-catalog_2023-03-2.csv"
 PheWAS <- read_csv(in_f_phewas)
 
 #ID 変換
@@ -83,8 +83,8 @@ colnames(df_PheWAS) <- c("phewas phenotype", "gene_name", "PheWAS_GeneID")
 #1 access to https://www.ebi.ac.uk/gwas/
 #2 get "association all"
 
-in_f_gwas <- "/Users/iida/Documents/Lab_Iida/Orignal_data/GWAS/gwas_catalog_v1.0-associations_e109_r2023-07-05.tsv"
-in_f_102  <- "/Users/iida/Documents/Lab_Iida/Orignal_data/GWAS/gwas_catalog_v1.0.2-associations_e109_r2023-07-05.tsv"
+in_f_gwas <- "/path/to/your/local/directory/gwas_catalog_v1.0-associations_e109_r2023-07-05.tsv"
+in_f_102  <- "/path/to/your/local/directory/gwas_catalog_v1.0.2-associations_e109_r2023-07-05.tsv"
 GWAS     <- fread(in_f_gwas, header = T, sep = "\t", quote = "")
 GWAS_102 <- fread(in_f_102, header = T, sep = "\t", quote = "")
 
@@ -115,7 +115,7 @@ colnames(df_GWAS_102) <- c("MAPPED_TRAIT", "MAPPED_TRAIT_URI", "GWAS_GeneID")
 #1 access tohttps://www.ncbi.nlm.nih.gov/clinvar/
 #2 get "disease_names" "gene_condition_source_id"
 
-in_f_clinver <- "/Users/iida/Documents/Lab_Iida/Orignal_data/Clinver/gene_condition_source_id_20230714.txt"
+in_f_clinver <- "/path/to/your/local/directory/gene_condition_source_id_20230714.txt"
 Clinver <- fread(in_f_clinver, header = T, sep = "\t", quote = "")
 
 #必要なところだけ抽出

@@ -8,7 +8,7 @@
 ##############################################################
 library(dplyr)
 
-base <- "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS"
+base <- "/path/to/your/local/directory/Human_PPI_PFAS"
 
 # ============================================================
 # 1. データ読み込み
@@ -81,7 +81,7 @@ out_df <- df %>%
   ) %>%
   arrange(group, CASRN)
 
-out_path <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Supplymentary_Data/Supplementary_Data_9_Classification_results_for_all_EPA_PFAS.txt"
+out_path <- "/path/to/your/local/directory/Supplementary_Data_9_Classification_results_for_all_EPA_PFAS.txt"
 write.table(out_df, file = out_path,
             quote = FALSE, row.names = FALSE, col.names = TRUE, sep = "\t")
 

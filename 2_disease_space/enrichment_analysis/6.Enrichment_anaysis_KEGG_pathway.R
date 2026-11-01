@@ -27,7 +27,7 @@ load(file = "./Analysis_250707/df_H_numbers.dat") #df_H_numbers
 load(file = "./Analysis_250707/df_dist_45PFAS_disease.dat") #df_dist
 
 # テキストファイルを読み込む（必要に応じて file.choose() などを使用）
-lines <- readLines("/Users/iida/Documents/Lab_Iida/Orignal_data/KEGG/KEGG_2025/br08402_KEGG BRITE_ Human Diseases in pathway Classification.txt")
+lines <- readLines("/path/to/your/local/directory/br08402_KEGG BRITE_ Human Diseases in pathway Classification.txt")
 
 ### 2. make H list  ########################
 # 結果を格納するリスト

@@ -13,7 +13,7 @@ library(openxlsx)
 
 ### 1. load ######################################
 #CTD_chems
-in_f2 <- "/Users/iida/Documents/Lab_Iida/Orignal_data/CTD/CTD_chemicals.csv"
+in_f2 <- "/path/to/your/local/directory/CTD_chemicals.csv"
 CTD_chems <- read.csv(in_f2, skip=29, header = F)
 colnames(CTD_chems) <- c("ChemicalName","ChemicalID","CasRN","Definition","ParentIDs","TreeNumbers","ParentTreeNumbers","Synonyms")
 

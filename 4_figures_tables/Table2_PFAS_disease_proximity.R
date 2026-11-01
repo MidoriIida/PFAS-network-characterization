@@ -19,7 +19,7 @@ library(httr)
 # ============================================================
 
 table4 <- read_excel(
-  "/Users/iida/Documents/論文/2024_Iida/第一稿/Code_for_Manuscript/Table4_PFAS_disease_proximity.xlsx"
+  "/path/to/your/local/directory/Table4_PFAS_disease_proximity.xlsx"
 )
 colnames(table4) <- c("ID", "Disease", "dc_real", "Zdc")
 
@@ -184,6 +184,6 @@ result <- table4 %>%
 cat("\n=== 最終テーブル ===\n")
 print(result, n = 30)
 
-out_path <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Table2_PFAS_disease_proximity.xlsx"
+out_path <- "/path/to/your/local/directory/Table2_PFAS_disease_proximity.xlsx"
 write.xlsx(result, file = out_path, rowNames = FALSE)
 cat("\nSaved:", out_path, "\n")
