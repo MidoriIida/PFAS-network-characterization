@@ -21,8 +21,9 @@ __pycache__/
 *.dat
 *.txt
 
-# Allow supplementary data files in data/ folder
+# Allow data files in data/ folder
 !data/*.txt
+!data/*.dat
 
 # macOS
 .DS_Store

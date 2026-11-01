@@ -7,8 +7,8 @@ library(igraph)
 source("function.R")
 
 ### 1. load #################
-out_f <- "/path/to/your/local/directory/0.make_data"
-in_f <- "/path/to/your/local/directory/g_PPI_ext.dat"
+out_f <- "./path/to/intermediate/data/"
+in_f <- "../../data/g_PPI_ext.dat"   # pre-built PPI network (see DATA_SOURCES.md)
 load(in_f)
 
 g_PPI_ext <- upgrade_graph(g_PPI_ext)
