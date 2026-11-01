@@ -30,7 +30,7 @@ library(ggrepel)
 in_f_ppi      <- "/path/to/your/local/directory/g_comp.dat"   # LCC from 1_ppi/1.PPI_data_make.R
 in_f_pfas     <- "/path/to/your/local/directory/list_PFAS_genes.dat"
 in_f_zscore   <- "/path/to/your/local/directory/summary_PFAS_appdrug_iidaData_20230716.xlsx"
-in_f_ctd      <- "/path/to/your/local/directory/CTD_chem_gene_ixns.csv"
+in_f_ctd      <- "/path/to/your/local/directory/df_ctd_drugs.dat"
 
 ## --- 1-1. PPI network (igraph object) ---
 load(in_f_ppi)   # loads g_comp
@@ -45,17 +45,13 @@ load(in_f_pfas)   # loads list_PFAS_genes
 zscore_data <- read_excel(in_f_zscore)
 colnames(zscore_data)[c(5, 6)] <- c("sd_dc_null", "Zdc")
 
-## --- 1-4. CTD drug-gene interaction data ---
-ctd_raw  <- read.csv(in_f_ctd, skip = 29, header = FALSE)
-colnames(ctd_raw) <- c("ChemicalName", "ChemicalID", "CasRN", "GeneSymbol",
-                        "GeneID", "GeneForms", "Organism", "OrganismID",
-                        "Interaction", "InteractionActions", "PubMedIDs")
+## --- 1-4. CTD drug-gene interaction data (900 approved drugs) ---
+# produced by 0_data_preparation/3.drug_data_load.R
+load(in_f_ctd)   # loads df_ctd_drugs
 
-# Filter to human proteins; keep only genes in the PPI network
-ctd_human <- ctd_raw %>%
-  filter(Organism == "Homo sapiens",
-         GeneForms == "protein",
-         GeneID %in% names(V(g_PPI)))
+# Keep only genes present in the PPI network
+ctd_human <- df_ctd_drugs %>%
+  filter(GeneID %in% as.integer(names(V(g_PPI))))
 
 # ============================================================
 # 2. Select target PFAS and drugs
