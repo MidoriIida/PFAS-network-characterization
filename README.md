@@ -16,12 +16,12 @@ PFAS-network-characterization/
 ├── function.R                        # Shared R functions (network proximity calculation)
 ├── function.py                       # Shared Python utilities
 │
-├── 0_data_preparation/               # Input data construction
-│   ├── ppi/                          # Human PPI network construction
-│   ├── pfas_genes/                   # PFAS-associated gene retrieval (CTD, LINCS)
-│   ├── drug_genes/                   # Drug-associated gene data
-│   ├── disease_genes/                # Disease-associated gene retrieval (OMIM, ClinVar, GWAS, PheWAS)
-│   └── modules/                      # Gene module construction for PFAS and diseases
+├── 0_data_preparation/               # Input data construction (run in order 1→5; 2–4 can run in parallel)
+│   ├── 1_ppi/                        # [Step 1] Human PPI network construction (reads data/g_PPI_ext.dat)
+│   ├── 2_pfas_genes/                 # [Step 2] PFAS-associated gene retrieval (CTD, LINCS)
+│   ├── 3_disease_genes/              # [Step 3] Disease-associated gene retrieval (OMIM, ClinVar, GWAS, PheWAS)
+│   ├── 4_drug_genes/                 # [Step 4] Drug-associated gene data (CTD)
+│   └── 5_modules/                    # [Step 5] Gene module construction (requires steps 1–3)
 │
 ├── 1_drug_space/                     # Drug-space analysis
 │   ├── 2.Calculate_45PFAS_on_900drug_space.R   # Network proximity: PFAS vs. drugs
