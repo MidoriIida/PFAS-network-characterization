@@ -1,0 +1,64 @@
+##########################################
+#   Figure S9b                           #
+#   Disease-space classifier             #
+#   Prediction probability histogram     #
+#   for PFAS masterlist (n = 10,974)     #
+##########################################
+
+library(ggplot2)
+library(dplyr)
+
+# ============================================================
+# 1. データ読み込み
+# ============================================================
+
+df_pred <- read.csv(
+  "/Users/iida/Documents/Lab_Iida/2023_Iida/Interactome/Human_PPI_PFAS/Analysis_251010/final_predictions_XGBoost_Morgan_chems_PFASmastelist.csv"
+)
+
+cat("Total PFAS:", nrow(df_pred), "\n")
+cat("Cluster 1:", sum(df_pred$predicted_label == 1), "\n")
+cat("Cluster 2:", sum(df_pred$predicted_label == 0), "\n")
+cat("Boundary (0.3-0.7):",
+    sum(df_pred$probability > 0.3 & df_pred$probability < 0.7), "\n")
+
+# ============================================================
+# 2. 可視化
+# ============================================================
+
+p <-
+  ggplot(df_pred, aes(x = probability)) +
+  geom_histogram(binwidth = 0.02, fill = "grey60", color = "white") +
+  geom_vline(xintercept = 0.3, linetype = "dashed",
+             color = "firebrick", linewidth = 0.7) +
+  geom_vline(xintercept = 0.7, linetype = "dashed",
+             color = "firebrick", linewidth = 0.7) +
+  annotate("rect", xmin = 0.3, xmax = 0.7, ymin = -Inf, ymax = Inf,
+           fill = "firebrick", alpha = 0.07) +
+  annotate("text", x = 0.5, y = Inf,
+           label = paste0("Uncertainty region\n(n = ",
+                          sum(df_pred$probability > 0.3 & df_pred$probability < 0.7),
+                          ")"),
+           vjust = 1.3, size = 3.5, color = "firebrick") +
+  scale_x_continuous(breaks = seq(0, 1, by = 0.1), limits = c(0, 1)) +
+  labs(
+    x = "Prediction probability for cluster 1",
+    y = "Number of PFAS"
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x  = element_text(size = 10),
+    axis.text.y  = element_text(size = 10),
+    axis.title.x = element_text(size = 12),
+    axis.title.y = element_text(size = 12)
+  )
+p
+
+# ============================================================
+# 3. 保存
+# ============================================================
+
+out_dir <- "/Users/iida/Documents/論文/2024_Iida/第二稿/Code_for_Manuscript/Supplymentary_Figures"
+ggsave(file.path(out_dir, "FigureS9b_disease_space_probability_histogram.pdf"),
+       plot = p, width = 6, height = 4, units = "in", device = "pdf")
+cat("Saved: FigureS9b_disease_space_probability_histogram.pdf\n")
