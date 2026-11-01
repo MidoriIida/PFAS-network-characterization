@@ -28,7 +28,7 @@ library(ggrepel)
 
 ## --- Path settings ---
 in_f_ppi      <- "/path/to/your/local/directory/human_PPI_230710_iida.dat"
-in_f_pfas     <- "/path/to/your/local/directory/human_PFAS_genes_230712_iida.dat"
+in_f_pfas     <- "/path/to/your/local/directory/list_PFAS_genes.dat"
 in_f_zscore   <- "/path/to/your/local/directory/summary_PFAS_appdrug_iidaData_20230716.xlsx"
 in_f_ctd      <- "/path/to/your/local/directory/CTD_chem_gene_ixns.csv"
 

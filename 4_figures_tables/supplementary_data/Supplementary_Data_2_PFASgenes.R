@@ -4,11 +4,12 @@
 ############################
 library(igraph)
 
-### 1. load #################################
-in_f <- "/path/to/your/local/directory/human_PFAS_genes_230712_iida.dat"
+### 1. Load ################################
+# list_PFAS_genes produced by 0_data_preparation/2_pfas_genes/1.PFAS_genes_load.R
+in_f <- "./path/to/intermediate/data/list_PFAS_genes.dat"
 load(in_f)
 
-### 2. output ##################
-write.table(list_PFAS_genes$Merged, file = "./Supplementary_Data_2_PFASgenes.txt", 
+### 2. Output ##################
+write.table(list_PFAS_genes$Merged, file = "./Supplementary_Data_2_PFASgenes.txt",
             quote = F, row.names = F, col.names = F)
 

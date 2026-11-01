@@ -25,7 +25,7 @@ abbri   <- read.xlsx(in_f)
 Acronym <- setNames(abbri$Acronym, abbri$CASRN)
 
 ## PFAS-associated gene data
-load("/path/to/your/local/directory/human_PFAS_genes_230712_iida.dat")
+load("/path/to/your/local/directory/list_PFAS_genes.dat")
 
 # ============================================================
 # 2. Hierarchical clustering (k = 2)

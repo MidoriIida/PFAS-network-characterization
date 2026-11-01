@@ -86,8 +86,8 @@ distance_matrix <- distances(g)
 # compute node degrees
 node_degrees <- degree(g)
 
-# load chemical-gene interactions
-load("./path/to/intermediate/data/0.make_data/human_PFAS_genes/human_PFAS_genes_230712_iida.dat")
+# load chemical-gene interactions (produced by 0_data_preparation/2_pfas_genes/1.PFAS_genes_load.R)
+load("./path/to/intermediate/data/list_PFAS_genes.dat")
 chemical_gene_pairs <- list_PFAS_genes$Merged
 #rm(list_PFAS_genes)
 
