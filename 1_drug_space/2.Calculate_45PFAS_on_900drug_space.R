@@ -3,8 +3,6 @@
 #              45 PFAS                   #
 ##########################################
 set.seed(123)  # for reproducibility
-library(readxl)
-library(openxlsx)
 library(tidyverse)
 library(ggplot2)
 library(umap)
@@ -16,13 +14,16 @@ min_max_norm <- function(x) {
 }
 
 ### 1. load ##############################################################
-in_f <- "/path/to/your/local/directory/summary_PFAS_appdrug_iidaData_20230716.xlsx"
-PFAS_drug <- read_excel(in_f, col_names = T)
+# list_dist_mat_drug_PFAS produced by 1_drug_space/1.compute_network_proximity_between_PFAS_drug.R
+load("./path/to/intermediate/data/list_dist_mat_drug_PFAS.dat")
 
 ### 2. Make z matrix ####################################################
-df_z           <- as.data.frame(matrix(PFAS_drug$`sd(dc_null)...6`, ncol = 900))
-rownames(df_z) <- sapply(strsplit(unique(PFAS_drug$ID), "\\|"), function(x){x[1]})
-colnames(df_z) <- PFAS_drug$Name[1:900]
+# rows = drugs, cols = PFAS (CASRN); then transpose to rows = PFAS, cols = drugs
+df_z <- as.data.frame(sapply(list_dist_mat, function(x) as.numeric(x[, "z_dc"])))
+rownames(df_z) <- list_dist_mat[[1]]$drug
+df_z <- t(df_z)
+rownames(df_z) <- names(list_dist_mat)
+df_z <- as.data.frame(df_z)
 
 # Check for missing values in the dataset
 sum(is.na(df_z))

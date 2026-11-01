@@ -88,9 +88,8 @@ load("./path/to/intermediate/data/list_PFAS_genes.dat")
 chemical_gene_pairs <- list_PFAS_genes$Merged
 #rm(list_PFAS_genes)
 
-# load disease-gene interactions
-in3 =  "./path/to/intermediate/data/0.make_data/human_disease_genes/human_disease_genes_230714_iida.dat"
-load(in3) #"human_disease_genes/human_disease_genes_230714_iida.dat"
+# load disease-gene interactions (produced by 0_data_preparation/4.disease_data_load.R)
+load("./path/to/intermediate/data/list_disease_genes.dat")
 
 # get disease and chemical names
 disease_names <- names(list_disease_genes)

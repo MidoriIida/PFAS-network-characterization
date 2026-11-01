@@ -5,7 +5,8 @@
 library(igraph)
 
 ### 1. load ####################
-in_f <- "/path/to/your/local/directory/human_disease_genes_230714_iida.dat"
+# list_disease_genes produced by 0_data_preparation/4.disease_data_load.R
+in_f <- "./path/to/intermediate/data/list_disease_genes.dat"
 load(in_f)
 
 ### 5. save ##########################
