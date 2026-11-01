@@ -4,43 +4,43 @@
 ########################
 
 MyFisher <- function(my_h, h_in_category, all_h){
-  # 集計
-  a <- sum(my_h %in% h_in_category)                     # ヒットしている数（重なり）
-  b <- sum(!(my_h %in% h_in_category))                  # 自分のセットのうち非ヒット
-  c <- sum(h_in_category %in% setdiff(all_h, my_h))     # 他のHにあり、my_hに無い
-  d <- sum(!(all_h %in% union(my_h, h_in_category)))    # 全体のうち無関係な部分
+  # Contingency counts
+  a <- sum(my_h %in% h_in_category)                     # hits (overlap)
+  b <- sum(!(my_h %in% h_in_category))                  # non-hits in our set
+  c <- sum(h_in_category %in% setdiff(all_h, my_h))     # in background but not in our set
+  d <- sum(!(all_h %in% union(my_h, h_in_category)))    # neither in our set nor in category
   
-  # 分割表
+  # Contingency table
   contingency <- matrix(c(a, b, c, d), nrow = 2,
                         dimnames = list(MySet = c("InCat", "OutCat"),
                                         Background = c("InMySet", "OutMySet")))
   
-  res <- fisher.test(contingency, alternative = "greater")  # 片側検定（enrichment）
+  res <- fisher.test(contingency, alternative = "greater")  # one-sided test (enrichment)
   return(res$p.value) 
 }
 
 ### 1. load data ##########################
-#疾患のリストを読み込む
+# Load disease list
 load(file = "/path/to/your/local/directory/df_H_numbers.dat") #df_H_numbers
 
-#Proximityのリストを読み込む
+# Load proximity list
 load(file = "./path/to/intermediate/data/df_dist_45PFAS_disease.dat") #df_dist
 
-# テキストファイルを読み込む（必要に応じて file.choose() などを使用）
+# Load text file
 lines <- readLines("/path/to/your/local/directory/br08403_KEGG BRITE_ Human Diseases in ICD-11 Classification.txt")
 
 ### 2. make H list  ########################
-# 結果を格納するリスト
+# List to store results
 list_brite <- list()
 current_b <- NULL
 
 for (line in lines) {
   if (grepl("^[0-9]{2} ", line)) {
-    # B行から名前を抽出（例: "nt06031  Citrate cycle and pyruvate metabolism"）
+    # Extract names from B rows (e.g., "nt06031  Citrate cycle and pyruvate metabolism")
     current_b <- line
     list_brite[[current_b]] <- character(0)
   } else if (grepl("^H[0-9]{5}", line) && !is.null(current_b)) {
-    # C行から要素を抽出（例: "H01225  D-2-hydroxyglutaric aciduria"）
+    # Extract elements from C rows (e.g., "H01225  D-2-hydroxyglutaric aciduria")
     #value <- trimws(sub("^C\\s+", "", line))
     h_number <- sub("(H\\d+).*", "\\1", line)
     list_brite[[current_b]] <- c(list_brite[[current_b]], h_number)
@@ -52,13 +52,13 @@ save(list_brite, file = "./path/to/intermediate/data/6.Enrichment_anaysis/list_b
 ### 3. Make dist mat ##############################
 df_z <- df_dist[which(!duplicated(sapply(strsplit(rownames(df_dist), "_"), function(x){x[length(x)]}))),]
 
-### 4. Fishers exact testの準備  ########################
-all_h <- unique(unlist(list_brite)) #背景集合（全体に含まれるユニークなH番号）
+### 4. Prepare for Fisher's exact test ########################
+all_h <- unique(unlist(list_brite)) # background set (all unique H numbers)
 
 list_my_h <- sapply(1:dim(df_z)[2], function(i){na.omit(df_H_numbers$H_name[(df_z[,i] < -0.50)])})
 names(list_my_h) <- colnames(df_z)
 
-### 5. 丸っと全部のPFAS で　Fishers exact test###############
+### 5. Fisher's exact test across all PFAS ###############
 my_h <- unique(unlist(list_my_h))
 
 df_res <- sapply(list_brite, function(h_in_category){
@@ -68,36 +68,36 @@ MyFisher(my_h = my_h,
 
 df_res_fdr <- p.adjust(df_res, method = "fdr")
 
-### 5. 各物質ごとにFishers exact test########################
+### 5. Fisher's exact test for each PFAS ########################
 df_results <- sapply(list_brite, function(h_in_category){
   sapply(list_my_h, function(my_h){MyFisher(my_h = my_h, 
                                             h_in_category = h_in_category, 
-                                            all_h = all_h)}) # フィッシャー検定の適用
+                                            all_h = all_h)}) # apply Fisher's exact test
 })
 
-#FDR補正
-# データを行列に変換
+# FDR correction
+# Convert data to matrix
 p_matrix <- as.matrix(df_results)
 
-# p値を1次元ベクトル化 → FDR補正 → 行列に戻す
+# Flatten p-values to vector → FDR correction → reshape to matrix
 p_fdr <- matrix(
   p.adjust(as.vector(p_matrix), method = "fdr"),
   nrow = nrow(p_matrix),
   ncol = ncol(p_matrix)
 )
 
-# 行名・列名を戻す
+# Restore row and column names
 rownames(p_fdr) <- rownames(p_matrix)
 colnames(p_fdr) <- colnames(p_matrix)
 
-# データフレームに変換（元と同じ形）
+# Convert back to data frame (same shape as original)
 df_fdr <- as.data.frame(p_fdr)
 
 
 ### 5. check the result ########################
 list_res <- sapply(1:45, function(i){which((df_results[i,] < 0.05))})
-colSums(df_results < 0.05) #あまり変わり映えしないようだ...
-colSums(df_fdr < 0.05)     #いくつかは有意に異なる結果として出るけど、結構少なめ
+colSums(df_results < 0.05) # not many significant results
+colSums(df_fdr < 0.05) # a few significant results, but not many
 
 save(df_results, file="/path/to/your/local/directory/df_results_enrichment_KEGG_ICD11.dat")
 save(df_fdr,     file="./path/to/intermediate/data/df_results_enrichment_KEGG_ICD11_fdr.dat")

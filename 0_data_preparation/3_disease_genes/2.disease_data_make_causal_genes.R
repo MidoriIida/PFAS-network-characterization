@@ -41,7 +41,7 @@ My_getBM_OMIM <-
 list_GeneIDs <- lapply(list_causal_genes, function(y){lapply(y[2:4], My_getBM)})
 list_GeneIDs_OMIM  <-  lapply(list_causal_genes, function(y){lapply(y[1], My_getBM_OMIM)})
   
-### 4. 合体 ####################
+### 4. Merge ####################
 for(i in 1:length(list_GeneIDs_OMIM)){
   list_GeneIDs[[i]]$OMIM<- list_GeneIDs_OMIM[[i]]$OMIM
 }
@@ -53,7 +53,7 @@ list_Disease_GeneIDs <- sapply(list_GeneIDs, function(x){unique(unlist(sapply(x,
 save(list_Disease_GeneIDs, file = "./path/to/intermediate/data/0.data_make/causal_genes/list_Disease_GeneIDs.dat")
 
 
-### 6. 出力 ####################
+### 6. Output ####################
 for (i in names(list_GeneIDs)) {
   #write.xlsx(list_GeneIDs[[i]],          file = paste0("./path/to/intermediate/data/0.data_make/causal_genes/list_GeneIDs_", i, ".xlsx"))
   write.table(list_Disease_GeneIDs[[i]], file = paste0("./path/to/intermediate/data/0.data_make/causal_genes/list_Disease_GeneIDs_", i, ".txt"), quote = F, row.names = F, col.names = F)

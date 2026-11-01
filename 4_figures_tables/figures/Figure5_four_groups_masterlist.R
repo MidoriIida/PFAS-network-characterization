@@ -14,7 +14,7 @@ library(ggplot2)
 library(dplyr)
 
 # ============================================================
-# 1. データ読み込み
+# 1. Load data
 # ============================================================
 
 base <- "/path/to/your/local/directory/Human_PPI_PFAS"
@@ -29,7 +29,7 @@ df_O <- read.csv(file.path(base,
 df_O$pred_outcome <- df_O$predicted_label + 1   # 0/1 → 1/2
 
 # ============================================================
-# 2. マージ・高確信度フィルター
+# 2. Merge and filter for high-confidence predictions
 # ============================================================
 
 df <- merge(df_M[, c("CASRN", "pred_MOA", "prob_cl1_MOA")],
@@ -42,7 +42,7 @@ df_h <- df[(df$prob_cl1_MOA > 0.7 | df$prob_cl1_MOA < 0.3) &
 cat("High-confidence PFAS n =", nrow(df_h), "\n")
 
 # ============================================================
-# 3. グループ定義（Figure 4 と同一の命名）
+# 3. Define groups (same naming as Figure 4)
 #   pred_MOA:    1=drug cl1, 2=drug cl2
 #   pred_outcome:1=dis  cl1, 2=dis  cl2
 # ============================================================
@@ -58,14 +58,14 @@ df_h <- df_h %>%
 counts <- df_h %>%
   count(pred_MOA, pred_outcome, group) %>%
   mutate(
-    # x軸: disease-space (cl1=left, cl2=right)
+    # x-axis: disease-space (cl1=left, cl2=right)
     dis_label  = factor(pred_outcome,
                         levels = c(1, 2),
                         labels = c("Disease-space\ncluster 1",
                                    "Disease-space\ncluster 2")),
-    # y軸: drug-space (cl1=top, cl2=bottom) → factor levels を逆順に
+    # y-axis: drug-space (cl1=top, cl2=bottom) -> reverse factor levels
     drug_label = factor(pred_MOA,
-                        levels = c(2, 1),   # 2を先にすると下=cl2, 上=cl1
+                        levels = c(2, 1),   # putting 2 first: bottom=cl2, top=cl1
                         labels = c("Drug-space\ncluster 2",
                                    "Drug-space\ncluster 1")),
     label_text = paste0(group, "\n(n = ", formatC(n, big.mark=","), ")")
@@ -74,9 +74,9 @@ counts <- df_h %>%
 print(counts[, c("group", "n")])
 
 # ============================================================
-# 4. モザイクプロット用座標計算
-#    x軸: disease-space (左=cl1, 右=cl2), 幅 ∝ 各列の合計n
-#    y軸: drug-space    (上=cl1, 下=cl2), 高さ ∝ 各列内の比率
+# 4. Compute mosaic plot coordinates
+#    x-axis: disease-space (left=cl1, right=cl2), width proportional to column total n
+#    y-axis: drug-space (top=cl1, bottom=cl2), height proportional to within-column proportion
 # ============================================================
 
 total <- sum(counts$n)
@@ -84,7 +84,7 @@ total <- sum(counts$n)
 dis1_total <- sum(counts$n[counts$pred_outcome == 1])
 dis2_total <- sum(counts$n[counts$pred_outcome == 2])
 
-# 列境界 (x): dis cl1 = 0 ~ w1, dis cl2 = w1 ~ 1
+# Column boundaries (x): dis cl1 = 0 ~ w1, dis cl2 = w1 ~ 1
 w1 <- dis1_total / total
 
 mosaic_df <- counts %>%
@@ -92,7 +92,7 @@ mosaic_df <- counts %>%
   mutate(
     xmin = ifelse(pred_outcome == 1, 0,  w1),
     xmax = ifelse(pred_outcome == 1, w1, 1),
-    # drug cl1 = 上側 (y: h_lo ~ 1), drug cl2 = 下側 (y: 0 ~ h_lo)
+    # drug cl1 = upper portion (y: h_lo ~ 1), drug cl2 = lower (y: 0 ~ h_lo)
     h_cl1 = ifelse(pred_outcome == 1,
                    counts$n[counts$pred_MOA==1 & counts$pred_outcome==1] / dis1_total,
                    counts$n[counts$pred_MOA==1 & counts$pred_outcome==2] / dis2_total),
@@ -106,14 +106,14 @@ mosaic_df <- counts %>%
   ungroup()
 
 # ============================================================
-# 5. 可視化
+# 5. Visualization
 # ============================================================
 
-# 軸ラベルの位置
+# Axis label positions
 x_breaks <- c(w1 / 2, w1 + (1 - w1) / 2)
 y_breaks <- c(
-  (counts$n[counts$pred_MOA==2 & counts$pred_outcome==1] / dis1_total) / 2,   # Group 3 中心
-  1 - (counts$n[counts$pred_MOA==1 & counts$pred_outcome==1] / dis1_total) / 2 # Group 1 中心
+  (counts$n[counts$pred_MOA==2 & counts$pred_outcome==1] / dis1_total) / 2,   # Group 3 center
+  1 - (counts$n[counts$pred_MOA==1 & counts$pred_outcome==1] / dis1_total) / 2 # Group 1 center
 )
 
 p <-
@@ -148,7 +148,7 @@ p <-
 p
 
 # ============================================================
-# 5. 保存
+# 5. Save
 # ============================================================
 
 out_dir <- "/path/to/your/local/directory/Code_for_Manuscript"

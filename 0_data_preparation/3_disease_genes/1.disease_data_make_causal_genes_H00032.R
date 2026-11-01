@@ -58,7 +58,7 @@ CinVar_H00032 <- read_excel(in_fa)
 ### 3. download GWAS catalog genes ################
 #1 access to https://www.ebi.ac.uk/gwas/
 #2 search the disease name through search window
-#  "hepatocellular carcinoma"のみ登録があった
+# only "hepatocellular carcinoma" is registered
 #3 Associations
 #4 Click the arrow button
 in_fa  <- "/path/to/your/local/directory/gwas-association-downloaded_2023-07-14-EFO_0004237-withChildTraits_H00032_goiter.tsv"
@@ -74,14 +74,14 @@ GWAS_H00032 <- GWAS_H00032[as.numeric(sapply(strsplit(as.character(GWAS_H00032$`
 
 in_f   <- "/path/to/your/local/directory/phewas-catalog_2023-03-2.csv"
 PheWAS <- read_csv(in_f)
-PheWAS_a   　 <- PheWAS[grep("Simple goiter",PheWAS$`phewas phenotype`),]     #"goiter"のみ登録あり
+PheWAS_a   　 <- PheWAS[grep("Simple goiter",PheWAS$`phewas phenotype`),]     # only "goiter" is registered
 PheWAS_H00032 <- PheWAS_a[PheWAS_a$`p-value` < 0.05,]
 
 
-### 7. 遺伝子名を集める#######################################
+### 7. Collect gene names #######################################
 list_VG_H00032 <- list(OMIM     = OMIM_H00032,
                        ClinVar  = unique(unlist(strsplit(as.character(as.matrix(na.omit(CinVar_H00032[grep("^NM_", CinVar_H00032$Name), "Gene(s)"]))), "\\|"))),
-                       GWAS     = unique(gsub(" ", "",unlist(strsplit(unlist(strsplit(GWAS_H00032$`MAPPED_GENE`, ";" )), ","))))[unique(gsub(" ", "",unlist(strsplit(unlist(strsplit(GWAS_H00032$`MAPPED_GENE`, ";" )), ",")))) != "'-"], #gsubの方がよかったかも
+                       GWAS     = unique(gsub(" ", "",unlist(strsplit(unlist(strsplit(GWAS_H00032$`MAPPED_GENE`, ";" )), ","))))[unique(gsub(" ", "",unlist(strsplit(unlist(strsplit(GWAS_H00032$`MAPPED_GENE`, ";" )), ",")))) != "'-"], # gsub might have been a better approach
                        PheWAS   = unique(PheWAS_H00032$gene_name[PheWAS_H00032$gene_name != "NULL"]))
 
 

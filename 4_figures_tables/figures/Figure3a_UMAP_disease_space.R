@@ -1,58 +1,58 @@
 ##########################################
 #   Plot 45 PFAS into 148 disease space  #
-#   バブルサイズ = nF（フッ素原子数）    #
-#   ※ lemon非依存版                     #
+#   Bubble size = nF (number of fluorine atoms)  #
+#   lemon-free version                           #
 ##########################################
-set.seed(224)   # 元スクリプトと同じseedで再現性を確保
+set.seed(224)   # same seed as original script for reproducibility
 
-library(ggplot2)   # lemonより先にロード（+.gg上書き防止）
+library(ggplot2)   # load before lemon to prevent +.gg override
 library(dplyr)
 library(umap)
 library(openxlsx)
-# library(lemon)  ← 除外
+# library(lemon)  # excluded
 
 # ============================================================
-# 1. データ読み込み
+# 1. Load data
 # ============================================================
 
-## disease space UMAP結果
+## Disease-space UMAP results
 load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
 
-## PFAS略称
+## PFAS abbreviations
 in_f  <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri   <- read.xlsx(in_f)
 Acronym <- setNames(abbri$Acronym, abbri$CASRN)
 
-## フッ素原子数（nF）
+## Number of fluorine atoms (nF)
 in_d  <- "/path/to/your/local/directory/original_data"
 in_f3 <- "hsPPARalpha_PFASs_wash_descriptors_Sscore_IC50_data.xlsx"
 discriptors <- read.xlsx(paste0(in_d, in_f3))
 nF <- setNames(discriptors$a_nF, discriptors$CASRN)
 
 # ============================================================
-# 2. 階層的クラスタリング（k = 2）
+# 2. Hierarchical clustering (k = 2)
 # ============================================================
 
 hc       <- hclust(dist(list_umap$distnon$layout), method = "complete")
 clusters <- cutree(hc, k = 2)
 
-cat("クラスター割り当て数:\n")
+cat("Cluster assignment counts:\n")
 print(table(clusters))
 
 # ============================================================
-# 3. プロット用データフレームの作成
+# 3. Create data frame for plotting
 # ============================================================
 
 umap_df          <- as.data.frame(list_umap$distnon$layout)
 umap_df$cluster  <- as.factor(clusters)
 umap_df$nF       <- nF[rownames(umap_df)]
-# nFが取得できなかった場合は元スクリプトと同じ値で補完
+# Impute nF if missing (same values as original script)
 umap_df[is.na(umap_df$nF), "nF"] <- c(5, 6, 9, 5, 4, 6, 5, 6, 17, 4, 6, 6)
 umap_df$acronym  <- Acronym[rownames(umap_df)]
 umap_df$accolors <- ifelse(umap_df$cluster == 1, "#577a00", "#9159ba")
 
 # ============================================================
-# 4. 可視化
+# 4. Visualization
 # ============================================================
 
 p <-
@@ -79,7 +79,7 @@ p <-
 p
 
 # ============================================================
-# 5. 保存
+# 5. Save
 # ============================================================
 
 out_dir <- "/path/to/your/local/directory/Code_for_Manuscript"

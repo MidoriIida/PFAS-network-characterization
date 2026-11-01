@@ -1,7 +1,7 @@
 ####################################
 #                                  #
-#        Disease genes を          #
-#        まとめてとりたい          #
+#        Retrieve disease genes        #
+#        in bulk                       #
 #                                  #
 ####################################
 library(tidyverse)
@@ -13,14 +13,14 @@ library(stringi)
 library(dplyr)
 
 ### 1. OMIM database genes ################
-#2018年のOMIM...
+# OMIM data (2018 version)...
 in_fomim  <- "/path/to/your/local/directory/morbidmap.xlsx"
 in_fomim1 <- "/path/to/your/local/directory/mim2gene.txt"
 
 OMIM      <- read_excel(in_fomim)
 OMIM_gene <- fread(in_fomim1)
 
-#ID 変換
+# ID conversion
 OMIM$OMIM_GeneID  <- sapply(OMIM$`Gene Symbols`, function(genesyms){
   tem <- unique(unlist(sapply(strsplit(genesyms, ",")[[1]],  
                               function(x){OMIM_gene[(OMIM_gene$`Approved Gene Symbol (HGNC)`== x), "Entrez Gene ID (NCBI)"]})))
@@ -30,7 +30,7 @@ OMIM$OMIM_GeneID  <- sapply(OMIM$`Gene Symbols`, function(genesyms){
   return(tem)
 })
 
-#ID 変換2
+# ID conversion2
 result  <- stri_reverse(OMIM$Phenotype)
 result2 <- sapply(strsplit(result, ","), function(x){x[1]})
 result3 <- stri_reverse(sapply(strsplit(result2, " "), function(x){x[2]}))
@@ -41,7 +41,7 @@ r2 <- grep("[0-9]{6}",result2)
 OMIM$MIMID <- ""
 OMIM$MIMID[r2] <- result3[r2]
 
-#必要なものだけ取ってくる
+# Extract only the required entries
 df_OMIM <- as.data.frame(t(sapply(split(OMIM[,c("MIMID", "OMIM_GeneID")], OMIM$`MIMID`), 
                                   function(x){tmp <- unique(x)
                                   tmp2 <- cbind(unique(tmp$MIMID),paste0(x$OMIM_GeneID, collapse = ","))
@@ -56,7 +56,7 @@ colnames(df_OMIM) <- c("DiseaseMIM", "OMIM_GeneID")
 in_f_phewas   <- "/path/to/your/local/directory/phewas-catalog_2023-03-2.csv"
 PheWAS <- read_csv(in_f_phewas)
 
-#ID 変換
+# ID conversion
 PheWAS$PheWAS_GeneID  <- sapply(PheWAS$`gene_name`, function(genesyms){
   tem <- unique(unlist(sapply(strsplit(genesyms, ",")[[1]],  
                               function(x){OMIM_gene[(OMIM_gene$`Approved Gene Symbol (HGNC)`== x), "Entrez Gene ID (NCBI)"]})))
@@ -66,7 +66,7 @@ PheWAS$PheWAS_GeneID  <- sapply(PheWAS$`gene_name`, function(genesyms){
   return(tem)
 })
 
-#必要なものだけ取ってくる
+# Extract only the required entries
 list_PheWAS <- split(PheWAS[, c("phewas phenotype", "gene_name", "PheWAS_GeneID")], PheWAS$`phewas phenotype`) #1354 diseases
 
 df_PheWAS <- as.data.frame(t(sapply(list_PheWAS , function(x){
@@ -88,7 +88,7 @@ in_f_102  <- "/path/to/your/local/directory/gwas_catalog_v1.0.2-associations_e10
 GWAS     <- fread(in_f_gwas, header = T, sep = "\t", quote = "")
 GWAS_102 <- fread(in_f_102, header = T, sep = "\t", quote = "")
 
-#ID 変換
+# ID conversion
 GWAS_102$GWAS_GeneID  <- sapply(GWAS$`MAPPED_GENE`, function(genesyms){
   tem <- unique(unlist(sapply(strsplit(genesyms, ",")[[1]],  
                               function(x){OMIM_gene[(OMIM_gene$`Approved Gene Symbol (HGNC)`== x), "Entrez Gene ID (NCBI)"]})))
@@ -98,7 +98,7 @@ GWAS_102$GWAS_GeneID  <- sapply(GWAS$`MAPPED_GENE`, function(genesyms){
   return(tem)
 })
 
-#必要なものだけ取ってくる
+# Extract only the required entries
 list_GWAS_102 <- split(GWAS_102[, c("MAPPED_TRAIT", "MAPPED_TRAIT_URI", "GWAS_GeneID")], GWAS_102$`MAPPED_TRAIT`) #8803 diseases
 
 df_GWAS_102 <- as.data.frame(t(sapply(list_GWAS_102 , function(x){
@@ -118,7 +118,7 @@ colnames(df_GWAS_102) <- c("MAPPED_TRAIT", "MAPPED_TRAIT_URI", "GWAS_GeneID")
 in_f_clinver <- "/path/to/your/local/directory/gene_condition_source_id_20230714.txt"
 Clinver <- fread(in_f_clinver, header = T, sep = "\t", quote = "")
 
-#必要なところだけ抽出
+# Extract only the necessary columns
 list_Clinver <- split(Clinver[,c(1, 2, 5, 8)], Clinver$DiseaseName)
 df_Clinver <- as.data.frame(t(sapply(list_Clinver , function(x){
   cbind(unique(x$DiseaseName),
@@ -132,22 +132,22 @@ colnames(df_Clinver) <- c("DiseaseName", "DiseaseMIM", "AssociatedGenes", "Clinv
 
 
 
-### 5. dataを合体 ##############################
-#ClinverとOMIMデータはOMIMで合体
+### 5. Merge data ##############################
+# Merge ClinVar and OMIM data by OMIM ID
 Clinver_OMIM <- merge(df_Clinver, df_OMIM, by.x = "DiseaseMIM", by.y = "DiseaseMIM")
 
-#PheWASとGWASデータは名前で合体
+# Merge PheWAS and GWAS data by disease name
 df_PheWAS$UP_DiseaseName <- toupper(df_PheWAS$`phewas phenotype`)
 df_GWAS_102$UP_DiseaseName <- toupper(df_GWAS_102$MAPPED_TRAIT)
 
 PheWAS_GWAS <- merge(df_GWAS_102, df_PheWAS, by.x = "UP_DiseaseName", by.y = "UP_DiseaseName")
 
-#PheWAS&GWASとClinver&OMIMデータは名前で合体
+# Merge PheWAS&GWAS with ClinVar&OMIM data by disease name
 Clinver_OMIM$UP_DiseaseName <- toupper(Clinver_OMIM$DiseaseName)
 
 Clinver_OMIM_PheWAS_GWAS <- merge(Clinver_OMIM, PheWAS_GWAS, by.x = "UP_DiseaseName", by.y = "UP_DiseaseName")
 
-#必要なところだけ抽出
+# Extract only the necessary columns
 result <- lapply(c("OMIM_GeneID", "Clinver_GeneID", "GWAS_GeneID", "PheWAS_GeneID"), 
             function(x){tmp <- strsplit(Clinver_OMIM_PheWAS_GWAS[[x]], ",")
             tmp2 <- sapply(tmp, function(x){x[x != ""]})
@@ -156,7 +156,7 @@ list_disease_genes <- sapply(1:dim(Clinver_OMIM_PheWAS_GWAS)[1], function(y){uni
 names(list_disease_genes) <- Clinver_OMIM_PheWAS_GWAS$DiseaseName
 
 
-#必要なところだけ抽出
+# Extract only the necessary columns
 result <- lapply(c("GWAS_GeneID", "PheWAS_GeneID"), 
                  function(x){tmp <- strsplit(PheWAS_GWAS[[x]], ",")
                  tmp2 <- sapply(tmp, function(x){x[x != ""]})

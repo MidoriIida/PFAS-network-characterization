@@ -89,7 +89,7 @@ centre_measure <-
   }
 
 ####################################
-#   shortest_path_lengthを求める   #
+#   compute shortest path length   #
 ####################################
 shortest_path_length <- function(g_comp, dA, dB){
   dst     <- igraph::distances(g_comp, v  = names(V(g_comp)) %in% dA, to = names(V(g_comp)) %in% dB ) #d(s, t)
@@ -98,7 +98,7 @@ shortest_path_length <- function(g_comp, dA, dB){
 }
 
 ##############################
-#       Binを作る            #  
+#       Create degree bins   #
 ##############################
 #cut degree vectors with optional number of nords
 Binning <- function(deg, nums){
@@ -132,12 +132,12 @@ Binning <- function(deg, nums){
 }
 
 ##############################
-#   ランダムにノードを抽出   #
+#   Randomly sample nodes    #
 ##############################
 ChooseNodes <- function(cut_degs, origene){
   list_cut_degs <- tapply(names(cut_degs), cut_degs, list)
   
-  degs_dA <- na.omit(cut_degs[names(origene)]) #graphにあるもののみ
+  degs_dA <- na.omit(cut_degs[names(origene)]) # keep only nodes present in the graph
   freq_degs_dA <- table(degs_dA)
   
   ramd_dA <- c()

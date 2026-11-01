@@ -1,68 +1,68 @@
 ##########################################
 #   Plot 45 PFAS into 148 disease space  #
-#   バブルサイズ = PFAS関連遺伝子数      #
-#   ※ lemon非依存版                     #
+#   Bubble size = number of PFAS-associated genes  #
+#   lemon-free version                           #
 ##########################################
-set.seed(224)   # 元スクリプトと同じseedで再現性を確保
+set.seed(224)   # same seed as original script for reproducibility
 
-library(ggplot2)   # lemonより先にロード（+.gg上書き防止）
+library(ggplot2)   # load before lemon to prevent +.gg override
 library(dplyr)
 library(umap)
 library(openxlsx)
 library(tibble)
-# library(lemon)  ← 除外
+# library(lemon)  # excluded
 
 # ============================================================
-# 1. データ読み込み
+# 1. Load data
 # ============================================================
 
-## disease space UMAP結果
+## Disease-space UMAP results
 load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
 
-## PFAS略称
+## PFAS abbreviations
 in_f  <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri   <- read.xlsx(in_f)
 Acronym <- setNames(abbri$Acronym, abbri$CASRN)
 
-## PFAS関連遺伝子データ
+## PFAS-associated gene data
 load("/path/to/your/local/directory/human_PFAS_genes_230712_iida.dat")
 
 # ============================================================
-# 2. 階層的クラスタリング（k = 2）
+# 2. Hierarchical clustering (k = 2)
 # ============================================================
 
 hc       <- hclust(dist(list_umap$distnon$layout), method = "complete")
 clusters <- cutree(hc, k = 2)
 
-cat("クラスター割り当て数:\n")
+cat("Cluster assignment counts:\n")
 print(table(clusters))
 
 # ============================================================
-# 3. PFAS関連遺伝子数の計算
+# 3. Compute number of PFAS-associated genes
 # ============================================================
 
-cas_disease <- rownames(list_umap$distnon$layout)   # 44 PFAS の CAS番号
+cas_disease <- rownames(list_umap$distnon$layout)   # CAS numbers for 44 PFAS
 
 n_genes <- sapply(cas_disease, function(cas) {
   length(unique(list_PFAS_genes$Merged[list_PFAS_genes$Merged$CASRN == cas, "GeneID"]))
 })
 
-cat("\n遺伝子数サマリー:\n")
+cat("\nGene count summary:\n")
 print(summary(n_genes))
 
 # ============================================================
-# 4. プロット用データフレームの作成
+# 4. Create data frame for plotting
 # ============================================================
 
 umap_df           <- as.data.frame(list_umap$distnon$layout)
 umap_df$cluster   <- as.factor(clusters)
 umap_df$n_genes   <- n_genes[rownames(umap_df)]
-umap_df$log_genes <- log10(umap_df$n_genes + 1)   # log10変換
+umap_df$log_genes <- log10(umap_df$n_genes + 1)   # log10 transform
 umap_df$acronym   <- Acronym[rownames(umap_df)]
-umap_df$accolors  <- ifelse(umap_df$cluster == 1, "#577a00", "#9159ba")  # 元スクリプトのテキスト色
+umap_df$accolors  <- ifelse(umap_df$cluster == 1, "#577a00", "#9159ba")  # text colors from original script
 
 # ============================================================
-# 5. 可視化
+# 5. Visualization
 # ============================================================
 
 p <-
@@ -70,7 +70,7 @@ p <-
   geom_point() +
   scale_size(range = c(2, 10),
              name  = "Associated\ngenes (log₁₀)") +
-  scale_color_manual(values = c("#7CAE00", "#C77CFF"),   # 元スクリプトの色を維持
+  scale_color_manual(values = c("#7CAE00", "#C77CFF"),   # colors from original script
                      name   = "cluster") +
   labs(x = "UMAP 1", y = "UMAP 2") +
   theme_bw() +
@@ -90,7 +90,7 @@ p <-
 p
 
 # ============================================================
-# 6. 保存
+# 6. Save
 # ============================================================
 
 out_dir <- "/path/to/your/local/directory/Code_for_Manuscript"

@@ -1,5 +1,5 @@
 ##################################
-# 全ての特徴量で分類モデルを作成 #
+# Build classification model using all features #
 # 　 Morgan finger print         #
 ##################################
 import pandas as pd
@@ -11,7 +11,7 @@ import shap
 import matplotlib.pyplot as plt
 import pickle
 
-# 1. データの読み込み（前ステップで保存したテキスト）
+# 1. Load data (saved in the previous step)
 with open("./path/to/intermediate/data/3.Constract_Full_Model//X_train_Morgan.pkl", "rb") as f:
     X_train = pickle.load(f)
 
@@ -24,19 +24,19 @@ with open("./path/to/intermediate/data/3.Constract_Full_Model/y_train_Morgan.pkl
 with open("./path/to/intermediate/data/3.Constract_Full_Model/y_test_Morgan.pkl", "rb") as f:
     y_test = pickle.load(f)
 
-# 3. モデル構築（ロジスティック回帰）
+# 3. Model construction (logistic regression / Random Forest)
 rf = RandomForestClassifier(n_estimators=100, random_state=42)
 rf.fit(X_train, y_train)
 
-# 4. 予測と評価
+# 4. Prediction and evaluation
 y_pred = rf.predict(X_test)
 
-print("=== 分類結果 ===")
+print("=== Classification results ===")
 print(classification_report(y_test, y_pred))
-print("=== 混同行列 ===")
+print("=== Confusion matrix ===")
 print(confusion_matrix(y_test, y_pred))
 
-# === 分類結果 ===
+# === Classification results ===
 # >>> print(classification_report(y_test, y_pred))
 #               precision    recall  f1-score   support
 # 
@@ -47,13 +47,13 @@ print(confusion_matrix(y_test, y_pred))
 #    macro avg       0.94      0.88      0.90        11
 # weighted avg       0.92      0.91      0.91        11
 # 
-# >>> print("=== 混同行列 ===")
-# === 混同行列 ===
+# >>> print("=== Confusion matrix ===")
+# === Confusion matrix ===
 # >>> print(confusion_matrix(y_test, y_pred))
 # [[3 1]
 #  [0 7]]
 
-# 保存先ファイル名を決めておく
+# Define output file name
 with open("./path/to/intermediate/data/3.Constract_Full_Model/rf_model_Morgan.pkl", "wb") as f:
     pickle.dump(rf, f)
 

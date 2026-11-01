@@ -1,5 +1,5 @@
 #######################
-#  R でもやってみる   #
+#  Accuracy evaluation in R    #
 # 　 Randomforest　　 #
 #######################
 library(randomForest)
@@ -20,13 +20,13 @@ Feature_names <- read.csv("./path/to/intermediate/data/4.Feature_Selection/featu
 rfe_results <- fromJSON("./path/to/intermediate/data/4.Feature_Selection/rfe_results_Morgan.json")
 print(rfe_results)
 
-### 2. data 再構築 ########################
+### 2. Reconstruct data ########################
 data_train           <- X_train
 data_train$label     <- as.factor(Y_train$V1)
 colnames(data_train)[1:64] <- Feature_names$V1
 
-### 3.  モデル構築 ########################
-# クロスバリデーションの設定
+### 3. Model construction ########################
+# Cross-validation settings
 ctrl <- trainControl(method = "cv", number = 5)
 
 list_rf <-
@@ -34,19 +34,19 @@ list_rf <-
     tmp_data       <- as.data.frame(data_train[,x])
     tmp_data$label <- data_train$label
     colnames(tmp_data) <- c(x, "label")
-  # 学習 & 評価（randomForestを内部的に使用）
+  # Train & evaluate (uses Random Forest internally)
   model_cv <- train(label ~ ., data = tmp_data, method = "rf", trControl = ctrl)
 })
 
-# 結果表示
+# Display results
 print(list_rf[[1]])
 
-### 3.  結果表示 ########################
+### 3. Display results ########################
 df <- melt(sapply(list_rf, function(x){(x$resample$Accuracy)}))
 
 g <- ggplot(df, aes(x = as.factor(Var2), y = value)) + 
   geom_boxplot(fill="#00B0F0") + xlab("Number of Selected Features") + 
   ylab("Cross-Validated Accuracy") + theme_bw() + theme(text = element_text(size = 24))
-plot(g)　#やはり、1か3かがバランスがいいようだ
+plot(g)  # n=1 or n=3 appears to offer the best balance
 
 ggsave("./path/to/intermediate/data/4.Feature_Selection/Cross_validated_Accuracy.pdf", width = 10.5, height = 7.8)

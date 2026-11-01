@@ -1,9 +1,9 @@
 ##########################################
 #   Plot according to 900 drug space     #
 #              45 PFAS                   #
-#   　クラスターの意味 (ATC)             #
+#   Cluster interpretation (ATC)          #
 ##########################################
-set.seed(123)  # 結果の再現性のため
+set.seed(123)  # for reproducibility
 library(ggplot2)
 library(dplyr)
 library(umap)
@@ -21,18 +21,18 @@ in_f2 <- "/20230830/result_enrichment_ATC_code_KEGGdrugBackground_20230825.csv"
 
 ATC        <- read.csv(paste0(in_d2, in_f2), row.names = 1)
 
-#FDR補正
-# データを行列に変換
+# FDR correction
+# Convert data to matrix
 p_matrix <- as.matrix(ATC)
 
-# p値を1次元ベクトル化 → FDR補正 → 行列に戻す
+# Flatten p-values to vector → FDR correction → reshape to matrix
 p_fdr <- matrix(
   p.adjust(as.vector(p_matrix), method = "fdr"),
   nrow = nrow(p_matrix),
   ncol = ncol(p_matrix)
 )
 
-# 行名・列名を戻す
+# Restore row and column names
 rownames(p_fdr) <- rownames(p_matrix)
 colnames(p_fdr) <- colnames(p_matrix)
 
@@ -45,7 +45,7 @@ c2 <- names(clusters[clusters == 2])
 cas <- sapply(strsplit(gsub("^X", "", colnames(p_fdr)), "\\.\\."), function(x){gsub("\\.", "-",x[1])})
 names(cas) <- cas
 
-### 3. 階層的クラスタリングとATCの関係 #######################################################
+### 3. Relationship between hierarchical clustering and ATC #######################################################
 c1_ATC <- p_fdr[cas %in% c1,]
 c2_ATC <- p_fdr[cas %in% c2,]
 
@@ -63,22 +63,22 @@ levels(df_ATC_sig$group) <- c("cluster 1", "cluster 2")
 
 colnames(df_ATC_sig)   <-  c("ATC", "cluster", "count", "Label", "group")
 
-### 4. バープロットを作成 ######################################
+### 4. Create bar plot ######################################
 g_ATC <- 
-  ggplot(df_ATC_sig, aes(x = ATC, y = count, fill = group)) +  # x軸にギア、y軸に数を設定
-  geom_bar(stat = "identity", position = "dodge") +  # 棒グラフの高さをデータの値に基づいて設定
+  ggplot(df_ATC_sig, aes(x = ATC, y = count, fill = group)) +  # x-axis: category, y-axis: count
+  geom_bar(stat = "identity", position = "dodge") +  # bar height based on data values
   labs(#title = "Significant ATC class Counts by cluster", 
     x = "ATC class", y = "Count",  fill = "Cluster") +
   theme_bw() 
 
-### 5. バープロットを調整（横） ######################################
+### 5. Adjust bar plot (horizontal) ######################################
 g_ATC_h <- g_ATC + scale_x_discrete(labels = df_ATC_sig$Label) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
-        legend.position = c(0.95, 0.95),  # 凡例をプロット内の右上に配置
-        legend.justification = c("right", "top"))  # 凡例のアンカーポイントを右上に設定
+        legend.position = c(0.95, 0.95),  # place legend in the upper right inside the plot
+        legend.justification = c("right", "top"))  # anchor legend to upper-right corner
 g_ATC_h
 
-### 5. バープロットを調整（縦） ######################################
+### 5. Adjust bar plot (vertical) ######################################
 g_ATC_v <- g_ATC +  coord_flip()  + scale_x_discrete(labels = df_ATC_sig$Label)
 g_ATC_v
 

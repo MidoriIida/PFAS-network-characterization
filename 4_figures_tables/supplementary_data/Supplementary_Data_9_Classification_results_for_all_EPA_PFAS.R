@@ -11,7 +11,7 @@ library(dplyr)
 base <- "/path/to/your/local/directory/Human_PPI_PFAS"
 
 # ============================================================
-# 1. データ読み込み
+# 1. Load data
 # ============================================================
 
 # Drug-space: RandomForest prediction on PFAS master list
@@ -30,7 +30,7 @@ df_O$pred_disease_cluster <- df_O$predicted_label + 1   # 0/1 → 1/2
 df_O$prob_disease_cl1     <- 1 - df_O$probability       # P(cluster 1)
 
 # ============================================================
-# 2. CASRN で結合 (merge → 8,831 PFAS)
+# 2. Merge by CASRN (8,831 PFAS)
 # ============================================================
 df <- merge(
   df_M[, c("CASRN", "SMILES", "pred_MOA", "prob_cl1_MOA")],
@@ -41,7 +41,7 @@ df <- merge(
 cat("Total PFAS after merge:", nrow(df), "\n")  # 10,923
 
 # ============================================================
-# 3. グループ定義
+# 3. Define groups
 #   Group 1: drug cl1 × disease cl1
 #   Group 2: drug cl1 × disease cl2
 #   Group 3: drug cl2 × disease cl1
@@ -66,7 +66,7 @@ cat("\nGroup counts (high-confidence, n =", sum(df$high_confidence), "):\n")
 print(table(df$group[df$high_confidence]))
 
 # ============================================================
-# 4. 出力列を整理・保存
+# 4. Arrange output columns and save
 # ============================================================
 out_df <- df %>%
   select(

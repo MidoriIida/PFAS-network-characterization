@@ -1,37 +1,37 @@
 ##########################################
 #   Plot according to 900 drug space     #
 #              45 PFAS                   #
-#   バブルサイズ = PFAS関連遺伝子数      #
+#   Bubble size = number of PFAS-associated genes  #
 ##########################################
 set.seed(123)
 
-library(ggplot2)   # lemonより先にロード（+.gg上書き防止）
+library(ggplot2)   # load before lemon to prevent +.gg override
 library(dplyr)
 library(umap)
 library(reshape2)
 library(cowplot)
 library(openxlsx)
 library(tibble)
-# library(lemon)  ← 除外
+# library(lemon)  # excluded
 
 # ============================================================
-# 1. データ読み込み
+# 1. Load data
 # ============================================================
 
-## UMAP・クラスタリング結果
+## UMAP and clustering results
 load("/path/to/your/local/directory/list_umap_PFAS_drug.dat")
 load("/path/to/your/local/directory/umap_data_non.dat")
 
-## PFAS略称
+## PFAS abbreviations
 in_f <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri   <- read.xlsx(in_f)
 Acronym <- setNames(abbri$Acronym, abbri$CASRN)
 
-## PFAS関連遺伝子データ
+## PFAS-associated gene data
 load("/path/to/your/local/directory/human_PFAS_genes_230712_iida.dat")
 
 # ============================================================
-# 2. 階層的クラスタリング
+# 2. Hierarchical clustering
 # ============================================================
 
 hc       <- hclust(dist(list_umap$distnon$layout), method = "complete")
@@ -40,34 +40,34 @@ clusters <- cutree(hc, k = 2)
 list_cluster <- list(hc = hc, clusters = clusters)
 
 # ============================================================
-# 3. PFAS関連遺伝子数の計算
+# 3. Compute number of PFAS-associated genes
 # ============================================================
 
-cas_35 <- rownames(umap_data_non)   # 35 PFAS の CAS番号
+cas_35 <- rownames(umap_data_non)   # CAS numbers for 35 PFAS
 
 n_genes <- sapply(cas_35, function(cas) {
   length(unique(list_PFAS_genes$Merged[list_PFAS_genes$Merged$CASRN == cas, "GeneID"]))
 })
 
-cat("遺伝子数サマリー:\n")
+cat("Gene count summary:\n")
 print(summary(n_genes))
 
 # ============================================================
-# 4. プロット用データフレームの作成
+# 4. Create data frame for plotting
 # ============================================================
 
 umap_df          <- as.data.frame(list_umap$distnon$layout)
 umap_df$cluster  <- as.factor(clusters)
 umap_df$n_genes  <- n_genes[rownames(umap_df)]
-umap_df$log_genes <- log10(umap_df$n_genes + 1)   # log10変換（1-1956の幅を圧縮）
+umap_df$log_genes <- log10(umap_df$n_genes + 1)   # log10 transform (compress range 1-1956)
 umap_df$acronym  <- Acronym[rownames(umap_df)]
 umap_df$accolors <- ifelse(umap_df$cluster == 1, "#9e4a44", "#006669")
 
-cat("\nlog10遺伝子数サマリー:\n")
+cat("\nlog10 gene count summary:\n")
 print(summary(umap_df$log_genes))
 
 # ============================================================
-# 5. 可視化
+# 5. Visualization
 # ============================================================
 
 p <-
@@ -95,7 +95,7 @@ p <-
 p
 
 # ============================================================
-# 6. 保存
+# 6. Save
 # ============================================================
 
 out_dir  <- "/path/to/your/local/directory/"

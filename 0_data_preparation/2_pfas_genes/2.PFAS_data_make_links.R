@@ -3,7 +3,7 @@
 #    Check the PFAS     #
 #        LINCS          #
 #########################
-#PFASいくつ入ってる？
+# Check how many PFAS are included
 library(tidyverse)
 library(tictoc)
 library(fs)
@@ -11,7 +11,7 @@ library(vroom)
 library(data.table)
 
 ### 1. load ##############
-#EPAのPFAS list
+# EPA PFAS master list
 in_f <- "/path/to/your/local/directory/Chemical List pfasmaster-2023-01-16/Chemical List pfasmaster-2023-01-16.csv"
 df_EPA_PFAS <- read.csv(in_f)
 
@@ -34,7 +34,7 @@ target <- df_EPA_PFAS$INCHIKEY[df_EPA_PFAS$INCHIKEY %in% LINCS_inchi]
 
 length(target) #8
 
-### 3. dataを取得 ##############################################################
+### 3. Retrieve data ##############################################################
 #EPA data
 df_EPA_PFAS_target <- df_EPA_PFAS[df_EPA_PFAS$INCHIKEY %in% LINCS_inchi,]
 
@@ -62,7 +62,7 @@ for(i in 1:dim(df_LINCS_target_exp_mean)[1]){
   PFAS_LINCS_Proteins <- rbind(PFAS_LINCS_Proteins, GeneID)
 }
 
-### 4. dataをmerge ##############################################################
+### 4. Merge data ##############################################################
 df_EPA_PFAS_target_Lincs <- merge(df_EPA_PFAS_target, PFAS_LINCS_Proteins, by.x = "INCHIKEY", by.y = "V1")
 
 save(df_EPA_PFAS_target_Lincs, file="./path/to/intermediate/data/0.data_check/df_EPA_PFAS_target_Lincs.dat")

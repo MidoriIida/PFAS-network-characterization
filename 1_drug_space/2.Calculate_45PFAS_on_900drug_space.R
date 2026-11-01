@@ -2,7 +2,7 @@
 #   Plot according to 900 drug space     #
 #              45 PFAS                   #
 ##########################################
-set.seed(123)  # 結果の再現性のため
+set.seed(123)  # for reproducibility
 library(readxl)
 library(openxlsx)
 library(tidyverse)
@@ -24,25 +24,25 @@ df_z           <- as.data.frame(matrix(PFAS_drug$`sd(dc_null)...6`, ncol = 900))
 rownames(df_z) <- sapply(strsplit(unique(PFAS_drug$ID), "\\|"), function(x){x[1]})
 colnames(df_z) <- PFAS_drug$Name[1:900]
 
-# データセットの欠損値の確認
+# Check for missing values in the dataset
 sum(is.na(df_z))
     
-# データセットの欠損値の補完
+# Impute missing values in the dataset
 df_z_0　 <- df_z %>% mutate(across(everything(), ~replace(., is.nan(.), 0))) %>% 
   mutate(across(everything(), ~replace(., is.na(.), 0)))       
 
-# データセットの欠損値がある場合、その列は削除
+# Remove columns with missing values if present
 df_z_non <- df_z[,which(apply(df_z, 2, function(x){sum(is.na(x))}) == 0)]
 
 ### 3. Make similarity matrix #################################################
 df_sim_norm_0     <- apply(df_z_0*(-1), 2, min_max_norm)
 df_sim_norm_non   <- apply(df_z_non*(-1), 2, min_max_norm)
 
-### 4. 類似度から距離への変換（1から類似度を引く）#############################
+### 4. Convert similarity to distance (1 minus similarity) #############################
 distance_matrix_0   <- 1 - df_sim_norm_0
 distance_matrix_non <- 1 - df_sim_norm_non
 
-### 5. UMAPの実行##############################################################
+### 5. Run UMAP ##############################################################
 umap_sim_result_0   <- umap(df_sim_norm_0, n_components = 2)
 umap_sim_result_non <- umap(df_sim_norm_non, n_components = 2)
 

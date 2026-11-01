@@ -3,7 +3,7 @@
 #    Check the PFAS     #
 #     LINCS & CTD       #
 #########################
-#PFASいくつ入ってる？
+# Check how many PFAS are included
 library(tidyverse)
 library(tictoc)
 library(fs)
@@ -28,9 +28,9 @@ load(file="./path/to/intermediate/data/0.data_make//df_EPA_PFAS_target_ctd.dat")
 
 ### 2. Check ######################################
 x <- unique(df_EPA_PFAS_target_Lincs$CASRN) %in% unique(df_EPA_PFAS_target_ctd$CASRN)
-sum(x) #LincsのPFASはCTDの中あるやつと半分同じ
+sum(x) # about half of LINCS PFAS overlap with CTD
 
-#これらのデータはdf_EPA_PFAS_target_ctdにはない
+# These entries are not in df_EPA_PFAS_target_ctd
 unique(df_EPA_PFAS_target_Lincs$CASRN)[!x]
 #[1] "293753-05-6" "847925-91-1" "103055-07-8" "467459-31-0"
 unique(df_EPA_PFAS_target_Lincs[df_EPA_PFAS_target_Lincs$CASRN %in% unique(df_EPA_PFAS_target_Lincs$CASRN)[!x],"PREFERRED.NAME"])
@@ -39,18 +39,18 @@ unique(df_EPA_PFAS_target_Lincs[df_EPA_PFAS_target_Lincs$CASRN %in% unique(df_EP
 # [3] "N-[2,5-dichloro-4-(1,1,2,3,3,3-hexafluoropropoxy)-phenyl-aminocarbonyl]-2,6-difluorobenzamide"                    
 # [4] "2-(6-Fluoro-1H-indol-3-yl)-N-[[3-(2,2,3,3-tetrafluoropropoxy)phenyl]methyl]ethanamine" 
  
-### 3. CTDのデータには入っている?######################################
-#名前で検索
+### 3. Check whether these entries exist in CTD ######################################
+# Search by name
 sum(unique(ctd_hPPI$ChemicalName) %in% unique(df_EPA_PFAS_target_Lincs[df_EPA_PFAS_target_Lincs$CASRN %in% unique(df_EPA_PFAS_target_Lincs$CASRN)[!x],"PREFERRED.NAME"]))
 
-#CASで検索
+# Search by CAS
 sum(unique(ctd_hPPI$CasRN) %in% unique(df_EPA_PFAS_target_Lincs[df_EPA_PFAS_target_Lincs$CASRN %in% unique(df_EPA_PFAS_target_Lincs$CASRN)[!x],"CASRN"]))
 
-#手動で検索
-# [1] "293753-05-6" #データベース自体にはあるがhumanProtein情報はない(SR 3335)
-# [2] "847925-91-1" #データベース自体にはあるがhumanProtein情報はない(2,2-dimethyl-N-(6-oxo-6,7-dihydro-5H-dibenzo(b,d)azepin-7-yl)-N'-(2,2,3,3,3-pentafluoropropyl)malonamide)
-# [3] "103055-07-8" #データベース自体にはあるがhumanProtein情報はない(fluphenacur)
-# [4] "467459-31-0" #データベース自体にはあるがhumanProtein情報はない((2-(6-fluoro-1H-indol-3-yl)-ethyl)-(3-(2,2,3,3-tetrafluoropropoxy)benzyl)amine)
+# Manual search results:
+# [1] "293753-05-6" # exists in CTD but no human protein data (SR 3335)
+# [2] "847925-91-1" # exists in CTD but no human protein data (2,2-dimethyl-N-(6-oxo-6,7-dihydro-5H-dibenzo(b,d)azepin-7-yl)-N'-(2,2,3,3,3-pentafluoropropyl)malonamide)
+# [3] "103055-07-8" # exists in CTD but no human protein data (fluphenacur)
+# [4] "467459-31-0" # exists in CTD but no human protein data ((2-(6-fluoro-1H-indol-3-yl)-ethyl)-(3-(2,2,3,3-tetrafluoropropoxy)benzyl)amine)
 
 
 

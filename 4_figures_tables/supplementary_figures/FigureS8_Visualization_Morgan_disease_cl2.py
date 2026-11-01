@@ -5,14 +5,14 @@
 #   Cluster 2                            #
 #   Important bits: 1398 (F-C-F-C-F)    #
 #                   1917 (C=O)           #
-#   ターミナル(shap_env)で実行           #
+#   Run in terminal (shap_env)            #
 ##########################################
 from rdkit import Chem
 from rdkit.Chem import AllChem, Draw
 import pandas as pd
 
 # ============================================================
-# 1. データ読み込み（44 PFAS, disease-space classifier用）
+# 1. Load data (44 PFAS, disease-space classifier)
 # ============================================================
 
 df = pd.read_csv(
@@ -26,9 +26,9 @@ mols      = [Chem.MolFromSmiles(smi) for smi in df_cl2['SMILES'].dropna().tolist
 print(f"Cluster 2: {len(mols)} molecules")
 
 # ============================================================
-# 2. ハイライトするMorgan fingerprint ビット
-#    bit 1398: F-C-F-C-F（フルオロカーボン鎖）
-#    bit 1917: C=O（カルボニル基）
+# 2. Morgan fingerprint bits to highlight
+#    bit 1398: F-C-F-C-F (fluorocarbon chain)
+#    bit 1917: C=O (carbonyl group)
 # ============================================================
 
 important_bits = [1398, 1917]
@@ -52,7 +52,7 @@ for mol in mols:
     highlight_atom_lists.append(list(highlight_atoms))
 
 # ============================================================
-# 3. グリッド描画・保存
+# 3. Draw grid and save
 # ============================================================
 
 img = Draw.MolsToGridImage(

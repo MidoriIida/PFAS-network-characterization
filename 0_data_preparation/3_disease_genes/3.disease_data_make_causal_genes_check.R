@@ -34,7 +34,7 @@ MESH_Disease_name <-
     "Stomach Neoplasms", "Colorectal Neoplasms", "Breast Neoplasms", 
     "Alzheimer Disease", "Asthma", "Diabetes Mellitus, Type 2", "Hypertension", "Dermatitis, Atopic")
 
-### 3. 合体 ####################
+### 3. Merge ####################
 list_disease_EntrezIDs <- c(list_disease_module, list_Disease_GeneIDs)
 names(list_disease_EntrezIDs) <- paste0(names(list_disease_EntrezIDs), "_", c(KEGG_Disease_name_module, KEGG_Disease_name_GeneIDs))
 

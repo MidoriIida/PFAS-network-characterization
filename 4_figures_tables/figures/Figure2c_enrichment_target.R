@@ -1,16 +1,16 @@
 ##########################################
 #   Plot according to 900 drug space     #
 #              45 PFAS                   #
-#      クラスターの意味 (target)         #
-#   ※ lemon非依存版 → .datを作り直す   #
+#      Cluster interpretation (target)   #
+#   lemon-free version                   #
 ##########################################
 set.seed(123)
 
-library(ggplot2)   # ggplot2を最初にロード（lemonによる+.gg上書きを防ぐ）
+library(ggplot2)   # load ggplot2 first to prevent lemon from overriding +.gg
 library(dplyr)
 library(reshape2)
 library(cowplot)
-# library(lemon)  ← 使用していないため除外
+# library(lemon)  # excluded (not used)
 
 ### 1. load ###################################################################
 load("/path/to/your/local/directory/list_cluster.dat")
@@ -29,18 +29,18 @@ cas <- sapply(strsplit(gsub("^X", "", colnames(Target)), "\\.\\."),
               function(x) { gsub("\\.", "-", x[1]) })
 names(cas) <- cas
 
-### 3. 各クラスターで有意なTargetの集計 ########################################
-# cas は colnames(Target) 由来 → 列（PFAS）をサブセットする
+### 3. Count significant drug targets per cluster ########################################
+# cas from colnames(Target) -> subset columns (PFAS)
 c1_Target <- Target[, cas %in% c1]
 c2_Target <- Target[, cas %in% c2]
 
 cat("cluster 1 size:", length(c1), "/ cluster 2 size:", length(c2), "\n")
 
-# apply(..., 1, ...) = 行ごと（Targetカテゴリごと）に有意なPFAS数をカウント
+# apply(..., 1, ...) = count significant PFAS per row (per target category)
 c1_Target_sig_raw <- apply(c1_Target, 1, function(x) { sum(na.omit(x) < 0.05) })
 c2_Target_sig_raw <- apply(c2_Target, 1, function(x) { sum(na.omit(x) < 0.05) })
 
-# クラスターサイズで正規化（割合: %）
+# Normalize by cluster size (proportion: %)
 c1_Target_sig <- c1_Target_sig_raw / length(c1) * 100
 c2_Target_sig <- c2_Target_sig_raw / length(c2) * 100
 
@@ -53,7 +53,7 @@ df_Target_sig$group <- gsub("c2_Target_sig", "cluster 2", df_Target_sig$group)
 
 colnames(df_Target_sig) <- c("Target", "cluster", "count","Label", "group")
 
-### 4. バープロット作成 #########################################################
+### 4. Create bar plot #########################################################
 g_Target <-
   ggplot(df_Target_sig, aes(x = Target, y = count, fill = group)) +
   geom_bar(stat = "identity", position = "dodge") +
@@ -63,13 +63,13 @@ g_Target <-
   labs(x = "Drug target", y = "Percentage of PFAS with significant enrichment (%)", fill = "Cluster") +
   theme_bw()
 
-# 横向き（x軸ラベルを回転）
+# Horizontal (rotate x-axis labels)
 g_Target_h <- g_Target +
   theme(axis.text.x         = element_text(angle = 90, hjust = 1, vjust = 0.5),
         legend.position      = c(0.95, 0.95),
         legend.justification = c("right", "top"))
 
-# 縦向き（coord_flip）
+# Vertical (coord_flip)
 g_Target_v <- g_Target +
   coord_flip() +
   scale_x_discrete(labels = df_Target_sig$Label) +

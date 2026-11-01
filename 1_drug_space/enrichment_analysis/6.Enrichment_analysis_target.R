@@ -1,9 +1,9 @@
 ##########################################
 #   Plot according to 900 drug space     #
 #              45 PFAS                   #
-#   　クラスターの意味 (target)          #
+#   Cluster interpretation (target)       #
 ##########################################
-set.seed(123)  # 結果の再現性のため
+set.seed(123)  # for reproducibility
 library(ggplot2)
 library(dplyr)
 library(umap)
@@ -29,14 +29,14 @@ c2 <- names(clusters[clusters == 2])
 cas <- sapply(strsplit(gsub("^X", "", colnames(Target)), "\\.\\."), function(x){gsub("\\.", "-",x[1])})
 names(cas) <- cas
 
-### 3. 階層的クラスタリングとTargetの関係 ######################################
+### 3. Relationship between hierarchical clustering and drug targets ######################################
 c1_Target <- Target[cas %in% c1,]
 c2_Target <- Target[cas %in% c2,]
 
 c1_Target_sig <- apply(c1_Target, 1, function(x){sum(na.omit(x) < 0.05)})
 c2_Target_sig <- apply(c2_Target, 1, function(x){sum(na.omit(x) < 0.05)})
 
-# データフレームを作成
+# Create data frame
 Target_sig <- cbind(c1_Target_sig, c2_Target_sig)
 x <- Target_sig[which(rowSums(Target_sig) != 0),]
 df_Target_sig <- melt(x[order(x[,2]),])
@@ -46,23 +46,23 @@ levels(df_Target_sig$group) <- c("cluster 1", "cluster 2")
 
 colnames(df_Target_sig) <- c("Target", "cluster", "count", "group")
 
-### 4. バープロットを作成 ######################################
+### 4. Create bar plot ######################################
 g_Target <-
-  ggplot(df_Target_sig, aes(x = Target, y = count, fill = group)) +  # x軸にギア、y軸に数を設定
-  geom_bar(stat = "identity", position = "dodge") +  # 棒グラフの高さをデータの値に基づいて設定
+  ggplot(df_Target_sig, aes(x = Target, y = count, fill = group)) +  # x-axis: category, y-axis: count
+  geom_bar(stat = "identity", position = "dodge") +  # bar height based on data values
   labs(#title = "Significant Target Counts by cluster", 
        x = "Drug target", y = "Count",  fill = "Cluster") +
   theme_bw() 
 
-### 5. バープロットを調整（横） ######################################
+### 5. Adjust bar plot (horizontal) ######################################
 g_Target_h <- g_Target  + theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
-                                legend.position = c(0.95, 0.95),  # 凡例をプロット内の右上に配置
-                                legend.justification = c("right", "top"))  # 凡例のアンカーポイントを右上に設定
+                                legend.position = c(0.95, 0.95),  # place legend in the upper right inside the plot
+                                legend.justification = c("right", "top"))  # anchor legend to upper-right corner
 g_Target_h
 
-### 5. バープロットを調整（縦） ######################################
+### 5. Adjust bar plot (vertical) ######################################
 g_Target_v <- g_Target + coord_flip()  + 
-  theme( legend.position = c(1, 0.05),  # 凡例をプロット内の右上に配置
+  theme( legend.position = c(1, 0.05),  # place legend in the upper right inside the plot
          legend.justification = c("right", "bottom"))
 g_Target_v
 

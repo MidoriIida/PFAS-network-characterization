@@ -10,7 +10,7 @@ library(httr)
 library(jsonlite)
 
 # ============================================================
-# 1. データ読み込み
+# 1. Load data
 # ============================================================
 
 ## Table 1
@@ -19,7 +19,7 @@ table1 <- read_excel(
 )
 colnames(table1) <- c("ID", "Name", "dc_real", "Zdc")
 
-## ATC分類データ（複数コードは";"結合）
+## ATC classification data (multiple codes joined with ";")
 atc_raw <- read.table(
   "/path/to/your/local/directory/ATC_code.txt",
   sep = "\t", header = FALSE, quote = "", fill = TRUE,
@@ -42,7 +42,7 @@ atc_lookup <- atc_raw %>%
   )
 
 # ============================================================
-# 2. PFAS名の付与・マッチング用キー列の作成
+# 2. Assign PFAS names and create matching key columns
 # ============================================================
 
 pfas_map <- c("335-67-1" = "PFOA", "1763-23-1" = "PFOS")
@@ -59,7 +59,7 @@ table1 <- table1 %>%
   )
 
 # ============================================================
-# 3. ATC結合（3段階マッチング）
+# 3. Merge ATC codes (3-step matching)
 # ============================================================
 
 joined <- left_join(table1,
@@ -68,7 +68,7 @@ joined <- left_join(table1,
                                           atc_l2, atc_l2_name),
                     by = c("name_lower" = "drug_name_lower"))
 
-# Step2: 塩形式除去名で再試行
+# Step 2: Retry with salt-stripped name
 na_idx <- is.na(joined$atc_l1)
 if (any(na_idx)) {
   joined[na_idx, c("atc_l1","atc_l1_name","atc_l2","atc_l2_name")] <-
@@ -80,7 +80,7 @@ if (any(na_idx)) {
                 c("atc_l1","atc_l1_name","atc_l2","atc_l2_name")]
 }
 
-# Step3: 手動補完
+# Step 3: Manual supplement
 manual_atc <- data.frame(
   name_lower   = c("omacor",   "cortisone", "opicapone",  "methylergonovine"),
   atc_l1       = c("C",        "H",          "N",          "G"),
@@ -103,12 +103,12 @@ if (any(na_idx2)) {
                 c("atc_l1","atc_l1_name","atc_l2","atc_l2_name")]
 }
 
-cat("=== ATC マッチ確認 ===\n")
+cat("=== ATC match check ===\n")
 joined %>% select(Name, atc_l1, atc_l2, atc_l2_name) %>%
   distinct() %>% print(n = 30)
 
 # ============================================================
-# 4. ChEMBL MOA 取得
+# 4. Retrieve ChEMBL mechanism of action (MOA)
 # ============================================================
 
 get_chembl_id <- function(drug_name) {
@@ -135,7 +135,7 @@ get_chembl_moa <- function(chembl_id) {
 }
 
 unique_drugs <- unique(joined$Name)
-cat("\n=== ChEMBL MOA 取得中 ===\n")
+cat("\n=== Retrieving ChEMBL MOA ===\n")
 
 chembl_df <- data.frame(Name = unique_drugs,
                          chembl_id = NA_character_,
@@ -159,17 +159,17 @@ for (i in seq_along(unique_drugs)) {
 }
 
 # ============================================================
-# 5. KEGG Target-based Classification (br08310) 取得・解析
+# 5. Retrieve and parse KEGG Target-based Classification (br08310)
 # ============================================================
 
-## --- 5-1. br08310 ダウンロード ---
-cat("\n=== KEGG br08310 取得中 ===\n")
+## --- 5-1. Download br08310 ---
+cat("\n=== Retrieving KEGG br08310 ===\n")
 resp_brite <- GET("https://rest.kegg.jp/get/br:br08310", timeout(60))
-if (status_code(resp_brite) != 200) stop("KEGG API失敗: ", status_code(resp_brite))
+if (status_code(resp_brite) != 200) stop("KEGG API error: ", status_code(resp_brite))
 brite_lines <- strsplit(content(resp_brite, "text", encoding = "UTF-8"), "\n")[[1]]
-cat("取得:", length(brite_lines), "行\n")
+cat("Retrieved:", length(brite_lines), "lines\n")
 
-## --- 5-2. パース: Drug ID → 分類パス ---
+## --- 5-2. Parse: Drug ID -> classification path ---
 parse_brite <- function(lines) {
   cur <- list(A = "", B = "", C = "", D = "")
   out <- list()
@@ -205,7 +205,7 @@ parse_brite <- function(lines) {
 }
 
 brite_df <- parse_brite(brite_lines)
-cat("解析:", nrow(brite_df), "Drug Entry\n")
+cat("Parsed:", nrow(brite_df), "drug entries\n")
 
 save(brite_df, file="./brite_df.dat")
 
@@ -219,7 +219,7 @@ brite_lookup <- brite_df %>%
     .groups = "drop"
   )
 
-## --- 5-3. 薬剤名 → KEGG Drug ID ---
+## --- 5-3. Drug name -> KEGG Drug ID ---
 get_kegg_id <- function(drug_name) {
   url  <- paste0("https://rest.kegg.jp/find/drug/", URLencode(drug_name))
   resp <- tryCatch(GET(url, timeout(15)), error = function(e) NULL)
@@ -229,7 +229,7 @@ get_kegg_id <- function(drug_name) {
   str_extract(strsplit(txt, "\n")[[1]][1], "D\\d{5}")
 }
 
-cat("\n=== KEGG Drug ID 取得中 ===\n")
+cat("\n=== Retrieving KEGG Drug IDs ===\n")
 kegg_id_df <- data.frame(Name = unique_drugs,
                           kegg_id = NA_character_,
                           stringsAsFactors = FALSE)
@@ -250,12 +250,12 @@ for (i in seq_along(unique_drugs)) {
 
 kegg_result <- kegg_id_df %>% left_join(brite_lookup, by = "kegg_id")
 
-cat("\n=== KEGG Target-based Classification 結果 ===\n")
+cat("\n=== KEGG Target-based Classification results ===\n")
 kegg_result %>% select(Name, kegg_id, kegg_cat_A, kegg_cat_B, kegg_cat_D) %>%
   print(n = 30)
 
 # ============================================================
-# 6. 全データ結合・整形・保存
+# 6. Merge all data, reshape, and save
 # ============================================================
 
 result <- joined %>%

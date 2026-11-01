@@ -2,25 +2,25 @@
 #   Figure 3c                            #
 #   KEGG pathway enrichment bar plot     #
 #   cluster 1 vs cluster 2              #
-#   ※ lemon非依存版                     #
+#   lemon-free version                           #
 ##########################################
 set.seed(224)
 
-library(ggplot2)   # lemonより先にロード
+library(ggplot2)   # load before lemon
 library(dplyr)
 library(umap)
 library(reshape2)
 library(stringr)
-# library(lemon)  ← 除外
+# library(lemon)  # excluded
 
 # ============================================================
-# 1. データ読み込み
+# 1. Load data
 # ============================================================
 
-## KEGG pathway エンリッチメント結果（rows = PFAS, cols = KEGG pathways）
+## KEGG pathway enrichment results (rows = PFAS, cols = KEGG pathways)
 load("/path/to/your/local/directory/df_results_enrichment_KEGG_pathway.dat")
 
-## UMAP + クラスタリング（Figure3aと同じ設定で再現）
+## UMAP + clustering (same settings as Figure 3a)
 load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
 hc       <- hclust(dist(list_umap$distnon$layout), method = "complete")
 clusters <- cutree(hc, k = 2)
@@ -28,7 +28,7 @@ umap_df  <- as.data.frame(list_umap$distnon$layout)
 umap_df$cluster <- as.factor(clusters)
 
 # ============================================================
-# 2. クラスターごとにKEGG pathwayの有意エンリッチメント数を集計
+# 2. Count significant KEGG pathway enrichments per cluster
 # ============================================================
 
 cl1 <- rownames(umap_df[umap_df$cluster == 1, ])
@@ -37,18 +37,18 @@ cl2 <- rownames(umap_df[umap_df$cluster == 2, ])
 cat("cluster 1:", length(cl1), "PFAS\n")
 cat("cluster 2:", length(cl2), "PFAS\n")
 
-# 各pathwayについて、有意（p < 0.10）なPFAS数をカウント
+# Count PFAS significantly enriched (p < 0.10) per KEGG pathway
 cluster_1_count <- colSums(df_results[cl1, ] < 0.10, na.rm = TRUE)
 cluster_2_count <- colSums(df_results[cl2, ] < 0.10, na.rm = TRUE)
 
-# クラスターサイズで正規化（割合: %）
-# cluster 1 と cluster 2 のサイズが異なるため比率で比較
+# Normalize by cluster size (proportion: %)
+# Use proportions because cluster 1 and 2 have different sizes
 cluster_1_pct <- cluster_1_count / length(cl1) * 100
 cluster_2_pct <- cluster_2_count / length(cl2) * 100
 
 cat("cluster 1 size:", length(cl1), "/ cluster 2 size:", length(cl2), "\n")
 
-# データフレーム作成
+# Create data frame
 df_plot <- data.frame(
   code    = rep(names(cluster_1_pct), 2),
   count   = c(cluster_1_pct, cluster_2_pct),
@@ -57,18 +57,18 @@ df_plot <- data.frame(
   group_draw_order = factor(
     rep(c("cluster 1", "cluster 2"),
         c(length(cluster_1_pct), length(cluster_2_pct))),
-    levels = c("cluster 2", "cluster 1")  # cluster 1 を前景に
+    levels = c("cluster 2", "cluster 1")  # cluster 1 in foreground
   )
 )
 
-# 両クラスターでカウント0のpathwayを除外
+# Exclude pathways with zero count in both clusters
 df_plot <- df_plot[df_plot$code %in%
                      names(which(tapply(df_plot$count, df_plot$code, sum) > 0)), ]
 
-cat("表示するKEGG pathway数:", length(unique(df_plot$code)), "\n")
+cat("Number of KEGG pathways to plot:", length(unique(df_plot$code)), "\n")
 
 # ============================================================
-# 3. 可視化
+# 3. Visualization
 # ============================================================
 
 g_c <-
@@ -98,7 +98,7 @@ g_c <-
 g_c
 
 # ============================================================
-# 4. 保存
+# 4. Save
 # ============================================================
 
 out_dir <- "/path/to/your/local/directory/Code_for_Manuscript"

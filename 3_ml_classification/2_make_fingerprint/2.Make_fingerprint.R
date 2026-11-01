@@ -1,5 +1,5 @@
 ############################
-#    fingerprintの生成     #
+#    Fingerprint generation    #
 ############################
 library(rcdk)
 library(fingerprint)

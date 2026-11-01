@@ -19,7 +19,7 @@ library(ggrepel)
 library(openxlsx)
 
 # ============================================================
-# 1. データ読み込み
+# 1. Load data
 # ============================================================
 
 ## Drug-space UMAP
@@ -30,7 +30,7 @@ list_umap_drug <- list_umap
 load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
 list_umap_dis <- list_umap
 
-## 事前計算クラスター（階層的クラスタリングの再計算は行わない）
+## Pre-computed clusters (hierarchical clustering not re-run)
 drug_cl_dat  <- get(load("/path/to/your/local/directory/list_cluster.dat"))
 dis_cl_dat   <- get(load("/path/to/your/local/directory/list_cluster_2.dat"))
 
@@ -40,14 +40,14 @@ clusters_disease <- dis_cl_dat$clusters     # named vector, 44 PFAS
 cat("Drug-space cluster sizes:\n");    print(table(clusters_drug))
 cat("Disease-space cluster sizes:\n"); print(table(clusters_disease))
 
-## PFAS略称
+## PFAS abbreviations
 in_f  <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri <- read.xlsx(in_f)
 abbri <- abbri[!is.na(abbri$Acronym), ]
 abbri <- abbri[!duplicated(abbri$CASRN), ]
 
 # ============================================================
-# 2. UMAP座標 + クラスターのデータフレーム化
+# 2. Create data frame from UMAP coordinates + cluster assignments
 # ============================================================
 
 drug_umap_df <- as.data.frame(list_umap_drug$distnon$layout) %>%
@@ -61,7 +61,7 @@ disease_umap_df <- as.data.frame(list_umap_dis$distnon$layout) %>%
   mutate(cluster_disease = clusters_disease[CAS])
 
 # ============================================================
-# 3. クラスター重心を計算
+# 3. Compute cluster centroids
 # ============================================================
 
 centroids_drug <- drug_umap_df %>%
@@ -73,8 +73,8 @@ centroids_disease <- disease_umap_df %>%
   summarise(cx = mean(UMAP1_dis), cy = mean(UMAP2_dis), .groups = "drop")
 
 # ============================================================
-# 4. Cluster 1 score を計算
-#    score = d2 / (d1 + d2)  (cluster 1 重心に近いほど 1 に近づく)
+# 4. Compute Cluster 1 score
+#    score = d2 / (d1 + d2): closer to cluster 1 centroid -> score closer to 1
 # ============================================================
 
 drug_scored <- drug_umap_df %>%
@@ -100,7 +100,7 @@ disease_scored <- disease_umap_df %>%
   ungroup()
 
 # ============================================================
-# 5. 統合データフレーム作成
+# 5. Create integrated data frame
 # ============================================================
 
 df_scored <- inner_join(
@@ -110,14 +110,14 @@ df_scored <- inner_join(
 ) %>%
   left_join(abbri[, c("CASRN", "Acronym")], by = c("CAS" = "CASRN")) %>%
   mutate(
-    # Acronym が NA の場合に手動でラベルを補完
+    # Manually fill labels when Acronym is NA
     Acronym = case_when(
       CAS == "112281-77-3" ~ "Tetraconazole",
       TRUE ~ Acronym
     ),
-    # Group定義: drug_cluster-disease_cluster
+    # Group definition: drug_cluster-disease_cluster
     #   1-1 → Group 1 (n=15)
-    #   1-2 → Group 2 (n=1,  解釈不能)
+    #   1-2 -> Group 2 (n=1, ambiguous)
     #   2-1 → Group 3 (n=10)
     #   2-2 → Group 4 (n=9)
     group = case_when(
@@ -132,18 +132,18 @@ cat("\nGroup distribution:\n")
 print(table(df_scored$group))
 
 # ============================================================
-# 6. 可視化
-#    y 軸: drug-space cl1 score   (上 = drug cl1)
-#    x 軸: disease-space cl1 score (左 = dis cl1, 右 = dis cl2: 反転)
-#    → 左上 = cl1っぽさ大 (Group 1)
-#    → 右下 = cl1っぽさ小 (Group 4)
+# 6. Visualization
+#    y-axis: drug-space cl1 score (top = drug cl1)
+#    x-axis: disease-space cl1 score (left = dis cl1, right = dis cl2: reversed)
+#    -> upper-left = high cl1 similarity (Group 1)
+#    -> lower-right = low cl1 similarity (Group 4)
 # ============================================================
 
-# 境界線の位置（各グループのスコアギャップの中点）
+# Boundary positions (midpoints of score gaps between groups)
 # drug:    Group1/2 min=0.7118, Group3/4 max=0.4990 → midpoint
 # disease: Group1/3 min=0.3991, Group2/4 max=0.3525 → midpoint
-vline <- (0.3991 + 0.3525) / 2   # disease-space 境界 ≈ 0.376（反転軸上）
-hline <- (0.7118 + 0.4990) / 2   # drug-space 境界    ≈ 0.605
+vline <- (0.3991 + 0.3525) / 2   # disease-space boundary approx 0.376 (reversed axis)
+hline <- (0.7118 + 0.4990) / 2   # drug-space boundary approx 0.605
 
 shape_values <- c("Group 1" = 15,   # ■
                   "Group 2" = 3,    # +
@@ -166,7 +166,7 @@ p <-
     segment.size  = 0.2
   ) +
   scale_shape_manual(values = shape_values) +
-  scale_x_reverse(limits = c(1, 0)) +   # 左=dis cl1大, 右=dis cl2大
+  scale_x_reverse(limits = c(1, 0)) +   # left = high dis cl1, right = high dis cl2
   scale_y_continuous(limits = c(0, 1)) +
   labs(
     x     = "Disease-space cluster 1 score",
@@ -184,7 +184,7 @@ p <-
 p
 
 # ============================================================
-# 7. 保存
+# 7. Save
 # ============================================================
 
 out_dir <- "/path/to/your/local/directory/Code_for_Manuscript"

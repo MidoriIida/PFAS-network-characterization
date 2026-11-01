@@ -4,9 +4,9 @@
 #           + KEGG pathway (disease-level)         #
 ####################################################
 #
-# 各疾患についてKEGG Disease IDを取得し、
-# そのエントリからICD-11コード・チャプターと
-# KEGG networkパスウェイを付与する
+# For each disease, retrieve KEGG Disease ID,
+# and from that entry extract ICD-11 code/chapter
+# and KEGG network pathway.
 
 library(readxl)
 library(openxlsx)
@@ -15,7 +15,7 @@ library(stringr)
 library(httr)
 
 # ============================================================
-# 1. Table4 読み込み
+# 1. Load Table 4
 # ============================================================
 
 table4 <- read_excel(
@@ -31,18 +31,18 @@ table4 <- table4 %>%
   )
 
 # ============================================================
-# 2. KEGG Disease ID の取得
+# 2. Retrieve KEGG Disease IDs
 # ============================================================
 
-## "H00004_Chronic myeloid leukemia" → "H00004" を抽出
-## 平名疾患は KEGG API で検索
+## Extract ID from "H00004_Chronic myeloid leukemia" format -> "H00004"
+## For plain disease names, search via KEGG API
 get_kegg_disease_id <- function(disease_name) {
-  # H0xxxx_xxx 形式 → IDを直接抽出
+  # H0xxxx_xxx format -> extract ID directly
   hid <- str_extract(disease_name, "H\\d{5}")
   if (!is.na(hid)) return(hid)
 
-  # 平名疾患名 → KEGG find/disease で検索
-  query <- str_remove(disease_name, "\\s*\\(.*\\)$")  # 括弧以降を除去
+  # Plain disease name -> search via KEGG find/disease
+  query <- str_remove(disease_name, "\\s*\\(.*\\)$")  # strip trailing parenthetical
   url   <- paste0("https://rest.kegg.jp/find/disease/", URLencode(query))
   resp  <- tryCatch(GET(url, timeout(15)), error = function(e) NULL)
   if (is.null(resp) || status_code(resp) != 200) return(NA_character_)
@@ -52,19 +52,19 @@ get_kegg_disease_id <- function(disease_name) {
   lines <- strsplit(txt, "\n")[[1]]
   lines <- lines[nchar(trimws(lines)) > 0]
 
-  # 完全一致の行を優先
+  # Prefer exact match rows
   exact <- lines[tolower(str_extract(lines, "(?<=\\t).*")) == tolower(query)]
   if (length(exact) > 0) return(str_extract(exact[1], "H\\d{5}"))
 
-  # 最初のヒット
+  # Take the first hit
   str_extract(lines[1], "H\\d{5}")
 }
 
 ## ============================================================
-## 3. KEGG Disease エントリのパース
+## 3. Parse KEGG Disease entries
 ## ============================================================
 
-## KEGGエントリから ICD-11 と KEGG pathway を抽出
+## Extract ICD-11 code and KEGG pathway from KEGG entry
 parse_kegg_disease <- function(kegg_id) {
   if (is.na(kegg_id)) {
     return(list(icd11_code = NA, icd11_chapter = NA, kegg_pathway = NA))
@@ -78,13 +78,13 @@ parse_kegg_disease <- function(kegg_id) {
   txt   <- content(resp, "text", encoding = "UTF-8")
   lines <- strsplit(txt, "\n")[[1]]
 
-  ## ICD-11コード: "DBLINKS     ICD-11: 2A20.0"
+  ## ICD-11 code: "DBLINKS     ICD-11: 2A20.0"
   icd_line <- lines[grepl("ICD-11:", lines)]
   icd11_code <- if (length(icd_line) > 0)
     paste(str_extract_all(icd_line, "[0-9A-Z]{4,}(?:\\.[0-9]+)?")[[1]], collapse = "; ")
   else NA_character_
 
-  ## ICD-11チャプター: BRITEセクション内の "XX Neoplasms" 形式の行
+  ## ICD-11 chapter: lines matching "XX Neoplasms" format in BRITE section
   brite_start <- which(grepl("^BRITE", lines))
   brite_end   <- which(grepl("^[A-Z]", lines))
   brite_end   <- brite_end[brite_end > brite_start[1]][1] - 1
@@ -99,7 +99,7 @@ parse_kegg_disease <- function(kegg_id) {
   }
 
   ## KEGG network pathway: "NETWORK     nt06276 Chronic myeloid leukemia"
-  ## または BRITEの "Pathway-based classification" セクション内の "nt0xxxx" 行
+  ## or lines matching "nt0xxxx" in the BRITE Pathway-based classification section
   net_line <- lines[grepl("^NETWORK", lines)]
   if (length(net_line) > 0) {
     kegg_pathway <- paste(
@@ -107,7 +107,7 @@ parse_kegg_disease <- function(kegg_id) {
       collapse = "; "
     )
   } else {
-    # BRITEのPathway-based classificationから取得
+    # Retrieved from BRITE Pathway-based classification section
     pb_start <- which(grepl("Pathway-based classification", lines))
     if (length(pb_start) > 0) {
       pb_lines  <- lines[(pb_start+1):min(pb_start+20, length(lines))]
@@ -126,11 +126,11 @@ parse_kegg_disease <- function(kegg_id) {
 }
 
 # ============================================================
-# 4. ユニーク疾患ごとに API 照会
+# 4. Query API for each unique disease
 # ============================================================
 
 unique_diseases <- unique(table4$Disease)
-cat("照会する疾患数:", length(unique_diseases), "\n\n")
+cat("Number of diseases to query:", length(unique_diseases), "\n\n")
 
 disease_df <- data.frame(
   Disease       = unique_diseases,
@@ -159,14 +159,14 @@ for (i in seq_along(unique_diseases)) {
     cat("  ICD-11 chapter:", ifelse(is.na(parsed$icd11_chapter), "-", parsed$icd11_chapter), "\n")
     cat("  KEGG pathway  :", ifelse(is.na(parsed$kegg_pathway),  "-", parsed$kegg_pathway),  "\n")
   }
-  Sys.sleep(0.3)  # API負荷軽減
+  Sys.sleep(0.3)  # throttle API requests
 }
 
-cat("\n=== 疾患マッピング結果 ===\n")
+cat("\n=== Disease mapping results ===\n")
 print(disease_df %>% select(Disease, kegg_id, icd11_chapter, kegg_pathway))
 
 # ============================================================
-# 5. 結合・整形・保存
+# 5. Merge, reshape, and save
 # ============================================================
 
 result <- table4 %>%
@@ -181,7 +181,7 @@ result <- table4 %>%
     `KEGG pathway`      = kegg_pathway
   )
 
-cat("\n=== 最終テーブル ===\n")
+cat("\n=== Final table ===\n")
 print(result, n = 30)
 
 out_path <- "/path/to/your/local/directory/Table2_PFAS_disease_proximity.xlsx"

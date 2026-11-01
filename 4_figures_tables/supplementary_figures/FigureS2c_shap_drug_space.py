@@ -7,12 +7,12 @@
 #     Feature 1088 (aromatic ring)               #
 #     Feature 1398 (perfluoroalkyl chain)        #
 #   Mean SHAP value by cluster (cluster 1/2)     #
-#   モデル: X_train で学習                        #
-#   SHAP:   全データ (X_all, n=35) で計算         #
-#     → Feature 1088 がテストセットに偶然0個      #
-#       だったため、全データで計算することで       #
-#       代表性を確保する                          #
-#   ターミナル(shap_env)で実行                    #
+#   Model trained on X_train                      #
+#   SHAP computed on all data (X_all, n=35)        #
+#     Feature 1088 was absent in the test set,     #
+#     so all data is used to ensure               #
+#     representativeness.                          #
+#   Run in terminal (shap_env)                    #
 ##################################################
 import shap
 import numpy as np
@@ -22,7 +22,7 @@ from sklearn.ensemble import RandomForestClassifier
 import pickle
 
 # ============================================================
-# 1. データ読み込み（train + test）
+# 1. Load data (train + test)
 # ============================================================
 
 base = "/path/to/your/local/directory/Human_PPI_PFAS"
@@ -41,7 +41,7 @@ with open(f"{base}/Analysis_250412/4.Feature_Selection/feature_names_filtered_Mo
     feature_names_filtered = pickle.load(f)
 
 # ============================================================
-# 2. n=3 の RFE 選択特徴量（Feature 650, 1088, 1398）を抽出
+# 2. Extract RFE-selected features for n=3 (Feature 650, 1088, 1398)
 # ============================================================
 
 n_features = 3
@@ -52,28 +52,28 @@ matched_indices = [i for i, name in enumerate(feature_names_filtered)
 X_sel_train = X_train[:, matched_indices]
 X_sel_test  = X_test[:,  matched_indices]
 
-# 全データ（n=35）: SHAP のグローバル解釈に使用
+# All data (n=35): used for global SHAP interpretation
 X_all = np.vstack([X_sel_train, X_sel_test])
 y_all = np.concatenate([y_train, y_test])
 
 print(f"Selected features (n={n_features}): {selected_features}")
-print(f"Train: {X_sel_train.shape[0]}分子, Test: {X_sel_test.shape[0]}分子, All: {X_all.shape[0]}分子")
+print(f"Train: {X_sel_train.shape[0]} molecules, Test: {X_sel_test.shape[0]} molecules, All: {X_all.shape[0]} molecules")
 print(f"Feature 1088 in Train: {sum(X_sel_train[:,1]==1)}, Test: {sum(X_sel_test[:,1]==1)}, All: {sum(X_all[:,1]==1)}")
 
 # ============================================================
-# 3. RandomForest モデル構築（X_train で学習）
-#    SHAP は全データ（X_all）で計算
+# 3. Build RandomForest model (trained on X_train)
+#    SHAP computed on all data (X_all)
 # ============================================================
 
 rf = RandomForestClassifier(n_estimators=100, random_state=42)
 rf.fit(X_sel_train, y_train)
 
 explainer   = shap.TreeExplainer(rf)
-shap_values = explainer.shap_values(X_all)   # 全35分子で計算
+shap_values = explainer.shap_values(X_all)   # computed on all 35 molecules
 
 # ============================================================
-# 4. クラスターごとの平均 SHAP 値を計算
-#    shap_values[:, :, 0] = class index 0 = label 1 (cluster 1) への寄与
+# 4. Compute mean SHAP values per cluster
+#    shap_values[:, :, 0] = class index 0 = contribution to label 1 (cluster 1)
 # ============================================================
 
 shap_df          = pd.DataFrame(shap_values[:, :, 0], columns=selected_features)
@@ -82,13 +82,13 @@ shap_df['label'] = np.array(y_all)
 mean_shap = shap_df.groupby('label').mean().T
 mean_shap.columns = ['cluster 1', 'cluster 2']
 mean_shap['diff']  = mean_shap['cluster 1'] - mean_shap['cluster 2']
-mean_shap          = mean_shap.sort_values('diff', ascending=True)  # 上: cluster1優位
+mean_shap          = mean_shap.sort_values('diff', ascending=True)  # top: cluster1 dominant
 
 print("\nMean SHAP by cluster:")
 print(mean_shap[['cluster 1', 'cluster 2']].round(4))
 
 # ============================================================
-# 5. Bar chart 描画
+# 5. Draw bar chart
 # ============================================================
 
 fig, ax = plt.subplots(figsize=(5, 3))

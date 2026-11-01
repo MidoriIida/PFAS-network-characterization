@@ -21,12 +21,12 @@ load(in_f)
 ### 2. check ###############
 ctd_human <- ctd[ctd$OrganismID == "9606",]
 
-sum(unique(ctd$ChemicalName) %in% unique(PFAS_drugs$V2)) #全部入っている
-sum(unique(ctd_human$ChemicalName) %in% unique(PFAS_drugs$V2)) #全部入っている
+sum(unique(ctd$ChemicalName) %in% unique(PFAS_drugs$V2)) # all drugs are present
+sum(unique(ctd_human$ChemicalName) %in% unique(PFAS_drugs$V2)) # all drugs are present
 
 ### 3. extraction ###############
 df_ctd_drugs <- ctd_human[(ctd_human$ChemicalName) %in% unique(PFAS_drugs$V2),]
 
-dim(df_ctd_drugs) #[1] 271419     11　interaction　数
+dim(df_ctd_drugs) #[1] 271419     11 (number of interactions)
 length(unique(df_ctd_drugs$ChemicalID)) #900
-length(unique(df_ctd_drugs$GeneID)) #21441 protein 数
+length(unique(df_ctd_drugs$GeneID)) # 21441 proteins

@@ -4,14 +4,14 @@
 #   PFOA & Drug modules    #
 ############################
 #
-# 目的:
-#   PFOA（またはPFOS）と近接薬剤・遠隔薬剤のターゲット遺伝子を
-#   PPIネットワーク上に可視化する（参考: Cheng et al. 2019 Nat Commun Fig.1a）
+# Purpose:
+#   Visualize target genes of PFOA (or PFOS) and proximal/distal drugs
+#   on the PPI network (cf. Cheng et al. 2019 Nat Commun Fig.1a)
 #
-# 必要パッケージ:
+# Required packages:
 #   install.packages(c("igraph","ggraph","tidygraph","dplyr","readxl","stringr","ggrepel"))
 #
-# 出力: Figure1A.pdf (12 x 10 inch)
+# Output: Figure1A.pdf (12 x 10 inch)
 ############################
 
 library(igraph)
@@ -23,67 +23,67 @@ library(stringr)
 library(ggrepel)
 
 # ============================================================
-# 1. データ読み込み
+# 1. Load data
 # ============================================================
 
-## --- パス設定 ---
+## --- Path settings ---
 in_f_ppi      <- "/path/to/your/local/directory/human_PPI_230710_iida.dat"
 in_f_pfas     <- "/path/to/your/local/directory/human_PFAS_genes_230712_iida.dat"
 in_f_zscore   <- "/path/to/your/local/directory/summary_PFAS_appdrug_iidaData_20230716.xlsx"
 in_f_ctd      <- "/path/to/your/local/directory/CTD_chem_gene_ixns.csv"
 
-## --- 1-1. PPIネットワーク（igraphオブジェクト）---
+## --- 1-1. PPI network (igraph object) ---
 g_PPI <- get(load(in_f_ppi))
 cat("PPI nodes:", vcount(g_PPI), "/ edges:", ecount(g_PPI), "\n")
 
-## --- 1-2. PFAS関連遺伝子リスト ---
-load(in_f_pfas)   # → list_PFAS_genes を読み込み
-# list_PFAS_genes$Merged: CAS番号をキーにした遺伝子IDのリスト
+## --- 1-2. PFAS-associated gene list ---
+load(in_f_pfas)   # loads list_PFAS_genes
+# list_PFAS_genes$Merged: list of gene IDs keyed by CAS number
 
-## --- 1-3. PFAS-薬剤 z-scoreデータ ---
+## --- 1-3. PFAS-drug z-score data ---
 zscore_data <- read_excel(in_f_zscore)
 colnames(zscore_data)[c(5, 6)] <- c("sd_dc_null", "Zdc")
 
-## --- 1-4. CTD 薬剤-遺伝子相互作用データ ---
+## --- 1-4. CTD drug-gene interaction data ---
 ctd_raw  <- read.csv(in_f_ctd, skip = 29, header = FALSE)
 colnames(ctd_raw) <- c("ChemicalName", "ChemicalID", "CasRN", "GeneSymbol",
                         "GeneID", "GeneForms", "Organism", "OrganismID",
                         "Interaction", "InteractionActions", "PubMedIDs")
 
-# ヒトタンパク質に絞り込み、PPIネットワーク内の遺伝子のみ保持
+# Filter to human proteins; keep only genes in the PPI network
 ctd_human <- ctd_raw %>%
   filter(Organism == "Homo sapiens",
          GeneForms == "protein",
          GeneID %in% names(V(g_PPI)))
 
 # ============================================================
-# 2. 対象PFAS・薬剤の選択
+# 2. Select target PFAS and drugs
 # ============================================================
 
-## --- 2-0. GeneID → GeneSymbol 変換テーブルをCTDから作成 ---
+## --- 2-0. Build GeneID -> GeneSymbol lookup table from CTD ---
 id2symbol <- ctd_human %>%
   select(GeneID, GeneSymbol) %>%
   distinct() %>%
   mutate(GeneID = as.character(GeneID))
-# 関数: IDベクターをシンボルに変換（マッチしない場合はIDをそのまま返す）
+# Function: convert ID vector to symbols (returns original ID when no match)
 to_symbol <- function(ids) {
   syms <- id2symbol$GeneSymbol[match(as.character(ids), id2symbol$GeneID)]
   ifelse(is.na(syms), as.character(ids), syms)
 }
 
-## --- 2-1. PFOS関連遺伝子 ---
-# CAS番号: PFOA = 335-67-1 / PFOS = 1763-23-1
+## --- 2-1. PFAS-associated genes ---
+# CAS numbers: PFOA = 335-67-1 / PFOS = 1763-23-1
 pfas_cas   <- "335-67-1"   # PFOA
 pfas_name  <- "PFOA"
 pfoa_genes <- unique(list_PFAS_genes$Merged[list_PFAS_genes$Merged$CASRN %in% pfas_cas, "GeneID"])
 pfoa_genes <- pfoa_genes[pfoa_genes %in% names(V(g_PPI))]
 cat(pfas_name, "genes in PPI:", length(pfoa_genes), "\n")
 
-## --- 2-2. 薬剤ごとのCTD遺伝子数を事前計算してフィルタリング ---
+## --- 2-2. Pre-compute per-drug CTD gene counts for filtering ---
 #
-# 問題: CTDには非特異的な相互作用が多い薬剤（例: Ivermectin = 4000超）がある。
-# 解決: 解析に使った基準（遺伝子数20以上）を上限でも絞り込み、
-#       可視化として適切な遺伝子数(20〜200)の薬剤を選ぶ。
+# Issue: some drugs in CTD have many non-specific interactions (e.g., Ivermectin > 4000).
+# Solution: apply both lower and upper bounds on gene count,
+#   keeping drugs with 20-200 genes for visualization.
 
 get_drug_genes <- function(drug_name, ctd_df) {
   ctd_df %>%
@@ -92,30 +92,30 @@ get_drug_genes <- function(drug_name, ctd_df) {
     unique()
 }
 
-## PFOAのz-scoreデータを取得
+## Get PFOA z-score data
 pfoa_zscore <- zscore_data %>%
   filter(str_detect(ID, fixed(pfas_cas))) %>%
   arrange(Zdc)
 
-## 全薬剤の遺伝子数を計算（少し時間がかかる）
+## Compute gene count for all drugs (may take a moment)
 cat("Counting CTD gene counts for all drugs in PFOA z-score table...\n")
 pfoa_zscore$n_genes <- sapply(pfoa_zscore$Name, function(nm) {
   length(get_drug_genes(nm, ctd_human))
 })
 
-## 遺伝子数が20〜200の薬剤に絞る
-##   下限20: モジュールとして意味のある最小サイズ（元解析の基準と同じ）
-##   上限200: 非特異的な多重結合を排除し、視覚的に比較可能なサイズに揃える
+## Filter to drugs with 20-200 associated genes
+##   lower bound 20: minimum meaningful module size (same as original analysis)
+##   upper bound 200: exclude non-specific multi-binding drugs; ensures comparable sizes
 pfoa_zscore_filtered <- pfoa_zscore %>%
   filter(n_genes >= 20, n_genes <= 600)
 
 cat("Drugs with 20-200 genes:", nrow(pfoa_zscore_filtered), "out of", nrow(pfoa_zscore), "\n")
 
-# 最も近接（Zdcが最も小さい）の薬剤
+# Most proximal drug (smallest Zdc)
 drug_close_row  <- pfoa_zscore_filtered[1, ]
 drug_close_name <- drug_close_row$Name
 
-# 最も遠隔（Zdcが最も大きい）の薬剤
+# Most distal drug (largest Zdc)
 drug_far_row  <- pfoa_zscore_filtered[nrow(pfoa_zscore_filtered), ]
 drug_far_name <- drug_far_row$Name
 
@@ -126,7 +126,7 @@ cat("Farthest drug:", drug_far_name,
     "(Zdc =", round(drug_far_row$Zdc, 2),
     ", n_genes =", drug_far_row$n_genes, ")\n")
 
-## --- 2-3. 各薬剤のターゲット遺伝子をCTDから取得 ---
+## --- 2-3. Retrieve target genes for each drug from CTD ---
 drug_close_genes <- get_drug_genes(drug_close_name, ctd_human)
 drug_far_genes   <- get_drug_genes(drug_far_name,   ctd_human)
 
@@ -134,11 +134,11 @@ cat("Genes for", drug_close_name, ":", length(drug_close_genes), "\n")
 cat("Genes for", drug_far_name,   ":", length(drug_far_genes),   "\n")
 
 # ============================================================
-# 3. サブネットワークの抽出
+# 3. Extract subnetwork
 # ============================================================
 
-## --- 3-0. 型の統一・PPI内存在確認 ---
-# CTDのGeneIDはintegerの場合があるため、igraph頂点名(character)に統一
+## --- 3-0. Unify data types and verify presence in PPI ---
+# CTD GeneIDs may be integers; convert to character to match igraph vertex names
 ppi_node_names   <- names(V(g_PPI))
 pfoa_genes       <- as.character(pfoa_genes)
 drug_close_genes <- as.character(drug_close_genes)
@@ -151,10 +151,10 @@ cat("PFOA genes in PPI:", length(pfoa_genes), "\n")
 cat(drug_close_name, "genes in PPI:", length(drug_close_genes), "\n")
 cat(drug_far_name,   "genes in PPI:", length(drug_far_genes),   "\n")
 
-## --- 3-1. 各モジュールをPPI次数上位N遺伝子に絞る ---
-# モジュール遺伝子が多すぎると1ホップ近傍がPPI全体に広がるため、
-# ネットワーク中心性の高いタンパク質（PPI次数上位）に絞って代表させる。
-MAX_MODULE <- 30   # 1モジュールあたりの最大遺伝子数（必要に応じて調整）
+## --- 3-1. Restrict each module to top-N genes by PPI degree ---
+# Too many module genes cause the 1-hop neighborhood to span the entire PPI,
+# so we restrict to high-centrality proteins (top PPI degree) as representatives.
+MAX_MODULE <- 30   # max genes per module (adjust as needed)
 
 top_by_degree <- function(genes, graph, n) {
   degs  <- degree(graph, v = genes, mode = "all")
@@ -168,42 +168,42 @@ drug_far_genes_top   <- top_by_degree(drug_far_genes,   g_PPI, MAX_MODULE)
 all_module_top <- unique(c(pfoa_genes_top, drug_close_genes_top, drug_far_genes_top))
 cat("Module genes after top-N filter:", length(all_module_top), "\n")
 
-## --- 3-2. 背景ノード：PFOAの1ホップ近傍から取得 ---
+## --- 3-2. Background nodes: 1-hop neighbors of PFOA ---
 #
-# 【設計の意図】
-#   背景ノードをPFOAの近傍だけから取ることで、
-#   PPI上に「PFOAの領域（雲）」が形成される。
-#   - 近接薬剤（close drug）: z-score < 0 = PFOAと共通の近傍が多い
-#     → レイアウトでPFOA雲の中に自然に引き寄せられる
-#   - 遠隔薬剤（far drug）: z-score > 0 = PFOAとの共通近傍が少ない
-#     → レイアウトでPFOA雲の外側に押し出される
-#   これにより「近い/遠い」がレイアウトで視覚的に表現される。
+# Design rationale:
+#   Sampling background nodes from PFOA neighborhood
+#   forms a "PFOA cloud" on the PPI layout.
+#   - Proximal drug (z-score < 0): shares many neighbors with PFOA
+#     -> naturally pulled into the PFOA cloud in the layout
+#   - Distal drug (z-score > 0): few neighbors shared with PFOA
+#     -> pushed to the periphery of the PFOA cloud in the layout
+#   This makes proximal/distal relationships visually apparent in the layout.
 
-MAX_BG_NODES <- 60   # 背景ノードの上限（調整可）
+MAX_BG_NODES <- 60   # max background nodes (adjustable)
 
-# PFOAモジュール遺伝子の1ホップ近傍を取得
+# Get 1-hop neighbors of PFOA module genes
 pfoa_vids     <- V(g_PPI)[ppi_node_names %in% pfoa_genes_top]
 pfoa_1hop     <- names(unique(unlist(
   ego(g_PPI, order = 1, nodes = pfoa_vids, mode = "all")
 )))
 
-# ドラッグモジュール遺伝子は除く（後で別色で表示するため）
+# Exclude drug module genes (shown in a different color later)
 drug_all_top  <- unique(c(drug_close_genes_top, drug_far_genes_top))
 bg_candidates <- setdiff(pfoa_1hop, c(pfoa_genes_top, drug_all_top))
 
-# PPI次数が高い順に採用（ネットワークの中心的ノードを優先）
+# Select in order of high PPI degree (prioritize hub proteins)
 bg_deg   <- degree(g_PPI, v = bg_candidates, mode = "all")
 bg_nodes <- names(sort(bg_deg, decreasing = TRUE))[
   seq_len(min(MAX_BG_NODES, length(bg_candidates)))
 ]
 cat("Background nodes (PFOA 1-hop neighborhood):", length(bg_nodes), "\n")
 
-## --- 3-3. 誘導部分グラフを作成 ---
+## --- 3-3. Create induced subgraph ---
 keep_genes <- unique(c(all_module_top, bg_nodes))
 g_sub <- induced_subgraph(g_PPI, vids = V(g_PPI)[ppi_node_names %in% keep_genes])
 cat("Subnetwork nodes:", vcount(g_sub), "/ edges:", ecount(g_sub), "\n")
 
-## --- 3-4. 最大連結成分のみ抽出 ---
+## --- 3-4. Extract largest connected component ---
 comp        <- components(g_sub, mode = "weak")
 largest_id  <- which.max(comp$csize)
 g_sub       <- induced_subgraph(g_sub,
@@ -212,7 +212,7 @@ cat("Largest component nodes:", vcount(g_sub),
     "/ edges:", ecount(g_sub), "\n")
 
 # ============================================================
-# 4. ノード属性の付与
+# 4. Assign node attributes
 # ============================================================
 
 node_df <- data.frame(
@@ -232,20 +232,20 @@ node_df <- data.frame(
       is_far                    ~ drug_far_name,
       TRUE                      ~ "Background"
     ),
-    # モジュールノードのみシンボルをラベル表示、背景ノードはNA
+    # Show gene symbol label for module nodes only; NA for background nodes
     label = if_else(role != "Background", symbol, NA_character_)
   )
 
-## igraphオブジェクトに属性をセット
+## Set attributes on igraph object
 V(g_sub)$role   <- node_df$role[match(names(V(g_sub)), node_df$gene)]
 V(g_sub)$label  <- node_df$label[match(names(V(g_sub)), node_df$gene)]
 V(g_sub)$symbol <- node_df$symbol[match(names(V(g_sub)), node_df$gene)]
 
 # ============================================================
-# 5. 可視化（ggraph）
+# 5. Visualization（ggraph）
 # ============================================================
 
-## カラーパレット（参考図と同系統）
+## Color palette (matching reference figure)
 pfas_targets_label <- paste0(pfas_name, " targets")
 shared_close_label <- paste0("Shared (", pfas_name, " & close drug)")
 shared_far_label   <- paste0("Shared (", pfas_name, " & far drug)")
@@ -260,12 +260,12 @@ role_levels <- c(
 )
 
 role_colors <- c(
-  "#E8476A",   # PFAS targets: ピンク-赤
-  "#56B4E9",   # close drug:   スカイブルー
-  "#F5C842",   # shared close: 黄
-  "#2ECC71" ,  # far drug:     グリーン
-  "#C36CC9",   # shared far:   紫
-  "#C8C8C8"    # Background:   グレー
+  "#E8476A",   # PFAS targets: pink-red
+  "#56B4E9",   # close drug:   sky blue
+  "#F5C842",   # shared close: yellow
+  "#2ECC71" ,  # far drug:     green
+  "#C36CC9",   # shared far:   purple
+  "#C8C8C8"    # Background:   gray
 )
 names(role_colors) <- role_levels
 
@@ -278,39 +278,39 @@ role_size <- c(
 role_size[drug_close_name] <- 4.5
 role_size[drug_far_name]   <- 4.5
 
-## エッジ属性をigraph上で付与してからtidygraphに変換
-## （activate(edges) + .N() はバージョンによって不安定なため、igraphで直接処理）
+## Assign edge attributes on igraph before converting to tidygraph
+## (activate(edges) + .N() is unstable across versions; handle directly in igraph)
 
-# 頂点ロールを名前付きベクターとして取得
+# Get vertex roles as a named vector
 node_roles_vec <- setNames(as.character(V(g_sub)$role), names(V(g_sub)))
 
-# エッジリストで両端のロールを参照
+# Look up the role at each edge endpoint
 el         <- as_edgelist(g_sub, names = TRUE)
 from_roles <- node_roles_vec[el[, 1]]
 to_roles   <- node_roles_vec[el[, 2]]
 
-# エッジタイプを分類
+# Classify edge types
 E(g_sub)$edge_type <- case_when(
-  # 同じモジュール内のエッジ
+  # Edges within the same module
   from_roles == to_roles & from_roles == pfas_targets_label ~ pfas_targets_label,
   from_roles == to_roles & from_roles == drug_close_name    ~ drug_close_name,
   from_roles == to_roles & from_roles == drug_far_name      ~ drug_far_name,
-  # # PFOA target ↔ Ketoprofen のクロスエッジ（青）
+  # # Cross-edges: PFOA target <-> Ketoprofen (blue)
   # (from_roles == pfas_targets_label & to_roles == drug_close_name) |
   # (from_roles == drug_close_name    & to_roles == pfas_targets_label) ~ drug_close_name,
-  # # PFOA target ↔ Norfloxacin のクロスエッジ（緑）
+  # # Cross-edges: PFOA target <-> Norfloxacin (green)
   # (from_roles == pfas_targets_label & to_roles == drug_far_name) |
   # (from_roles == drug_far_name      & to_roles == pfas_targets_label) ~ drug_far_name,
   TRUE                                                       ~ "other"
 )
 
-## tidygraphに変換（edge_type は igraph 属性として引き継がれる）
+## Convert to tidygraph (edge_type carried over as igraph attribute)
 tg <- as_tbl_graph(g_sub) %>%
   activate(nodes) %>%
   mutate(role  = factor(role, levels = role_levels),
          label = label)
 
-## エッジの色・太さスケール（ノード色と統一）
+## Edge color/width scale (unified with node colors)
 edge_colors <- c(role_colors[pfas_targets_label],
                  role_colors[drug_close_name],
                  role_colors[drug_far_name])
@@ -322,7 +322,7 @@ edge_widths <- c(
   setNames(1.5, drug_far_name)
 )
 
-## エッジの色・太さスケール（"other" も含めて一括定義）
+## Edge color/width scale (including "other"; defined in one block)
 all_edge_colors <- c(edge_colors, "other" = "gray80")
 all_edge_widths <- c(edge_widths, "other" = 0.3)
 all_edge_alphas <- c(
@@ -333,17 +333,17 @@ all_edge_alphas <- c(
 )
 
 set.seed(42)
-p <- ggraph(tg, layout = "kk") +   # Kamada-Kawai: 共通近傍が多いほど近くに配置される
-  # 全エッジを1レイヤーで描画（scale で色・太さ・透明度を制御）
+p <- ggraph(tg, layout = "kk") +   # Kamada-Kawai: nodes with more shared neighbors placed closer
+  # Draw all edges in one layer (color, width, alpha controlled by scale)
   geom_edge_link(aes(colour = edge_type,
                      width  = edge_type,
                      alpha  = edge_type)) +
   scale_edge_colour_manual(values = all_edge_colors, guide = "none") +
   scale_edge_width_manual( values = all_edge_widths, guide = "none") +
   scale_edge_alpha_manual( values = all_edge_alphas, guide = "none") +
-  # ノード（ロールによって色・サイズを変える）
+  # Nodes (color and size vary by role)
   geom_node_point(aes(color = role, size = role), show.legend = TRUE) +
-  # ラベル（モジュールノードのみ）
+  # Labels (module nodes only)
   geom_node_label(
     aes(label = label, color = role),
     size = 12, repel = TRUE,
@@ -352,12 +352,12 @@ p <- ggraph(tg, layout = "kk") +   # Kamada-Kawai: 共通近傍が多いほど�
     show.legend   = FALSE,
     na.rm         = TRUE
   ) +
-  # スケール
+  # Scales
   scale_color_manual(values = role_colors, na.value = "#C8C8C8",
                      breaks = role_levels[role_levels != "Background"],
                      name = NULL) +
   scale_size_manual(values = role_size, guide = "none") +
-  # テーマ
+  # Theme
   theme_graph(base_family = "Helvetica") +
   theme(
     legend.position  = "bottom",
@@ -370,39 +370,39 @@ p <- ggraph(tg, layout = "kk") +   # Kamada-Kawai: 共通近傍が多いほど�
     override.aes = list(size = 5)
   ))
 
-## 出力
+## Output
 out_dir  <- "/path/to/your/local/directory/Code_for_Manuscript"
 out_path <- file.path(out_dir, "Figure1A.pdf")
 ggsave(out_path, plot = p, width = 21, height = 10, units = "in")
 cat("Saved:", out_path, "\n")
 
 # ============================================================
-# 6. Cytoscape エクスポート
+# 6. Cytoscape export
 # ============================================================
-# 2通りの方法を用意。どちらか使いやすい方を選んでください。
+# Two export options; choose whichever is more convenient.
 
 ## -------------------------------------------------------
-## Option A: GraphML形式（1ファイルで完結・推奨）
-##   Cytoscapeで: File > Import > Network from File > Figure1A.graphml
+## Option A: GraphML format (single file; recommended)
+##   In Cytoscape: File > Import > Network from File > Figure1A.graphml
 ## -------------------------------------------------------
 
-# ノード属性をigraphオブジェクトに付与（symbol・role・color）
-V(g_sub)$color_hex <- role_colors[V(g_sub)$role]   # Cytoscapeの色設定に使用
+# Assign node attributes to igraph object (symbol, role, color)
+V(g_sub)$color_hex <- role_colors[V(g_sub)$role]   # used for Cytoscape color settings
 
 graphml_path <- file.path(out_dir, "Figure1A.graphml")
 write_graph(g_sub, graphml_path, format = "graphml")
 cat("GraphML saved:", graphml_path, "\n")
 
 ## -------------------------------------------------------
-## Option B: CSV形式（ノードテーブル + エッジテーブル）
-##   Cytoscape操作手順:
+## Option B: CSV format (node table + edge table)
+##   Cytoscape procedure:
 ##   1. File > Import > Network from File → Figure1A_edges.csv
-##      （source列 = source node, target列 = target node に設定）
+##      (set source column = source node, target column = target node)
 ##   2. File > Import > Table from File  → Figure1A_nodes.csv
-##      （"id" 列をキーに既存ノードへマージ）
+##      (merge into existing nodes using "id" column as key)
 ## -------------------------------------------------------
 
-# エッジテーブル（シンボルで表記）
+# Edge table (using gene symbols)
 el_sub     <- as_edgelist(g_sub, names = TRUE)
 edge_csv   <- data.frame(
   source    = to_symbol(el_sub[, 1]),
@@ -412,7 +412,7 @@ edge_csv   <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# ノードテーブル
+# Node table
 node_csv <- data.frame(
   id        = names(V(g_sub)),
   symbol    = V(g_sub)$symbol,
@@ -426,11 +426,11 @@ write.csv(node_csv, file.path(out_dir, "Figure1A_nodes.csv"), row.names = FALSE,
 cat("CSV saved: Figure1A_edges.csv / Figure1A_nodes.csv\n")
 
 ## -------------------------------------------------------
-## Option C: RCy3（CytoscapeをRから直接操作・要 Cytoscape 起動中）
+## Option C: RCy3 (control Cytoscape directly from R; requires Cytoscape running)
 ##   install.packages("BiocManager"); BiocManager::install("RCy3")
 ## -------------------------------------------------------
 # library(RCy3)
-# cytoscapePing()   # Cytoscapeが起動中か確認
+# cytoscapePing()   # check if Cytoscape is running
 #
 # createNetworkFromIgraph(
 #   igraph     = g_sub,
@@ -438,7 +438,7 @@ cat("CSV saved: Figure1A_edges.csv / Figure1A_nodes.csv\n")
 #   collection = "PFAS manuscript"
 # )
 #
-# # ノード色をロールに応じて設定
+# # Set node color by role
 # setNodeColorMapping(
 #   table.column      = "role",
 #   table.column.values = names(role_colors),
