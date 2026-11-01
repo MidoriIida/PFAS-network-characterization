@@ -72,13 +72,10 @@ compute_dc_parallel <- function(n, distance_matrix, node_set_S, node_set_T, hash
 }
 
 ### 1.load data ############################
-#PPI network object
-g_PPI_ext <- get(load("./path/to/intermediate/data/0.make_data/g_comp.dat"))
-
-# extract the largest connected component
-cls <- clusters(g_PPI_ext, "weak")
-g <- induced_subgraph(g_PPI_ext, V(g_PPI_ext)$name[cls$membership==which(cls$csize==max(cls$csize))[[1]]])
-rm(g_PPI_ext)
+# PPI network (LCC) — produced by 0_data_preparation/1_ppi/1.PPI_data_make.R
+load("./path/to/intermediate/data/g_comp.dat")
+g <- g_comp
+rm(g_comp)
 
 # compute distance matrix of the network
 distance_matrix <- distances(g)

@@ -27,13 +27,14 @@ library(ggrepel)
 # ============================================================
 
 ## --- Path settings ---
-in_f_ppi      <- "/path/to/your/local/directory/human_PPI_230710_iida.dat"
+in_f_ppi      <- "/path/to/your/local/directory/g_comp.dat"   # LCC from 1_ppi/1.PPI_data_make.R
 in_f_pfas     <- "/path/to/your/local/directory/list_PFAS_genes.dat"
 in_f_zscore   <- "/path/to/your/local/directory/summary_PFAS_appdrug_iidaData_20230716.xlsx"
 in_f_ctd      <- "/path/to/your/local/directory/CTD_chem_gene_ixns.csv"
 
 ## --- 1-1. PPI network (igraph object) ---
-g_PPI <- get(load(in_f_ppi))
+load(in_f_ppi)   # loads g_comp
+g_PPI <- g_comp; rm(g_comp)
 cat("PPI nodes:", vcount(g_PPI), "/ edges:", ecount(g_PPI), "\n")
 
 ## --- 1-2. PFAS-associated gene list ---
