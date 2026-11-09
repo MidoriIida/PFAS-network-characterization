@@ -5,10 +5,10 @@
 library(igraph)
 
 ### 1. load ####################
-in_f <- "/path/to/your/local/directory/human_PPI_230710_iida.dat"
-load(in_f)
+# g_comp produced by 0_data_preparation/1.PPI_data_load.R
+load("./path/to/intermediate/data/g_comp.dat")
 
 ### 2. output ##################
-df_edge <- as_edgelist(g_PPI_ext, names = TRUE)
+df_edge <- as_edgelist(g_comp, names = TRUE)
 write.table(df_edge, file = "../../data/Supplementary_Data_1_humanPPI.txt",
             quote = F, row.names = F, col.names = F)
