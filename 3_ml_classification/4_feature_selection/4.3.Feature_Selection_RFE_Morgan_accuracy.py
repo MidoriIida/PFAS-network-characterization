@@ -3,7 +3,6 @@
 #############################
 from sklearn.model_selection import cross_val_score, StratifiedKFold
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import fetch_california_housing
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -19,10 +18,10 @@ with open("./path/to/intermediate/data/4.Feature_Selection/rfe_results_Morgan.pk
 with open("./path/to/intermediate/data/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
     X_train = pickle.load(f)
     
-with open("./path/to/intermediate/data//4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
     y_train = pickle.load(f)
-    
-with open("./path/to/intermediate/data//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
+
+with open("./path/to/intermediate/data/4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
     feature_names_filtered = pickle.load(f)
     
 # 2. Candidate feature counts

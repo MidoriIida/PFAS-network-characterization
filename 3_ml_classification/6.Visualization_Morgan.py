@@ -63,7 +63,7 @@ for mol in mols_cl2:
         if bit in bit_info:
             for atom_idx, radius in bit_info[bit]:
                 env = Chem.FindAtomEnvironmentOfRadiusN(mol, radius, atom_idx)
-                highlight_bonds.add(env)
+                highlight_bonds.update(env)
                 atoms = set()
                 for bidx in env:
                     bond = mol.GetBondWithIdx(bidx)

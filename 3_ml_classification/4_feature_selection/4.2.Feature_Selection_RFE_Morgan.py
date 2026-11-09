@@ -12,10 +12,10 @@ import json
 with open("./path/to/intermediate/data/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
     X = pickle.load(f)
     
-with open("./path/to/intermediate/data//4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
     y = pickle.load(f)
 
-with open("./path/to/intermediate/data//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
     feature_names = pickle.load(f)
 
 # 2. Candidate feature counts

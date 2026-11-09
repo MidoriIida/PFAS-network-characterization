@@ -3,6 +3,7 @@
 #   to the EPA PFAS master list   #
 #  convert to Morgan fingerprint  #
 ###############################
+import numpy as np
 import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import AllChem
@@ -15,8 +16,6 @@ masterlist = pd.read_csv('/path/to/your/local/directory/Chemical List pfasmaster
 ### 2. Convert SMILES to Morgan fingerprints ########
 # Get SMILES and CAS columns
 smiles_list = masterlist['SMILES'].dropna().astype(str).tolist() #10986
-cas_list    = masterlist['CASRN'].dropna().astype(str).tolist() #12039
-DTXSID_list = masterlist['DTXSID'].dropna().astype(str).tolist() #12039
 
 # Create generator (bit vector, radius=2, 2048 bits)
 generator = GetMorganGenerator(radius=2, fpSize=2048)

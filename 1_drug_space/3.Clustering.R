@@ -21,7 +21,8 @@ plot(hc)
 clusters <- cutree(hc, k = 2)
 
 list_cluster <- list(hc = hc, clusters = clusters)
-save(list_cluster, file = "./path/to/intermediate/data/list_cluster.dat")
+save(list_cluster,         file = "./path/to/intermediate/data/list_cluster.dat")
+write.csv(list_cluster$clusters, "./path/to/intermediate/data/list_cluster.csv")
 
 ### 3. Plot UMAP with cluster colors ##########################################
 umap_df         <- as.data.frame(list_umap$distnon$layout)

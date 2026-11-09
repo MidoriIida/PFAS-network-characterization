@@ -20,7 +20,7 @@ with open("./path/to/intermediate/data/4.Feature_Selection/y_train_filtered_Morg
 with open("./path/to/intermediate/data/4.Feature_Selection/rfe_results_Morgan.pkl", "rb") as f:
     rfe_results = pickle.load(f)
 
-with open("./path/to/intermediate/data//4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
+with open("./path/to/intermediate/data/4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
     feature_names_filtered = pickle.load(f)
 
 df = pd.read_csv("./path/to/intermediate/data/Fingerprint_Morgan_2048_pfas_masterlist.csv", header=None)
@@ -31,12 +31,9 @@ selected_features = rfe_results[n_features]  # assumes RFE results were pre-save
 matched_indices = [i for i, name in enumerate(feature_names_filtered) if name in selected_features]
 X_selected = X_train[:, matched_indices] # assumes NumPy array + column indices
 
-### 3. Extract data #######################
-df_indices = [s.replace('Feature ', '') for s in ['Feature 650', 'Feature 1088', 'Feature 1398']]
-df_indices = [int(s) for s in df_indices]
-
+### 3. Extract selected features from masterlist fingerprints #####
 df_np = df.iloc[:, 0:2048].to_numpy()
-df_selected = df_np[:, df_indices]
+df_selected = df_np[:, matched_indices]
 
 ### 4. Define model #######################
 rf = RandomForestClassifier(n_estimators=100, random_state=42)
@@ -56,7 +53,7 @@ df_pred['prediction_prob_cls2'] = df_prob.iloc[:, 1]
 
 
 df_feature = pd.DataFrame(df_selected)
-df_pred = pd.concat([df_pred, df_feature])
+df_pred = pd.concat([df_pred, df_feature], axis=1)
 
 # Save
 output_path = "./path/to/intermediate/data/Prediction_pfas_masterlist.csv"
