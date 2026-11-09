@@ -1,5 +1,5 @@
 ##############################################################
-#  Supplementary Data 9                                      #
+#  Supplementary Data 7                                      #
 #  4-group classification results for all EPA PFAS           #
 #  Drug-space (RandomForest) × Disease-space (XGBoost)       #
 #  n = 10,923 (all PFAS with valid SMILES in both models)    #
@@ -8,29 +8,27 @@
 ##############################################################
 library(dplyr)
 
-base <- "/path/to/your/local/directory/Human_PPI_PFAS"
-
 # ============================================================
 # 1. Load data
 # ============================================================
 
 # Drug-space: RandomForest prediction on PFAS master list
 # Columns (no header): DTXSID, SMILES, CASRN, pred_MOA, prob_cl1_MOA, prob_cl2_MOA, ...
-df_M <- read.csv(file.path(base, "Analysis_250412/Prediction_pfas_masterlist.csv"),
+# Produced by: 3_ml_classification_drug/8.Prediction_Morgan_fingerprint_PFASmasterlist.py
+df_M <- read.csv("./path/to/intermediate/data/Prediction_pfas_masterlist.csv",
                  header = FALSE)
 colnames(df_M) <- c("DTXSID", "SMILES", "CASRN",
                     "pred_MOA", "prob_cl1_MOA", "prob_cl2_MOA",
                     "c7", "c8", "c9")
 
 # Disease-space: XGBoost prediction on PFAS master list
-# probability = P(cluster 2); pred_disease_cl1 = 1 - probability
-df_O <- read.csv(file.path(base,
-                 "Analysis_251010/final_predictions_XGBoost_Morgan_chems_PFASmastelist.csv"))
-df_O$pred_disease_cluster <- df_O$predicted_label + 1   # 0/1 → 1/2
-df_O$prob_disease_cl1     <- 1 - df_O$probability       # P(cluster 1)
+# Produced by: 3_ml_classification_disease/6.Prediction_XGBoost_PFASmasterlist.py
+df_O <- read.csv("./path/to/intermediate/data/Prediction_pfas_masterlist_disease.csv")
+df_O$pred_disease_cluster <- df_O$pred_disease_cluster   # already 1/2
+df_O$prob_disease_cl1     <- df_O$prob_disease_cl1
 
 # ============================================================
-# 2. Merge by CASRN (8,831 PFAS)
+# 2. Merge by CASRN
 # ============================================================
 df <- merge(
   df_M[, c("CASRN", "SMILES", "pred_MOA", "prob_cl1_MOA")],
@@ -38,7 +36,7 @@ df <- merge(
   by = "CASRN"
 )
 
-cat("Total PFAS after merge:", nrow(df), "\n")  # 10,923
+cat("Total PFAS after merge:", nrow(df), "\n")
 
 # ============================================================
 # 3. Define groups
@@ -81,7 +79,7 @@ out_df <- df %>%
   ) %>%
   arrange(group, CASRN)
 
-out_path <- "/path/to/your/local/directory/Supplementary_Data_9_Classification_results_for_all_EPA_PFAS.txt"
+out_path <- "./path/to/intermediate/data/Supplementary_Data_7_Classification_results_for_all_EPA_PFAS.txt"
 write.table(out_df, file = out_path,
             quote = FALSE, row.names = FALSE, col.names = TRUE, sep = "\t")
 

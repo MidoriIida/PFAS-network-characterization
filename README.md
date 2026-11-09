@@ -107,7 +107,8 @@ Download the PFAS Master List from the EPA CompTox Chemicals Dashboard:
    masterlist = pd.read_csv('/path/to/your/local/directory/Chemical_List_pfasmaster.csv')
    ```
 
-The prediction results for all EPA PFAS compounds are provided as `data/Supplementary_Data_9_Classification_results_for_all_EPA_PFAS.txt`.
+The merged classification results (drug-space + disease-space, 4 groups) for all EPA PFAS compounds are provided as `data/Supplementary_Data_9_Classification_results_for_all_EPA_PFAS.txt`.
+The R script to reproduce this file is `4_figures_tables/supplementary_data/Supplementary_Data_7_Classification_results_for_all_EPA_PFAS.R`.
 
 Intermediate data files (network proximity scores, UMAP coordinates, clustering results) required to run the visualization scripts are available from the corresponding author upon request.
 
