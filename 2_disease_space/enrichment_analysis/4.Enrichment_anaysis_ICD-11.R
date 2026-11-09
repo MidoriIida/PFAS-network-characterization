@@ -30,8 +30,8 @@ df_H_numbers <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Load KEGG BRITE pathway classification (downloaded from https://www.genome.jp/brite/br08402)
-lines <- readLines("../../data/br08402_KEGG_HumanDiseases_pathway.txt")
+# Load KEGG BRITE ICD-11 classification (downloaded from https://www.genome.jp/brite/br08403)
+lines <- readLines("./path/to/KEGG/data/br08403_KEGG_HumanDiseases_ICD11.txt")
 
 ### 2. make H list  ########################
 # List to store results
@@ -39,18 +39,20 @@ list_brite <- list()
 current_b <- NULL
 
 for (line in lines) {
-  if (grepl("^B\\s+", line)) {
-    # B rows
-    current_b <- trimws(sub("^B\\s+", "", line))
+  if (grepl("^[0-9]{2} ", line)) {
+    # Extract names from B rows (e.g., "nt06031  Citrate cycle and pyruvate metabolism")
+    current_b <- line
     list_brite[[current_b]] <- character(0)
-  } else if (grepl("^C\\s+H[0-9]{5}", line) && !is.null(current_b)) {
-    # C rows
-    h_number <- sub("^C\\s+(H[0-9]{5}).*", "\\1", line)
+  } else if (grepl("^H[0-9]{5}", line) && !is.null(current_b)) {
+    # Extract elements from C rows (e.g., "H01225  D-2-hydroxyglutaric aciduria")
+    #value <- trimws(sub("^C\\s+", "", line))
+    h_number <- sub("(H\\d+).*", "\\1", line)
     list_brite[[current_b]] <- c(list_brite[[current_b]], h_number)
   }
 }
 
-
+save(list_brite, file = "./path/to/intermediate/data/6.Enrichment_anaysis/list_brite.dat")
+       
 ### 3. Make dist mat ##############################
 df_z <- df_dist[which(!duplicated(sapply(strsplit(rownames(df_dist), "_"), function(x){x[length(x)]}))),]
 
@@ -64,9 +66,9 @@ names(list_my_h) <- colnames(df_z)
 my_h <- unique(unlist(list_my_h))
 
 df_res <- sapply(list_brite, function(h_in_category){
-  MyFisher(my_h = my_h, 
-           h_in_category = h_in_category, 
-           all_h = all_h)}) 
+MyFisher(my_h = my_h, 
+         h_in_category = h_in_category, 
+         all_h = all_h)}) 
 
 df_res_fdr <- p.adjust(df_res, method = "fdr")
 
@@ -95,10 +97,11 @@ colnames(p_fdr) <- colnames(p_matrix)
 # Convert back to data frame (same shape as original)
 df_fdr <- as.data.frame(p_fdr)
 
+
 ### 5. check the result ########################
 list_res <- sapply(1:45, function(i){which((df_results[i,] < 0.05))})
-
 colSums(df_results < 0.05) # not many significant results
-colSums(df_fdr < 0.05) # none
+colSums(df_fdr < 0.05) # a few significant results, but not many
 
-save(df_results, file="./path/to/intermediate/data/df_results_enrichment_KEGG_pathway.dat")
+save(df_results, file="./path/to/intermediate/data/df_results_enrichment_KEGG_ICD11.dat")
+save(df_fdr,     file="./path/to/intermediate/data/df_results_enrichment_KEGG_ICD11_fdr.dat")
