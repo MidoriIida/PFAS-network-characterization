@@ -2,7 +2,6 @@
 #  Supplementary Data 4    #
 #      disease genes       #
 ############################
-library(igraph)
 
 ### 1. load ####################
 # list_disease_genes produced by 0_data_preparation/4.disease_data_load.R
