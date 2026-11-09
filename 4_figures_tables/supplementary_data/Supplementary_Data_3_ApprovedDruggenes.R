@@ -17,7 +17,7 @@ cat("Unique genes (GeneID):    ", length(unique(df_ctd_drugs$GeneID)), "\n")    
 ### 2. Save ######################
 write.table(df_ctd_drugs[, c("ChemicalName", "ChemicalID", "CasRN",
                               "GeneSymbol", "GeneID")],
-            file = "./Supplementary_Data_3_ApprovedDruggenes.txt",
+            file = "../../data/Supplementary_Data_3_ApprovedDruggenes.txt",
             quote = FALSE, row.names = FALSE, col.names = TRUE, sep = "\t")
 
 cat("Saved: Supplementary_Data_3_ApprovedDruggenes.txt\n")

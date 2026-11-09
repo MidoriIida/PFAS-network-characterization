@@ -10,5 +10,5 @@ load(in_f)
 
 ### 2. output ##################
 df_edge <- as_edgelist(g_PPI_ext, names = TRUE)
-write.table(df_edge, file = "./Supplementary_Data_1_humanPPI.txt", 
+write.table(df_edge, file = "../../data/Supplementary_Data_1_humanPPI.txt",
             quote = F, row.names = F, col.names = F)

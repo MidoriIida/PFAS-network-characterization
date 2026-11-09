@@ -9,11 +9,11 @@ library(igraph)
 in_f <- "./path/to/intermediate/data/list_disease_genes.dat"
 load(in_f)
 
-### 5. save ##########################
+### 2. save ##########################
 df_disease <- data.frame(unlist(list_disease_genes))
 cleaned <- sub("[0-9]+$", "", rownames(df_disease))
 df_disease <- as.data.frame(cbind("DiseaseNames"=cleaned, "EntrezGeneID" = df_disease$unlist.list_disease_genes.))
 
-write.table(df_disease, file = "./Supplementary_Data_4_DiseaseGenes.txt", 
+write.table(df_disease, file = "../../data/Supplementary_Data_4_DiseaseGenes.txt",
             quote = F, row.names = F, col.names = T)
 
