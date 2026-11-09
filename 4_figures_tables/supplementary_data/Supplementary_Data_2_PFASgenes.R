@@ -2,10 +2,9 @@
 #  Supplementary Data 2    #
 #       PFAS genes         #
 ############################
-library(igraph)
 
 ### 1. Load ################################
-# list_PFAS_genes produced by 0_data_preparation/2_pfas_genes/1.PFAS_genes_load.R
+# list_PFAS_genes produced by 0_data_preparation/2.PFAS_genes_load.R
 in_f <- "./path/to/intermediate/data/list_PFAS_genes.dat"
 load(in_f)
 
