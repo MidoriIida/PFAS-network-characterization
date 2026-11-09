@@ -94,7 +94,7 @@ Input data used in this study are obtained from publicly available sources:
 | Drug-associated genes | CTD |
 | Disease-associated genes | OMIM, ClinVar, GWAS Catalog, PheWAS Catalog |
 | PFAS structures (45 compounds) | EPA CompTox Chemicals Dashboard |
-| Drug ATC codes / targets | KEGG, DrugBank |
+| Drug ATC codes / targets | KEGG, DrugBank (provided as `data/ATC_code.txt`) |
 | Disease classifications | ICD-11, KEGG Disease (br08402, br08403) |
 
 ### EPA PFAS Master List (required for `3_ml_classification_drug/7.`, `8.` and `3_ml_classification_disease/5.`, `6.`)

@@ -1,6 +1,14 @@
 ####################################################
 #  Table 1 + ATC + ChEMBL MOA + KEGG br08310      #
 ####################################################
+#
+# Input: Supplementary_Data_5_Zdc_PFAS_Drug.txt
+#        (produced by 4_figures_tables/supplementary_data/
+#         Supplementary_Data_5_Zdc_PFAS_Drug.R, written to data/)
+#        ATC_code.txt (provided in data/)
+# Selection: PFOA and PFOS only;
+#            10 most proximal drugs (lowest Zdc) +
+#            3 most distal drugs (highest Zdc) per PFAS
 
 library(readxl)
 library(openxlsx)
@@ -10,18 +18,36 @@ library(httr)
 library(jsonlite)
 
 # ============================================================
-# 1. Load data
+# 1. Prepare input: filter significant PFAS-drug pairs
 # ============================================================
 
-## Table 1
-table1 <- read_excel(
-  "/path/to/your/local/directory/Table1_PFAS_drug_proximity.xlsx"
+data <- read.table(
+  "../../data/Supplementary_Data_5_Zdc_PFAS_Drug.txt",
+  sep = "\t", header = TRUE, quote = "", stringsAsFactors = FALSE
 )
+
+# Zdc(dc_null) column; read.table converts parentheses to dots
+zdc_col <- grep("Zdc", colnames(data), value = TRUE)[1]
+data[[zdc_col]] <- as.numeric(data[[zdc_col]])
+
+pfas_map <- c("335-67-1" = "PFOA", "1763-23-1" = "PFOS")
+
+PFOA <- data[grep("335-67-1", data$ID), ]
+PFOA <- PFOA[order(PFOA[[zdc_col]]), ]
+
+PFOS <- data[grep("1763-23-1", data$ID), ]
+PFOS <- PFOS[order(PFOS[[zdc_col]]), ]
+
+# 10 most proximal (lowest Zdc) + 3 most distal (highest Zdc) per PFAS
+table1 <- rbind(
+  head(PFOA, n = 10), tail(PFOA, n = 3),
+  head(PFOS, n = 10), tail(PFOS, n = 3)
+)[, c("ID", "Name", "dc_real", zdc_col)]
 colnames(table1) <- c("ID", "Name", "dc_real", "Zdc")
 
 ## ATC classification data (multiple codes joined with ";")
 atc_raw <- read.table(
-  "/path/to/your/local/directory/ATC_code.txt",
+  "../../data/ATC_code.txt",
   sep = "\t", header = FALSE, quote = "", fill = TRUE,
   stringsAsFactors = FALSE
 )
@@ -44,8 +70,6 @@ atc_lookup <- atc_raw %>%
 # ============================================================
 # 2. Assign PFAS names and create matching key columns
 # ============================================================
-
-pfas_map <- c("335-67-1" = "PFOA", "1763-23-1" = "PFOS")
 
 table1 <- table1 %>%
   mutate(
