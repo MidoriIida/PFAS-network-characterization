@@ -7,6 +7,13 @@
 # For each disease, retrieve KEGG Disease ID,
 # and from that entry extract ICD-11 code/chapter
 # and KEGG network pathway.
+#
+# Input: Supplementary_Data_6_Zdc_PFAS_disease.txt
+#        (produced by 4_figures_tables/supplementary_data/
+#         Supplementary_Data_6_Zdc_PFAS_disease.R)
+# Selection: PFOA and PFOS only;
+#            10 most proximal diseases (lowest Zdc) +
+#            3 most distal diseases (highest Zdc) per PFAS
 
 library(readxl)
 library(openxlsx)
@@ -15,15 +22,32 @@ library(stringr)
 library(httr)
 
 # ============================================================
-# 1. Load Table 4
+# 1. Prepare input: filter significant PFAS-disease pairs
 # ============================================================
 
-table4 <- read_excel(
-  "/path/to/your/local/directory/Table4_PFAS_disease_proximity.xlsx"
+data <- read.table(
+  "./path/to/intermediate/data/Supplementary_Data_6_Zdc_PFAS_disease.txt",
+  sep = "\t", header = TRUE, quote = "", stringsAsFactors = FALSE
 )
-colnames(table4) <- c("ID", "Disease", "dc_real", "Zdc")
+
+# Column 6 is Zdc(dc_null); read.table converts "(" and ")" to "."
+zdc_col <- grep("Zdc", colnames(data), value = TRUE)[1]
 
 pfas_map <- c("335-67-1" = "PFOA", "1763-23-1" = "PFOS")
+
+PFOA <- data[grep("335-67-1", data$ID), ]
+PFOA <- PFOA[order(PFOA[[zdc_col]]), ]
+
+PFOS <- data[grep("1763-23-1", data$ID), ]
+PFOS <- PFOS[order(PFOS[[zdc_col]]), ]
+
+# 10 most proximal (lowest Zdc) + 3 most distal (highest Zdc) per PFAS
+table4 <- rbind(
+  head(PFOA, n = 10), tail(PFOA, n = 3),
+  head(PFOS, n = 10), tail(PFOS, n = 3)
+)[, c("ID", "Name", "dc_real", zdc_col)]
+colnames(table4) <- c("ID", "Disease", "dc_real", "Zdc")
+
 table4 <- table4 %>%
   mutate(
     cas  = str_extract(ID, "^[^|]+"),

@@ -9,7 +9,7 @@ in_f <- "/path/to/your/local/directory/summary_PFAS_diseaes_iidaData_20230716.xl
 data <- read_excel(in_f)
 colnames(data)[c(5,6)] <- c("sd(dc_null)", "Zdc(dc_null)")
 
-write.table(data, file = "./Supplementary_Data_6_Zdc_PFAS_disease.txt", 
+write.table(data, file = "./path/to/intermediate/data/Supplementary_Data_6_Zdc_PFAS_disease.txt",
             quote = F, row.names = F, col.names = T)
 
 #### 2. for manuscript ######################

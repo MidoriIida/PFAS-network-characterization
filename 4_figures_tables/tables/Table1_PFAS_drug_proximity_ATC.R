@@ -207,7 +207,7 @@ parse_brite <- function(lines) {
 brite_df <- parse_brite(brite_lines)
 cat("Parsed:", nrow(brite_df), "drug entries\n")
 
-save(brite_df, file="./brite_df.dat")
+save(brite_df, file="./path/to/intermediate/data/brite_df.dat")
 
 brite_lookup <- brite_df %>%
   group_by(kegg_id) %>%
