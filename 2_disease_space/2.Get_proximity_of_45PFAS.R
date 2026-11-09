@@ -7,8 +7,8 @@ library(openxlsx)
 load(file = "./path/to/intermediate/data/list_dist_mat_disease_PFAS.dat")
 
 ### 2. get proximity ################
-df_dist <- as.data.frame(sapply(list_dist_mat, function(x){as.numeric(x[,6])}))
-rownames(df_dist) <- list_dist_mat[["103055-07-8"]]$disease
+df_dist <- as.data.frame(sapply(list_dist_mat, function(x){as.numeric(x[,"z_dc"])}))
+rownames(df_dist) <- list_dist_mat[[1]]$disease
 
 save(df_dist, file = "./path/to/intermediate/data/df_dist_45PFAS_disease.dat")
 

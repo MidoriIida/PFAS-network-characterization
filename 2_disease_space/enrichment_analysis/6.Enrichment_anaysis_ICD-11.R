@@ -20,14 +20,18 @@ MyFisher <- function(my_h, h_in_category, all_h){
 }
 
 ### 1. load data ##########################
-# Load disease list
-load(file = "/path/to/your/local/directory/df_H_numbers.dat") #df_H_numbers
-
-# Load proximity list
+# Load proximity list (produced by 2_disease_space/2.Get_proximity_of_45PFAS.R)
 load(file = "./path/to/intermediate/data/df_dist_45PFAS_disease.dat") #df_dist
 
-# Load text file
-lines <- readLines("/path/to/your/local/directory/br08403_KEGG BRITE_ Human Diseases in ICD-11 Classification.txt")
+# Build H-number lookup from disease rownames (format: "H00003_Acute myeloid leukemia")
+df_H_numbers <- data.frame(
+  targets = rownames(df_dist),
+  H_name  = sub("_.*", "", rownames(df_dist)),
+  stringsAsFactors = FALSE
+)
+
+# Load KEGG BRITE ICD-11 classification (downloaded from https://www.genome.jp/brite/br08403)
+lines <- readLines("../../data/br08403_KEGG_HumanDiseases_ICD11.txt")
 
 ### 2. make H list  ########################
 # List to store results
@@ -99,5 +103,5 @@ list_res <- sapply(1:45, function(i){which((df_results[i,] < 0.05))})
 colSums(df_results < 0.05) # not many significant results
 colSums(df_fdr < 0.05) # a few significant results, but not many
 
-save(df_results, file="/path/to/your/local/directory/df_results_enrichment_KEGG_ICD11.dat")
+save(df_results, file="./path/to/intermediate/data/df_results_enrichment_KEGG_ICD11.dat")
 save(df_fdr,     file="./path/to/intermediate/data/df_results_enrichment_KEGG_ICD11_fdr.dat")

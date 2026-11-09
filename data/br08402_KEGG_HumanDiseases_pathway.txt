@@ -1,0 +1,1406 @@
++C	Disease
+!
+ACarbohydrate metabolism
+B  nt06031  Citrate cycle and pyruvate metabolism
+C    H01225  D-2-hydroxyglutaric aciduria
+C    H01096  Pyruvate kinase deficiency
+C    H00072  Pyruvate dehydrogenase complex deficiency
+C    H01997  Pyruvate dehydrogenase E1-alpha deficiency
+C    H01998  Pyruvate dehydrogenase E1-beta deficiency
+C    H01999  Pyruvate dehydrogenase E2 deficiency
+C    H02000  Dihydrolipoamide dehydrogenase deficiency
+C    H00073  Pyruvate carboxylase deficiency
+C    H02520  Phosphoenolpyruvate carboxykinase deficiency
+C    H01022  Diseases of the tricarboxylic acid cycle
+C    H02004  Fumarase deficiency
+C    H02006  Alpha-ketoglutarate dehydrogenase complex deficiency
+C    H02113  Infantile cerebellar-retinal degeneration
+C    H02562  Yoon-Bellen neurodevelopmental syndrome
+C    H02005  Mitochondrial complex II deficiency
+B  nt06017  Glycogen metabolism
+C    H00069  Glycogen storage disease
+C    H01939  Glycogen storage disease type I
+C    H01940  Glycogen storage disease type II
+C    H01941  Glycogen storage disease type III
+C    H01942  Glycogen storage disease type IV
+C    H01943  Glycogen storage disease type V
+C    H01944  Glycogen storage disease type VI
+C    H01945  Glycogen storage disease type VII
+C    H01946  Glycogen storage disease type XI
+C    H01947  Fanconi-Bickel syndrome
+C    H01949  Glycogen storage disease type 0b
+C    H01950  Glycogen storage disease type 0a
+C    H01951  Glycogen storage disease type X
+C    H01952  Glycogen storage disease type XII
+C    H01953  Glycogen storage disease type XIII
+C    H01955  Glycogen storage disease type XV
+B  nt06023  Galactose degradation
+C    H00070  Galactosemia
+C    H02008  Galactose-1P uridylyltransferase deficiency
+C    H02009  Galactokinase deficiency
+C    H02010  Galactose epimerase deficiency
+ALipid/glycolipid metabolism
+B  nt06020  beta-Oxidation in mitochondria
+C    H01589  Systemic primary carnitine deficiency
+C    H01981  Carnitine palmitoyltransferase I deficiency
+C    H01982  Carnitine palmitoyltransferase II deficiency
+C    H01983  Carnitine-acylcarnitine translocase deficiency
+C    H00392  VLCAD deficiency
+C    H00488  MCAD deficiency
+C    H00489  LCHAD deficiency
+C    H00525  Disorders of mitochondrial fatty-acid oxidation
+C    H01352  Mitochondrial trifunctional protein deficiency
+C    H01364  3-Hydroxyacyl-CoA dehydrogenase deficiency
+C    H01980  SCAD deficiency
+B  nt06021  beta-Oxidation in peroxisome
+C    H02099  Alpha-methylacyl-CoA racemase deficiency
+C    H00407  Peroxisomal beta-oxidation enzyme deficiency
+C    H00874  Leukoencephalopathy with dystonia and motor neuropathy
+C    H02096  Peroxisomal acyl-CoA oxidase deficiency
+C    H02098  D-bifunctional protein deficiency
+B  nt06034  Cholesterol biosynthesis
+C    H01143  Vitamin D-dependent rickets
+C    H00161  Smith-Lemli-Opitz syndrome
+C    H00206  Mevalonate kinase deficiency
+C    H00617  Desmosterolosis
+C    H01281  Lathosterolosis
+C    H01933  Porokeratosis
+C    H02132  Microcephaly syndrome
+C    H00447  HEM skeletal dysplasia
+C    H00496  Congenital hemidysplasia with ichthyosiform nevus and limb defects (CHILD)
+C    H01194  X-linked chondrodysplasia punctata
+C    H02303  Alopecia-mental retardation syndrome
+C    H01917  CK syndrome
+C    H02248  MEND syndrome
+B  nt06019  Steroid hormone biosynthesis
+C    H00216  Congenital adrenal hyperplasia
+C    H01111  Cortisone reductase deficiency
+C    H00259  Apparent mineralocorticoid excess syndrome
+C    H00258  Aldosterone synthase deficiency
+C    H02314  Adrenal insufficiency, congenital, with 46XY sex reversal, partial or complete
+C    H01163  Corticosteroid-binding globulin (CBG) deficiency
+C    H00794  Aromatase excess syndrome
+C    H02020  Aromatase deficiency
+C    H00607  46,XY gonadal dysgenesis
+C    H00608  46,XY disorder of sex development due to testosterone secretion defect
+B  nt06022  Bile acid biosynthesis
+C    H00151  Cerebrotendinous xanthomatosis
+C    H00628  Congenital bile acid synthesis defect
+B  nt06014  Sphingolipid degradation
+C    H00423  Sphingolipidosis
+C    H00124  GM2 gangliosidoses
+C    H00281  GM1 gangliosidosis
+C    H02016  Tay-Sachs disease
+C    H02017  Sandhoff disease
+C    H00125  Fabry disease
+C    H00127  Metachromatic leukodystrophy
+C    H00126  Gaucher disease
+C    H00137  Niemann-Pick disease type A/B
+C    H00138  Farber lipogranulomatosis
+C    H00135  Krabbe disease
+ANucleotide metabolism
+B  nt06027  Purine salvage pathway
+C    H00194  Lesch-Nyhan syndrome
+C    H00195  Adenine phosphoribosyltransferase deficiency
+AAmino acid metabolism
+B  nt06033  Glycine, serine and arginine metabolism
+C    H01079  3-Phosphoglycerate dehydrogenase (3-PGDH) deficiency
+C    H01082  Phosphoserine aminotransferase deficiency
+C    H02116  Phosphoserine phosphatase deficiency
+C    H01003  Dimethylglycine dehydrogenase deficiency
+C    H00191  Nonketotic hyperglycinemia
+C    H02657  Sarcosinemia
+C    H00190  Hyperprolinemia
+C    H00189  Ornithinaemia
+C    H02919  Bachmann-Bupp syndrome
+C    H01894  Multiple mitochondrial dysfunctions syndrome
+C    H00849  Cerebral creatine deficiency syndrome
+C    H02117  Neu-Laxova syndrome
+C    H00597  Snyder-Robinson syndrome
+C    H02918  Neurodevelopmental disorder with cardiomyopathy, spasticity, and brain abnormalities
+B  nt06030  Methionine metabolism
+C    H00182  Cystathioninuria
+C    H00183  Homocystinuria
+C    H00184  Hypermethioninemia
+B  nt06024  Valine, leucine and isoleucine degradation
+C    H00172  Maple syrup urine disease
+C    H01279  Isobutyryl-CoA dehydrogenase deficiency
+C    H02285  Methylmalonate semialdehyde dehydrogenase deficiency
+C    H01349  Methacrylic aciduria
+C    H00173  Isovaleric acidemia
+C    H00174  Methylmalonic aciduria
+C    H00175  Propionic acidemia
+C    H00181  3-Methylcrotonylglycinuria
+C    H00375  SBCAD deficiency
+C    H00754  3-Methylglutaconic aciduria
+C    H00925  2-Methyl-3-hydroxybutyryl-CoA dehydrogenase (MHBD) deficiency
+C    H00179  3-Hydroxy-3-methylglutaryl-CoA lyase deficiency
+C    H02000  Dihydrolipoamide dehydrogenase deficiency
+B  nt06036  Lysine degradation
+C    H01583  Hydroxykynureninuria
+C    H00188  Hyperlysinemia
+C    H01242  Saccharopinuria
+C    H02644  Alpha-aminoadipic and alpha-ketoadipic aciduria
+C    H00178  Glutaric acidemia
+C    H01929  2,4-Dienoyl-CoA reductase deficiency
+C    H01247  Pyridoxine-dependent epilepsy
+C    H02087  Vertebral, cardiac, renal, and limb defects syndrome
+B  nt06010  Urea cycle
+C    H00187  Ornithine transcarbamylase deficiency
+C    H01398  Primary hyperammonemia (Urea cycle disorders)
+C    H01028  Argininosuccinic aciduria
+C    H00164  Carbamoyl phosphate synthetase I deficiency
+C    H00186  Hyperargininemia
+C    H00185  Citrullinemia
+C    H01032  N-acetylglutamate synthase deficiency
+B  nt06037  Histidine metabolism
+C    H01262  Formiminotransferase deficiency
+C    H00171  Histidinemia
+C    H01233  Urocanase deficiency
+C    H00862  Tourette syndrome
+B  nt06016  Phenylalanine and tyrosine metabolism
+C    H00167  Phenylketonuria
+C    H00163  Alkaptonuria
+C    H00165  Tyrosinemia
+B  nt06028  Dopamine and serotonin metabolism
+C    H01005  Dopamine beta-hydroxylase deficiency
+C    H01161  Aromatic L-amino acid decarboxylase deficiency
+C    H02597  Sepiapterin reductase deficiency
+C    H00548  Brunner syndrome
+C    H01895  Attention deficit hyperactivity disorder (ADHD)
+C    H01646  Major depressive disorder
+C    H00057  Parkinson disease
+C    H02557  Dopa-responsive dystonia
+C    H02676  Infantile-onset parkinsonism-dystonia
+C    H00168  Oculocutaneous albinism
+B  nt06026  Glutathione biosynthesis
+C    H00668  Anemia due to disorders of glutathione metabolism
+C    H02313  5-Oxoprolinase deficiency
+C    H02312  Glutathione synthetase deficiency
+C    H01375  Glucose 6-phosphate dehydrogenase deficiency
+C    H01825  Spondylometaphyseal dysplasia, Sedaghatian type
+AGlycan/glycoprotein metabolism
+B  nt06015  N-Glycan biosynthesis
+C    H00118  Congenital disorders of glycosylation type I
+C    H00119  Congenital disorders of glycosylation type II
+B  nt06013  O-Glycan biosynthesis
+C    H01959  Muscular dystrophy-dystroglycanopathy type C
+C    H00120  Muscular dystrophy-dystroglycanopathy type A
+C    H01960  Muscular dystrophy-dystroglycanopathy type B
+C    H02307  Muscular dystrophy-dystroglycanopathy
+B  nt06029  Glycosaminoglycan biosynthesis
+C    H02491  Immunoskeletal dysplasia with neurodevelopmental abnormalities
+C    H00255  Hypogonadotropic hypogonadism
+C    H00768  Autosomal recessive intellectual developmental disorder
+C    H00762  Spondyloepiphyseal dysplasia with congenital joint dislocations
+C    H00122  Multiple exostoses
+C    H01494  SEMD with joint laxity type
+C    H00494  Desbuquois syndrome
+C    H01498  Multiple joint dislocations, short stature, craniofacial dysmorphism, and congenital heart defects
+C    H01496  Spondyloocular syndrome
+C    H02551  Skeletal dysplasia with joint laxity and advanced bone age
+C    H01497  Temtamy preaxial brachydactyly syndrome
+C    H02239  Ehlers-Danlos syndrome, spondylodysplastic type
+C    H02246  Ehlers-Danlos syndrome musculocontractural type
+B  nt06012  Glycosaminoglycan degradation
+C    H00421  Mucopolysaccharidosis
+C    H00128  Mucopolysaccharidosis type I
+C    H00129  Mucopolysaccharidosis type II
+C    H00123  Mucopolysaccharidosis type IV
+C    H00131  Mucopolysaccharidosis type VI
+C    H00130  Mucopolysaccharidosis type III
+C    H00132  Mucopolysaccharidosis type VII
+C    H00133  Mucopolysaccharidosis type IX
+B  nt06018  GPI-anchor biosynthesis
+C    H01486  Multiple congenital anomalies-hypotonia-seizures syndrome
+C    H01487  CHIME syndrome
+C    H01127  PIGM-congenital disorder of glycosylation
+C    H01489  Inherited glycosylphosphatidylinositol deficiencies
+C    H01485  Autosomal recessive mental retardation-42
+C    H01488  Hyperphosphatasia with mental retardation syndrome
+B  nt06035  Blood group carbohydrate antigen biosynthesis
+C    H00119  Congenital disorders of glycosylation type II
+ACofactor/vitamin metabolism
+B  nt06032  Lipoic acid metabolism
+C    H02000  Dihydrolipoamide dehydrogenase deficiency
+C    H02438  Hyperglycinemia, lactic acidosis, and seizures
+C    H02518  Neonatal severe encephalopathy with lactic acidosis and brain abnormalities
+C    H02643  Lipoyltransferase 1 deficiency
+B  nt06038  Folate metabolism
+C    H01197  Dihydrofolate reductase deficiency
+C    H01262  Formiminotransferase deficiency
+C    H01003  Dimethylglycine dehydrogenase deficiency
+C    H02657  Sarcosinemia
+C    H00262  Neural tube defects, folate-sensitive
+B  nt06025  Molybdenum cofactor biosynthesis
+C    H02311  Molybdenum cofactor deficiency
+C    H00192  Xanthinuria
+B  nt06011  Heme biosynthesis
+C    H01763  Porphyria
+B  nt06538  Cobalamin transport and metabolism
+C    H01277  Vitamin B12 deficiency anaemia
+C    H01190  Transcobalamin II deficiency
+C    H00183  Homocystinuria
+C    H00174  Methylmalonic aciduria
+C    H02221  Methylmalonic aciduria and homocystinuria
+C    H02222  Methylmalonic acidemia and hyperhomocysteinemia, cblX type
+C    H00063  Spinocerebellar ataxia (SCA)
+C    H00604  Deafness, autosomal dominant
+C    H00262  Neural tube defects, folate-sensitive
+AReplication and repair
+B  nt06509  DNA replication
+C    H02569  Pulmonary fibrosis and/or bone marrow failure, telomere-related
+C    H02525  Disorders of innate immunity
+C    H00093  Combined immunodeficiency
+C    H00094  Immunodeficiency associated with DNA repair defects
+C    H02014  Ataxia-telangiectasia-like syndrome
+C    H02031  Inclusion body myopathy with Paget disease of bone and frontotemporal dementia
+C    H00290  Aicardi-Goutieres syndrome
+C    H02484  X-linked reticulate pigmentary disorder with systemic manifestations
+C    H00658  X-linked syndromic intellectual developmental disorder
+C    H02342  Frontotemporal dementia and amyotrophic lateral sclerosis
+C    H00264  Charcot-Marie-Tooth disease
+C    H01118  Progressive external ophthalmoplegia
+C    H00604  Deafness, autosomal dominant
+C    H00564  Primary ciliary dyskinesia
+C    H02366  Cerebellar ataxia, neuropathy, and vestibular areflexia syndrome
+C    H02840  Morimoto-Ryu-Malicdan neuromuscular syndrome
+C    H00992  Seckel syndrome
+C    H01993  Baller-Gerold syndrome
+C    H01889  Meier-Gorlin syndrome
+C    H01734  Rothmund-Thomson syndrome
+C    H00965  RAPADILINO syndrome
+C    H02369  IMAGE-I syndrome
+C    H02370  FILS syndrome
+C    H02625  Primordial dwarfism-immunodeficiency-lipodystrophy syndrome
+C    H01623  MDPL syndrome
+B  nt06510  Telomere length regulation
+C    H00038  Melanoma
+C    H02624  Tumor predisposition syndrome
+C    H01132  Aplastic anemia
+C    H00507  Dyskeratosis congenita
+C    H02569  Pulmonary fibrosis and/or bone marrow failure, telomere-related
+C    H02580  Hereditary sensory neuropathy with spastic paraplegia
+C    H02251  Cerebroretinal microangiopathy with calcifications and cysts
+C    H02843  Brain malformations and seizures by impaired function of TRiC
+B  nt06504  Base excision repair
+C    H00018  Gastric cancer
+C    H02568  Polymerase proofreading-associated polyposis
+C    H00021  Renal cell carcinoma
+C    H01025  Familial adenomatous polyposis
+C    H02624  Tumor predisposition syndrome
+C    H00086  Immunodeficiency with hyper-IgM
+C    H00091  T-B+Severe combined immunodeficiency
+C    H00094  Immunodeficiency associated with DNA repair defects
+C    H00469  Mitochondrial DNA depletion syndrome
+C    H01390  Mitochondrial neurogastrointestinal encephalomyopathy
+C    H01891  Autosomal recessive spinocerebellar ataxias
+C    H02573  Autosomal recessive spinocerebellar ataxias with axonal neuropathy
+C    H00848  Ataxia with ocular apraxia
+C    H02572  Neurodegeneration, childhood-onset, stress-induced, with variable ataxia and seizures
+C    H01118  Progressive external ophthalmoplegia
+C    H02366  Cerebellar ataxia, neuropathy, and vestibular areflexia syndrome
+C    H02369  IMAGE-I syndrome
+C    H02370  FILS syndrome
+C    H01623  MDPL syndrome
+B  nt06502  Nucleotide excision repair
+C    H00238  Fanconi anemia
+C    H02569  Pulmonary fibrosis and/or bone marrow failure, telomere-related
+C    H00091  T-B+Severe combined immunodeficiency
+C    H02014  Ataxia-telangiectasia-like syndrome
+C    H02571  Neurodevelopmental disorder with hypotonia and variable intellectual and behavioral abnormalities
+C    H00866  Trichothiodystrophy
+C    H02131  UV-sensitive syndrome
+C    H01428  Xeroderma pigmentosum
+C    H00076  Cockayne syndrome
+C    H02570  Cerebro-oculo-facio-skeletal syndrome
+C    H02560  White-Kernohan syndrome
+C    H00403  Disorders of nucleotide excision repair
+B  nt06503  Mismatch repair
+C    H00020  Colorectal cancer
+C    H02565  Hereditary nonpolyposis colorectal cancer
+C    H02568  Polymerase proofreading-associated polyposis
+C    H00876  Mismatch repair deficiency
+C    H02566  Muir-Torre syndrome
+C    H01025  Familial adenomatous polyposis
+B  nt06506  Double-strand break repair
+C    H00005  Chronic lymphocytic leukemia
+C    H02418  Non-Hodgkin lymphoma
+C    H00019  Pancreatic cancer
+C    H00038  Melanoma
+C    H00031  Breast cancer
+C    H02531  Familial breast-ovarian cancer
+C    H01132  Aplastic anemia
+C    H00238  Fanconi anemia
+C    H00507  Dyskeratosis congenita
+C    H02569  Pulmonary fibrosis and/or bone marrow failure, telomere-related
+C    H00091  T-B+Severe combined immunodeficiency
+C    H00092  T-B-Severe combined immunodeficiency
+C    H01244  T+B+Severe combined immunodeficiencies (SCIDs)
+C    H02554  Omenn syndrome
+C    H00924  Severe combined immunodeficiency with microcephaly, growth retardation, and sensitivity to ionizing radiation
+C    H02015  LIG4 syndrome
+C    H00064  Ataxia telangiectasia
+C    H00094  Immunodeficiency associated with DNA repair defects
+C    H00962  RIDDLE syndrome
+C    H01344  Nijmegen breakage syndrome
+C    H01346  Bloom syndrome
+C    H02014  Ataxia-telangiectasia-like syndrome
+C    H00768  Autosomal recessive intellectual developmental disorder
+C    H01395  Autosomal recessive progressive external ophthalmoplegia
+C    H00604  Deafness, autosomal dominant
+C    H00627  Premature ovarian failure
+C    H02492  Microcephaly, growth restriction, and increased sister chromatid exchange
+C    H00992  Seckel syndrome
+C    H01889  Meier-Gorlin syndrome
+C    H01733  Werner syndrome
+C    H02576  Familial cutaneous telangiectasia and cancer syndrome
+C    H02578  Short stature, microcephaly, and endocrine dysfunction
+C    H02639  Atelis syndrome
+C    H01623  MDPL syndrome
+C    H00296  Defects in RecQ helicases
+B  nt06508  Interstrand crosslink repair
+C    H00019  Pancreatic cancer
+C    H00031  Breast cancer
+C    H02531  Familial breast-ovarian cancer
+C    H00238  Fanconi anemia
+C    H02569  Pulmonary fibrosis and/or bone marrow failure, telomere-related
+C    H00627  Premature ovarian failure
+C    H02577  Karyomegalic interstitial nephritis
+C    H00599  Ovarian dysgenesis
+C    H00992  Seckel syndrome
+C    H01428  Xeroderma pigmentosum
+C    H00076  Cockayne syndrome
+C    H02570  Cerebro-oculo-facio-skeletal syndrome
+C    H02576  Familial cutaneous telangiectasia and cancer syndrome
+ASignal transduction
+B  nt06526  MAPK signaling
+C    H00042  Glioma
+C    H00004  Chronic myeloid leukemia
+C    H02541  Juvenile myelomonocytic leukemia
+C    H00003  Acute myeloid leukemia
+C    H00018  Gastric cancer
+C    H00020  Colorectal cancer
+C    H00019  Pancreatic cancer
+C    H00048  Hepatocellular carcinoma
+C    H00014  Non-small cell lung cancer
+C    H00013  Small cell lung cancer
+C    H00038  Melanoma
+C    H00039  Basal cell carcinoma
+C    H00031  Breast cancer
+C    H00026  Endometrial cancer
+C    H00022  Bladder cancer
+C    H00032  Thyroid cancer
+C    H01592  Medullary thyroid cancer
+C    H01510  Malignant paraganglioma
+C    H01725  Primary immunodeficiency disease
+C    H00255  Hypogonadotropic hypogonadism
+C    H01250  Hereditary gingival fibromatosis
+C    H02188  Watson syndrome
+C    H02043  Capillary malformation-arteriovenous malformation
+C    H00910  Hirschsprung disease
+C    H00471  Split-hand/foot malformation
+C    H02631  Melorheostosis
+C    H02157  Short-rib thoracic dysplasia
+C    H01756  Pfeiffer syndrome
+C    H01754  Crouzon syndrome
+C    H01755  Apert syndrome
+C    H01753  Antley-Bixler syndrome
+C    H01988  Jackson-Weiss syndrome
+C    H01989  Beare-Stevenson syndrome
+C    H01990  Muenke syndrome
+C    H01991  Saethre-Chotzen syndrome
+C    H00532  Parkes Weber syndrome
+C    H01986  Legius syndrome
+C    H02189  Neurofibromatosis-Noonan syndrome
+C    H01437  Neurofibromatosis type 1
+C    H01738  Noonan syndrome
+C    H00523  Noonan syndrome and related disorders
+C    H00574  Coffin-Lowry syndrome
+C    H01745  Cardiofaciocutaneous syndrome
+C    H01747  Costello syndrome
+C    H01984  Leopard syndrome
+C    H02190  CBL syndrome
+C    H02191  Noonan-like syndrome with loose anagen hair
+B  nt06530  PI3K signaling
+C    H00003  Acute myeloid leukemia
+C    H00031  Breast cancer
+C    H00093  Combined immunodeficiency
+C    H01909  Hypoinsulinemic hypoglycemia with hemihypertrophy
+C    H00773  Autosomal dominant intellectual developmental disorder
+C    H00848  Ataxia with ocular apraxia
+C    H01807  Hereditary diffuse leukoencephalopathy with spheroids
+C    H00534  Cerebral cavernous malformation
+C    H01282  Spermatogenic failure
+C    H02647  Macrodactyly
+C    H02627  Epidermal nevus
+C    H02723  Macrocephaly/autism syndrome
+C    H01885  Megalencephaly-polymicrogyria-polydactyly-hydrocephalus syndrome
+C    H01912  Congenital lipomatous overgrowth, vascular malformations, and epidermal nevi
+C    H02119  Proteus syndrome
+C    H02153  Megalencephaly-capillary malformation syndrome
+C    H02297  CLAPO syndrome
+C    H01222  Cowden syndrome
+C    H02632  Houge-Janssens syndrome
+B  nt06505  WNT signaling
+C    H00113  Salmonellosis
+C    H00041  Kaposi sarcoma
+C    H00018  Gastric cancer
+C    H00020  Colorectal cancer
+C    H00048  Hepatocellular carcinoma
+C    H00026  Endometrial cancer
+C    H01307  Nonsyndromic congenital nail disorder
+C    H01774  Hyperostosis corticalis generalisata
+C    H02609  Craniodiaphyseal dysplasia
+C    H01593  Osteoporosis
+C    H01027  Microphthalmia
+C    H00589  Familial exudative vitreoretinopathy
+C    H00625  Tooth agenesis
+C    H00482  Brachydactyly
+C    H00471  Split-hand/foot malformation
+C    H00636  Tetra-amelia syndrome
+C    H00436  Osteopetrosis
+C    H00486  Sclerosteosis
+C    H00479  Metaphyseal dysplasias
+C    H00485  Robinow syndrome
+C    H02154  Omodysplasia
+C    H00506  Osteogenesis imperfecta
+C    H00451  Osteoporosis-pseudoglioma syndrome
+C    H00853  Cenani-Lenz syndactyly syndrome
+C    H00846  Fuhrmann syndrome
+C    H00847  Al-Awadi/Raas-Rothschild syndrome
+C    H00651  Hypohidrotic ectodermal dysplasia
+C    H00646  Odontoonychodermal dysplasia
+C    H00781  Schopf-Schulz-Passarge syndrome
+C    H00857  Oligodontia-colorectal cancer syndrome
+C    H00949  Focal dermal hypoplasia
+B  nt06511  NOTCH signaling
+C    H00030  Cervical cancer
+C    H01910  Infantile myofibromatosis
+C    H02467  Neonatal inflammatory skin and bowel disease
+C    H00536  Cerebral autosomal dominant arteriopathy with subcortical infarcts and leucoencephalopathy (CADASIL)
+C    H01216  Left ventricular noncompaction
+C    H00681  Acne inversa
+C    H00623  Hajdu-Cheney syndrome
+C    H01893  Lateral meningocele syndrome
+C    H00549  Tetralogy of Fallot
+C    H00554  Aortic valve disease
+C    H00551  Alagille syndrome
+C    H00517  Spondylocostal dysostosis
+C    H01413  Adams-Oliver syndrome
+B  nt06501  HH signaling
+C    H00039  Basal cell carcinoma
+C    H00267  Holoprosencephaly
+C    H00263  Acrocallosal syndrome
+C    H01835  Neuronal migration disorder
+C    H01027  Microphthalmia
+C    H00482  Brachydactyly
+C    H01852  Postaxial polydactyly
+C    H02332  Preaxial polydactyly
+C    H00530  Joubert syndrome and related disorders
+C    H00675  Acrocapitofemoral dysplasia
+C    H02158  Weyers acrofacial dysostosis
+C    H02161  Greig cephalopolysyndactyly syndrome
+C    H00503  Ellis-van Creveld syndrome
+C    H00895  Basal cell nevus syndrome
+C    H00502  Pallister-Hall syndrome
+C    H00886  Donnai-Barrow syndrome
+C    H01265  Hydrolethalus syndrome
+C    H02479  Nivelon-Nivelon-Mabille syndrome
+B  nt06507  TGFB signaling
+C    H00009  Adult T-cell leukemia
+C    H00020  Colorectal cancer
+C    H00048  Hepatocellular carcinoma
+C    H01023  Juvenile polyposis syndrome
+C    H01024  Hereditary mixed polyposis syndrome
+C    H00211  Hemochromatosis
+C    H01619  Primary pulmonary hypertension
+C    H00801  Familial thoracic aortic aneurysm and dissection
+C    H00430  Fibrodysplasia ossificans progressiva
+C    H02452  Muscle hypertrophy
+C    H00625  Tooth agenesis
+C    H00632  Heterotaxy
+C    H00533  Hereditary hemorrhagic telangiectasia
+C    H00599  Ovarian dysgenesis
+C    H00482  Brachydactyly
+C    H00484  Multiple synostosis syndrome
+C    H00851  Proximal symphalangism
+C    H00434  Camurati-Engelmann disease
+C    H00900  Geleophysic dysplasia
+C    H02543  Acromesomelic dysplasia
+C    H00778  Tarsal-carpal coalition syndrome
+C    H00653  Marfan syndrome
+C    H00800  Loeys-Dietz syndrome
+C    H00609  Persistent Mullerian duct syndrome
+C    H02102  Myhre syndrome
+B  nt06518  JAK-STAT signaling
+C    H00368  Cytomegalovirus infection
+C    H01109  Chronic mucocutaneous candidiasis
+C    H01605  Myelofibrosis
+C    H00008  Burkitt lymphoma
+C    H00009  Adult T-cell leukemia
+C    H00007  Hodgkin lymphoma
+C    H00041  Kaposi sarcoma
+C    H00054  Nasopharyngeal cancer
+C    H00048  Hepatocellular carcinoma
+C    H00236  Congenital polycythemia
+C    H01612  Essential thrombocythemia
+C    H02525  Disorders of innate immunity
+C    H01725  Primary immunodeficiency disease
+C    H00089  IFN-gamma/IL-12 axis
+C    H00093  Combined immunodeficiency
+C    H00091  T-B+Severe combined immunodeficiency
+C    H01968  Hyper-IgE syndrome
+C    H02540  Infantile-onset multisystem autoimmune disease
+C    H02537  Autoinflammation, immune dysregulation, and eosinophilia
+C    H00100  Neutropenic disorders
+C    H01388  Hyperprolactinemia
+C    H00931  Growth hormone insensitivity with immunodeficiency
+C    H02035  Isolated growth hormone deficiency
+C    H02037  Laron syndrome
+C    H02059  Leptin deficiency
+C    H02060  Leptin receptor deficiency
+C    H01217  Primary localized cutaneous amyloidosis
+C    H00935  Cold-induced sweating syndrome
+C    H01122  Congenital pulmonary alveolar proteinosis
+C    H01227  Inflammatory bowel disease (IBD)
+C    H00840  Pseudo-TORCH syndrome
+C    H00462  Stuve-Wiedemann syndrome
+B  nt06516  TNF signaling
+C    H00299  Shigellosis
+C    H00278  Enteropathogenic Escherichia coli (EPEC) infection
+C    H00277  Enterohemorrhagic Escherichia coli (EHEC) infection
+C    H00113  Salmonellosis
+C    H00365  Herpes simplex virus infection
+C    H01563  HIV infection
+C    H00368  Cytomegalovirus infection
+C    H00008  Burkitt lymphoma
+C    H00009  Adult T-cell leukemia
+C    H00007  Hodgkin lymphoma
+C    H00041  Kaposi sarcoma
+C    H00054  Nasopharyngeal cancer
+C    H00048  Hepatocellular carcinoma
+C    H00030  Cervical cancer
+C    H02525  Disorders of innate immunity
+C    H02620  Autoinflammation with episodic fever and lymphadenopathy
+C    H01725  Primary immunodeficiency disease
+C    H00086  Immunodeficiency with hyper-IgM
+C    H00088  Common variable immunodeficiency
+C    H00093  Combined immunodeficiency
+C    H01969  X-linked lymphoproliferative syndrome
+C    H01970  Lymphoproliferative syndrome
+C    H02592  Familial Behcet-like autoinflammatory syndrome
+C    H02593  Chronic mucocutaneous ulceration
+C    H00912  Tumor necrosis factor receptor-associated periodic syndrome
+C    H01744  Polyglucosan body myopathy
+C    H02414  Autoinflammation, panniculitis, and dermatosis syndrome
+C    H01490  Multiple sclerosis
+C    H00437  Paget disease of bone
+C    H02042  Familial expansile osteolysis
+C    H00625  Tooth agenesis
+C    H00436  Osteopetrosis
+C    H00651  Hypohidrotic ectodermal dysplasia
+C    H00645  Incontinentia pigmenti
+C    H00540  Osteoporosis, lymphedema, anhydrotic ectodermal dysplasia with immunodeficiency (OLEDAID)
+B  nt06528  Calcium signaling
+C    H00042  Glioma
+C    H00048  Hepatocellular carcinoma
+C    H00014  Non-small cell lung cancer
+C    H02259  Stormorken syndrome
+C    H00093  Combined immunodeficiency
+C    H01603  Primary aldosteronism
+C    H00144  Mucolipidosis IV
+C    H00768  Autosomal recessive intellectual developmental disorder
+C    H00773  Autosomal dominant intellectual developmental disorder
+C    H02865  Neurodevelopmental disorder with or without hyperkinetic movements and seizures
+C    H00749  Episodic ataxias
+C    H00063  Spinocerebellar ataxia (SCA)
+C    H01891  Autosomal recessive spinocerebellar ataxias
+C    H00808  Idiopathic generalized epilepsies
+C    H01514  Landau-Kleffner syndrome
+C    H00606  Early infantile epileptic encephalopathy
+C    H02150  Infantile or early childhood epileptic encephalopathy
+C    H00775  Hemiplegic migraine
+C    H01810  Congenital myopathy
+C    H02258  Tubular aggregate myopathy
+C    H02320  Vacuolar myopathy with CASQ1 aggregates
+C    H00215  Periodic paralysis
+C    H01129  Brody myopathy
+C    H00481  Cone-rod dystrophy and cone dystrophy
+C    H00690  Aland Island eye disease
+C    H00787  Congenital stationary night blindness
+C    H00604  Deafness, autosomal dominant
+C    H00605  Deafness, autosomal recessive
+C    H00294  Dilated cardiomyopathy
+C    H00292  Hypertrophic cardiomyopathy
+C    H00293  Arrhythmogenic right ventricular cardiomyopathy
+C    H00720  Long QT syndrome
+C    H00728  Brugada syndrome
+C    H01019  Catecholaminergic polymorphic ventricular tachycardia
+C    H02636  Sinoatrial node dysfunction and deafness
+C    H00801  Familial thoracic aortic aneurysm and dissection
+C    H00715  Darier disease
+C    H00755  Acrokeratosis verruciformis
+C    H01307  Nonsyndromic congenital nail disorder
+C    H02281  Isolated anhidrosis with normal sweat glands
+C    H01869  Megacystis microcolon intestinal hypoperistalsis syndrome
+C    H02641  Arthrogryposis, cleft palate, craniosynostosis, and impaired intellectual development
+C    H02856  Neurodevelopmental disorder with hypotonia, language delay, and skeletal defects with or without seizures
+C    H02858  Neurodevelopmental disorder with speech impairment and with or without seizures
+C    H02859  Neurodevelopmental disorder with seizures and nonepileptic hyperkinetic movements
+B  nt06522  mTOR signaling
+C    H00365  Herpes simplex virus infection
+C    H00368  Cytomegalovirus infection
+C    H01692  Subependymal giant cell astrocytoma
+C    H00030  Cervical cancer
+C    H01691  Renal angiomyolipoma
+C    H01210  Hypomagnesemia
+C    H02214  Familial focal epilepsy with variable foci
+C    H02697  Long-Olsen-Distelmaier syndrome
+C    H00896  Lymphangioleiomyomatosis
+C    H02446  Autosomal recessive macrocephaly/megalencephaly syndrome
+C    H01251  Focal cortical dysplasia of Taylor
+C    H00818  Birt-Hogg-Dube syndrome
+C    H00666  Peutz-Jeghers syndrome
+C    H00915  Tuberous sclerosis complex
+C    H01928  Smith-Kingsmore syndrome
+C    H01112  Polyhydramnios, megalencephaly, and symptomatic epilepsy
+B  nt06542  HIF signaling
+C    H00021  Renal cell carcinoma
+C    H00236  Congenital polycythemia
+C    H00559  von Hippel-Lindau syndrome
+B  nt06543  NRG-ERBB signaling
+C    H00019  Pancreatic cancer
+C    H00014  Non-small cell lung cancer
+C    H00058  Amyotrophic lateral sclerosis (ALS)
+ACellular process
+B  nt06523  Epigenetic regulation by Polycomb complexes
+C    H01481  Myelodysplastic syndrome
+C    H01510  Malignant paraganglioma
+C    H02624  Tumor predisposition syndrome
+C    H02222  Methylmalonic acidemia and hyperhomocysteinemia, cblX type
+C    H00480  X-linked intellectual developmental disorder
+C    H00773  Autosomal dominant intellectual developmental disorder
+C    H02490  Gabriele-de Vries syndrome
+C    H00627  Premature ovarian failure
+C    H00269  Primary microcephaly
+C    H02170  Microphthalmia, syndromic
+C    H02047  Bohring-Opitz syndrome
+C    H01751  Weaver syndrome
+C    H02477  Cohen-Gibson syndrome
+C    H02522  Imagawa-Matsumoto syndrome
+C    H00504  Rubinstein-Taybi syndrome
+C    H00907  Kleefstra syndrome
+C    H02382  Bainbridge-Ropers syndrome
+C    H02619  Hypotonia, ataxia, developmental delay, and tooth enamel defect syndrome
+C    H02650  Menke-Hennekam syndrome
+C    H02528  Hao-Fountain syndrome
+C    H02587  Luo-Schoch-Yamamoto syndrome
+C    H02611  Turnpenny-Fry syndrome
+C    H02617  Bryant-Li-Bhoj neurodevelopmental syndrome
+C    H02618  Developmental delay with variable intellectual disability and dysmorphic facies
+C    H02622  Shukla-Vernon syndrome
+C    H02623  Kury-Isidor syndrome
+C    H02635  Poirier-Bienvenu neurodevelopmental syndrome
+C    H02854  Okur-Chung neurodevelopmental syndrome
+C    H02855  Shashi-Pena syndrome
+B  nt06512  Chromosome cohesion and segregation
+C    H00014  Non-small cell lung cancer
+C    H00013  Small cell lung cancer
+C    H01752  ATR-X syndrome
+C    H02308  Immunodeficiency-centromeric instability-facial anomalies syndrome
+C    H00480  X-linked intellectual developmental disorder
+C    H00773  Autosomal dominant intellectual developmental disorder
+C    H00606  Early infantile epileptic encephalopathy
+C    H00591  Facioscapulohumeral muscular dystrophy
+C    H02122  Chronic atrial and intestinal dysrhythmia
+C    H00269  Primary microcephaly
+C    H00267  Holoprosencephaly
+C    H02707  Khan-Khan-Katsanis syndrome
+C    H01734  Rothmund-Thomson syndrome
+C    H00572  Roberts-SC phocomelia syndrome
+C    H00631  Cornelia de Lange syndrome
+C    H00914  Warsaw breakage syndrome
+C    H02581  Juberg-Hayward syndrome
+C    H02582  Mullegama-Klein-Martinez syndrome
+C    H02583  X-linked intellectual disability-hypotonic facies syndrome
+C    H02584  Ferguson-Bonni neurodevelopmental syndrome
+C    H02632  Houge-Janssens syndrome
+C    H02854  Okur-Chung neurodevelopmental syndrome
+B  nt06515  Regulation of kinetochore-microtubule interactions
+C    H00020  Colorectal cancer
+C    H00024  Prostate cancer
+C    H01740  Macrothrombocytopenia
+C    H02585  Roifman-Chitayat syndrome
+C    H00773  Autosomal dominant intellectual developmental disorder
+C    H00879  Perry syndrome
+C    H00831  Primary dystonia
+C    H00679  Hypomyelinating leukodystrophy
+C    H00058  Amyotrophic lateral sclerosis (ALS)
+C    H00455  Spinal muscular atrophy
+C    H00856  Distal hereditary motor neuropathies
+C    H02594  Congenital facial palsy with ptosis and velopharyngeal dysfunction
+C    H00264  Charcot-Marie-Tooth disease
+C    H00789  Keratoconus
+C    H01880  Autosomal recessive microcephaly and chorioretinopathy
+C    H00837  Leber congenital amaurosis
+C    H00838  Congenital fibrosis of the extraocular muscles
+C    H01897  Oocyte/zygote/embryo maturation arrest
+C    H00269  Primary microcephaly
+C    H01881  Complex cortical dysplasia with other brain malformations
+C    H01870  Microhydranencephaly
+C    H00268  Lissencephaly
+C    H02606  Pachygyria, microcephaly, developmental delay, and dysmorphic facies, with or without seizures
+C    H02157  Short-rib thoracic dysplasia
+C    H01814  Stromme syndrome
+C    H02595  Oculoskeletodental syndrome
+C    H02607  Short stature and microcephaly with genital anomalies
+C    H01288  Mosaic variegated aneuploidy syndrome
+C    H02857  Neurodevelopmental disorder with microcephaly and structural brain anomalies
+C    H01579  Congenital symmetric circumferential skin creases
+B  nt06534  Unfolded protein response
+C    H00057  Parkinson disease
+C    H00056  Alzheimer disease
+C    H00058  Amyotrophic lateral sclerosis (ALS)
+C    H00061  Prion disease
+B  nt06532  Autophagy
+C    H00299  Shigellosis
+C    H00041  Kaposi sarcoma
+C    H00150  Danon disease
+C    H00833  Neurodegeneration with brain iron accumulation
+C    H00831  Primary dystonia
+C    H00063  Spinocerebellar ataxia (SCA)
+C    H01891  Autosomal recessive spinocerebellar ataxias
+C    H00679  Hypomyelinating leukodystrophy
+C    H00810  Progressive myoclonic epilepsy
+C    H00058  Amyotrophic lateral sclerosis (ALS)
+C    H02342  Frontotemporal dementia and amyotrophic lateral sclerosis
+C    H00264  Charcot-Marie-Tooth disease
+C    H00265  Hereditary sensory and autonomic neuropathy
+C    H00594  Distal myopathy
+C    H00612  Primary open angle glaucoma
+C    H01227  Inflammatory bowel disease (IBD)
+C    H00437  Paget disease of bone
+C    H00799  CEDNIK syndrome
+C    H02861  Neurodevelopmental disorder with spastic quadriplegia and brain abnormalities with or without seizures
+B  nt06536  Mitophagy
+C    H00469  Mitochondrial DNA depletion syndrome
+C    H00658  X-linked syndromic intellectual developmental disorder
+C    H01600  Parkinsonian syndrome
+C    H00057  Parkinson disease
+C    H00058  Amyotrophic lateral sclerosis (ALS)
+C    H02342  Frontotemporal dementia and amyotrophic lateral sclerosis
+C    H00264  Charcot-Marie-Tooth disease
+C    H00594  Distal myopathy
+C    H01020  Optic atrophy
+C    H00612  Primary open angle glaucoma
+C    H00437  Paget disease of bone
+B  nt06535  Efferocytosis
+C    H01605  Myelofibrosis
+C    H00012  Polycythemia vera
+C    H00003  Acute myeloid leukemia
+C    H02664  Joint contracture, osteochondromas, and B-cell lymphoma
+C    H00232  Hereditary stomatocytosis
+C    H02658  X-linked congenital hemolytic anemia
+C    H00236  Congenital polycythemia
+C    H00223  Inherited thrombophilia
+C    H01235  Bleeding disorder platelet-type
+C    H01108  CD36 deficiency
+C    H00226  Glanzmann thrombasthenia
+C    H01162  Scott syndrome
+C    H01612  Essential thrombocythemia
+C    H00102  Classic complement pathway component defects
+C    H02467  Neonatal inflammatory skin and bowel disease
+C    H00084  Graft-versus-host disease
+C    H02669  Inflammatory bowel disease, immunodeficiency, and encephalopathy
+C    H01267  Familial hyperinsulinemic hypoglycemia
+C    H00186  Hyperargininemia
+C    H02086  Mitochondrial complex III deficiency
+C    H01248  Monocarboxylate transporter 1 deficiency
+C    H00148  Lysosomal acid lipase deficiency
+C    H00836  GLUT1 deficiency syndrome
+C    H00833  Neurodegeneration with brain iron accumulation
+C    H00159  Tangier disease
+C    H00930  Hypoalphalipoproteinemia
+C    H00057  Parkinson disease
+C    H00831  Primary dystonia
+C    H01204  Cerebellar ataxia, mental retardation (MR), and dysequilibrium syndrome (CAMRQ)
+C    H00056  Alzheimer disease
+C    H00679  Hypomyelinating leukodystrophy
+C    H00808  Idiopathic generalized epilepsies
+C    H00593  Limb-girdle muscular dystrophy
+C    H01810  Congenital myopathy
+C    H02321  Early-onset myopathy, areflexia, respiratory distress, and dysphagia
+C    H01965  Miyoshi muscular dystrophy
+C    H00527  Retinitis pigmentosa
+C    H00821  Age-related macular degeneration
+C    H00604  Deafness, autosomal dominant
+C    H02339  Auditory neuropathy
+C    H01742  Coronary artery disease
+C    H00079  Asthma
+C    H01191  Asthma with nasal polyps and aspirin intolerance
+C    H00218  Cystic fibrosis
+C    H00715  Darier disease
+C    H00755  Acrokeratosis verruciformis
+C    H02665  Reticulate acropigmentation of Kitamura
+C    H00750  Keratosis pilaris atrophicans
+C    H00630  Rheumatoid arthritis
+C    H01897  Oocyte/zygote/embryo maturation arrest
+C    H02559  Microvascular complications of diabetes
+C    H00434  Camurati-Engelmann disease
+C    H00498  Gnathodiaphyseal dysplasia
+C    H01018  Metachondromatosis
+C    H02294  Tatton-Brown-Rahman syndrome
+B  nt06524  Apoptosis
+C    H00299  Shigellosis
+C    H00278  Enteropathogenic Escherichia coli (EPEC) infection
+C    H00277  Enterohemorrhagic Escherichia coli (EHEC) infection
+C    H00365  Herpes simplex virus infection
+C    H01563  HIV infection
+C    H00368  Cytomegalovirus infection
+C    H00398  Influenza
+C    H00008  Burkitt lymphoma
+C    H00007  Hodgkin lymphoma
+C    H00041  Kaposi sarcoma
+C    H00054  Nasopharyngeal cancer
+C    H00020  Colorectal cancer
+C    H00048  Hepatocellular carcinoma
+C    H00013  Small cell lung cancer
+C    H00030  Cervical cancer
+C    H02610  Head and neck squamous cell carcinoma
+C    H00978  Thrombocytopenia (THC)
+C    H00108  Autoimmune lymphoproliferative syndromes
+B  nt06525  Ferroptosis
+C    H01145  Atransferrinemia
+C    H01196  Hypochromic microcytic anemia
+C    H02206  Aceruloplasminemia
+C    H00668  Anemia due to disorders of glutathione metabolism
+C    H02312  Glutathione synthetase deficiency
+C    H00833  Neurodegeneration with brain iron accumulation
+C    H00211  Hemochromatosis
+C    H01938  Hypermanganesemia with dystonia
+C    H00480  X-linked intellectual developmental disorder
+C    H01825  Spondylometaphyseal dysplasia, Sedaghatian type
+B  nt06527  Necroptosis
+C    H02536  Infection-induced acute encephalopathy
+C    H02610  Head and neck squamous cell carcinoma
+C    H00827  Brooke-Spiegler syndrome
+C    H00828  Familial cylindromatosis
+C    H00829  Multiple familial trichoepithelioma
+C    H02525  Disorders of innate immunity
+C    H02620  Autoinflammation with episodic fever and lymphadenopathy
+C    H01725  Primary immunodeficiency disease
+C    H00108  Autoimmune lymphoproliferative syndromes
+C    H01969  X-linked lymphoproliferative syndrome
+C    H00912  Tumor necrosis factor receptor-associated periodic syndrome
+C    H01490  Multiple sclerosis
+C    H02342  Frontotemporal dementia and amyotrophic lateral sclerosis
+C    H00821  Age-related macular degeneration
+B  nt06529  Thermogenesis
+C    H02106  Genetic obesity
+C    H01369  ATP synthase deficiency
+C    H00473  Mitochondrial complex I deficiency
+C    H01368  Cytochrome c oxidase (COX) deficiency
+C    H02005  Mitochondrial complex II deficiency
+C    H02086  Mitochondrial complex III deficiency
+B  nt06539  Cytoskeleton in muscle cells
+C    H01133  Reynolds syndrome
+C    H00234  Pelger-Huet anomaly
+C    H00420  Familial partial lipodystrophy
+C    H00831  Primary dystonia
+C    H01255  Juvenile-onset dystonia
+C    H01230  Adult-onset autosomal dominant leukodystrophy
+C    H00810  Progressive myoclonic epilepsy
+C    H00877  Brain small vessel disease
+C    H02718  Autosomal dominant pontine microangiopathy and leukoencephalopathy
+C    H00266  Hereditary spastic paraplegia
+C    H00798  Familial carpal tunnel syndrome
+C    H00264  Charcot-Marie-Tooth disease
+C    H00770  Congenital myasthenic syndrome
+C    H00562  Dystrophinopathies
+C    H00563  Emery-Dreifuss muscular dystrophy
+C    H00593  Limb-girdle muscular dystrophy
+C    H00656  Scapuloperoneal myopathy
+C    H00590  Congenital muscular dystrophies (CMD/MDC)
+C    H01341  Collagen VI myopathy
+C    H01958  Merosin-deficient congenital muscular dystrophy
+C    H02307  Muscular dystrophy-dystroglycanopathy
+C    H02721  Scapulohumeroperoneal myopathy
+C    H01810  Congenital myopathy
+C    H00698  Nemaline myopathy
+C    H00594  Distal myopathy
+C    H00595  Myofibrillar myopathies
+C    H00958  Congenital stromal corneal dystrophy
+C    H00805  Vitreoretinal degeneration
+C    H00604  Deafness, autosomal dominant
+C    H00605  Deafness, autosomal recessive
+C    H01209  Deafness, X-linked
+C    H02339  Auditory neuropathy
+C    H00294  Dilated cardiomyopathy
+C    H00292  Hypertrophic cardiomyopathy
+C    H01219  Restrictive cardiomyopathy
+C    H00293  Arrhythmogenic right ventricular cardiomyopathy
+C    H00669  Naxos disease
+C    H02094  Carvajal syndrome
+C    H01216  Left ventricular noncompaction
+C    H00729  Sick sinus syndrome
+C    H00731  Atrial fibrillation
+C    H02719  Multifocal fibromuscular dysplasia
+C    H00801  Familial thoracic aortic aneurysm and dissection
+C    H02553  Visceral myopathy
+C    H00717  Striate palmoplantar keratoderma
+C    H00584  Epidermolysis bullosa simplex
+C    H00586  Epidermolysis bullosa, junctional
+C    H01737  Epidermolysis bullosa
+C    H00557  Cutis laxa
+C    H00663  Restrictive dermopathy
+C    H01173  Stiff skin syndrome
+C    H02539  Intervertebral disc disease
+C    H01593  Osteoporosis
+C    H00582  Benign familial hematuria
+C    H00269  Primary microcephaly
+C    H00271  Polymicrogyria
+C    H00553  Congenital supravalvular aortic stenosis
+C    H00546  Atrial septal defect
+C    H00459  Synpolydactyly
+C    H02716  Becker nevus syndrome
+C    H00673  Weill-Marchesani syndrome
+C    H00579  Hereditary angiopathy with nephropathy, aneurysms, and muscle cramps (HANAC)
+C    H00613  Infantile cortical hyperostosis
+C    H00493  Heparan sulfate proteoglycan gene defects
+C    H02079  Oto-spondylo-megaepiphyseal dysplasia
+C    H02080  Fibrochondrogenesis
+C    H02187  Spondyloepimetaphyseal dysplasia
+C    H02185  Spondylometaphyseal dysplasia
+C    H02732  Rhizomelic skeletal dysplasia with or without Pelger-Huet anomaly
+C    H00477  Pseudoachondroplasia
+C    H00476  Multiple epiphyseal dysplasia
+C    H00900  Geleophysic dysplasia
+C    H02228  Acromicric dysplasia
+C    H00506  Osteogenesis imperfecta
+C    H02299  Arthrogryposis multiplex congenita
+C    H00811  Distal arthrogryposis
+C    H00865  Lethal congenital contractural syndrome
+C    H02717  Contractures, pterygia, and spondylocarpotarsal fusion syndrome
+C    H02081  Marshall syndrome
+C    H00665  Mandibuloacral dysplasia
+C    H00653  Marfan syndrome
+C    H02720  Meester-Loeys syndrome
+C    H00802  Ehlers-Danlos syndrome
+C    H02241  Ehlers-Danlos syndrome cardiac valvular type
+C    H02242  Ehlers-Danlos syndrome vascular type
+C    H02243  Ehlers-Danlos syndrome arthrochalasia type
+C    H02724  Combined osteogenesis imperfecta and Ehlers-Danlos syndrome
+C    H00601  Hutchinson-Gilford progeria syndrome
+C    H01869  Megacystis microcolon intestinal hypoperistalsis syndrome
+C    H02023  Baraitser-Winter syndrome
+C    H02072  Stickler syndrome
+C    H02725  Heart-hand syndrome
+C    H00581  Alport syndrome
+C    H01260  Glomerulopathy with fibronectin deposits
+B  nt06541  Cytoskeleton in neurons
+C    H01025  Familial adenomatous polyposis
+C    H00917  Congenital dyserythropoietic anemia
+C    H00233  MYH9-related disease
+C    H01740  Macrothrombocytopenia
+C    H00255  Hypogonadotropic hypogonadism
+C    H00624  Progressive familial intrahepatic cholestasis
+C    H00768  Autosomal recessive intellectual developmental disorder
+C    H00773  Autosomal dominant intellectual developmental disorder
+C    H00077  Progressive supranuclear palsy
+C    H00879  Perry syndrome
+C    H00831  Primary dystonia
+C    H01255  Juvenile-onset dystonia
+C    H02819  Neonatal intractable myoclonus
+C    H01287  Congenital mirror movements
+C    H00679  Hypomyelinating leukodystrophy
+C    H00606  Early infantile epileptic encephalopathy
+C    H00266  Hereditary spastic paraplegia
+C    H01351  Spastic ataxia
+C    H02114  Spastic paraplegia, optic atrophy, and neuropathy
+C    H00058  Amyotrophic lateral sclerosis (ALS)
+C    H00455  Spinal muscular atrophy
+C    H00856  Distal hereditary motor neuropathies
+C    H02594  Congenital facial palsy with ptosis and velopharyngeal dysfunction
+C    H00264  Charcot-Marie-Tooth disease
+C    H00265  Hereditary sensory and autonomic neuropathy
+C    H01259  Giant axonal neuropathy
+C    H01810  Congenital myopathy
+C    H01097  Spastic quadriplegic cerebral palsy
+C    H00789  Keratoconus
+C    H01768  Central areolar choroidal dystrophy
+C    H00527  Retinitis pigmentosa
+C    H00814  Vitelliform macular dystrophy
+C    H00837  Leber congenital amaurosis
+C    H01890  Pattern dystrophies of the retinal pigment epithelium
+C    H02513  Oculopharyngodistal myopathy
+C    H00838  Congenital fibrosis of the extraocular muscles
+C    H02450  Horizontal gaze palsy with progressive scoliosis
+C    H00604  Deafness, autosomal dominant
+C    H00605  Deafness, autosomal recessive
+C    H01633  High blood pressure
+C    H02022  Griscelli syndrome
+C    H00584  Epidermolysis bullosa simplex
+C    H00627  Premature ovarian failure
+C    H01897  Oocyte/zygote/embryo maturation arrest
+C    H01174  Congenital diarrhea
+C    H00269  Primary microcephaly
+C    H01881  Complex cortical dysplasia with other brain malformations
+C    H00270  Periventricular nodular heterotopia
+C    H01870  Microhydranencephaly
+C    H02716  Becker nevus syndrome
+C    H00897  Pontocerebellar hypoplasia
+C    H00268  Lissencephaly
+C    H02157  Short-rib thoracic dysplasia
+C    H00458  Syndromic craniosynostoses
+C    H02023  Baraitser-Winter syndrome
+C    H02663  Braddock-Carey syndrome
+C    H00465  Fragile X syndrome
+C    H01731  Fragile X tremor/ataxia syndrome
+C    H02685  Developmental delay with neuropsychiatric disorders
+C    H02688  Dworschak-Punetha neurodevelopmental syndrome
+C    H02857  Neurodevelopmental disorder with microcephaly and structural brain anomalies
+C    H02862  Neurodevelopmental disorder with or without variable brain abnormalities
+C    H02863  Neurodevelopmental disorder with ataxic gait, absent speech, and decreased cortical white matter
+C    H02864  Neurodevelopmental disorder with or without autism or seizures
+C    H01579  Congenital symmetric circumferential skin creases
+B  nt06544  Neuroactive ligand signaling
+C    H01235  Bleeding disorder platelet-type
+C    H00420  Familial partial lipodystrophy
+C    H00255  Hypogonadotropic hypogonadism
+C    H02773  Menstrual cycle-dependent periodic fever
+C    H02105  Prohormone convertase 1/3 deficiency
+C    H02106  Genetic obesity
+C    H02419  Glycine encephalopathy with normal serum glycine
+C    H02311  Molybdenum cofactor deficiency
+C    H00923  Congenital systemic glutamine deficiency
+C    H02846  Global developmental delay, progressive ataxia, and elevated glutamine
+C    H02847  CASGID syndrome
+C    H01161  Aromatic L-amino acid decarboxylase deficiency
+C    H00548  Brunner syndrome
+C    H01257  GABA-transaminase deficiency
+C    H00480  X-linked intellectual developmental disorder
+C    H00658  X-linked syndromic intellectual developmental disorder
+C    H00768  Autosomal recessive intellectual developmental disorder
+C    H00773  Autosomal dominant intellectual developmental disorder
+C    H02111  Autism
+C    H01895  Attention deficit hyperactivity disorder (ADHD)
+C    H02865  Neurodevelopmental disorder with or without hyperkinetic movements and seizures
+C    H01649  Schizophrenia
+C    H01646  Major depressive disorder
+C    H01450  Obsessive-compulsive disorder
+C    H01611  Alcohol dependence
+C    H02849  Familial natural short sleep
+C    H02557  Dopa-responsive dystonia
+C    H02676  Infantile-onset parkinsonism-dystonia
+C    H00749  Episodic ataxias
+C    H00063  Spinocerebellar ataxia (SCA)
+C    H01891  Autosomal recessive spinocerebellar ataxias
+C    H01577  Essential tremor
+C    H00862  Tourette syndrome
+C    H00808  Idiopathic generalized epilepsies
+C    H02889  X-linked epilepsy-2 with or without impaired intellectual development and dysmorphic features
+C    H01819  Early myoclonic encephalopathy
+C    H02215  Childhood absence epilepsy
+C    H02564  Generalized epilepsy with febrile seizures plus
+C    H00807  Nocturnal frontal lobe epilepsy
+C    H01514  Landau-Kleffner syndrome
+C    H00606  Early infantile epileptic encephalopathy
+C    H00783  Febrile seizures
+C    H00775  Hemiplegic migraine
+C    H00266  Hereditary spastic paraplegia
+C    H00856  Distal hereditary motor neuropathies
+C    H00264  Charcot-Marie-Tooth disease
+C    H00770  Congenital myasthenic syndrome
+C    H01031  Orthostatic intolerance
+C    H00787  Congenital stationary night blindness
+C    H00604  Deafness, autosomal dominant
+C    H00605  Deafness, autosomal recessive
+C    H02751  Orthostatic hypotension
+C    H02895  Lodder-Merla syndrome
+C    H01933  Porokeratosis
+C    H01256  Foveal hypoplasia
+C    H02796  Autonomic bladder dysfunction with impaired pupillary reflex and secondary CAKUT
+C    H02236  Keppen-Lubinsky syndrome
+C    H02129  Prune belly syndrome
+C    H00756  Pitt-Hopkins syndrome
+C    H01238  Phelan-McDermid syndrome
+C    H00769  Hyperekplexia
+C    H02859  Neurodevelopmental disorder with seizures and nonepileptic hyperkinetic movements
+C    H02885  Neurodevelopmental disorder with hypotonia and dysmorphic facies
+C    H02886  Neurodevelopmental disorder with seizures, hypotonia, and brain imaging abnormalities
+C    H02887  Neurodevelopmental disorder with language impairment and behavioral abnormalities
+C    H02888  Neurodevelopmental disorder with or without seizures and gait abnormalities
+C    H02890  Neurodevelopmental disorder with language delay and variable cognitive abnormalities
+C    H02891  Neurodevelopmental disorder with poor language and loss of hand skills
+C    H02892  Neurodevelopmental disorder with infantile epileptic spasms
+C    H02894  Neurodevelopmental disorder with impaired language and ataxia and with or without seizures
+B  nt06545  Cornified envelope formation
+C    H00171  Histidinemia
+C    H00736  Dorfman-Chanarin syndrome
+C    H00126  Gaucher disease
+C    H00063  Spinocerebellar ataxia (SCA)
+C    H00266  Hereditary spastic paraplegia
+C    H00058  Amyotrophic lateral sclerosis (ALS)
+C    H00265  Hereditary sensory and autonomic neuropathy
+C    H00819  Stargardt disease
+C    H00294  Dilated cardiomyopathy
+C    H00293  Arrhythmogenic right ventricular cardiomyopathy
+C    H00669  Naxos disease
+C    H02094  Carvajal syndrome
+C    H02648  Acantholytic blistering of the oral and laryngeal mucosa
+C    H01358  Atopic dermatitis
+C    H00735  Ichthyosis vulgaris
+C    H00733  Harlequin ichthyosis
+C    H00734  Autosomal recessive congenital ichthyosis
+C    H00691  Bullous congenital ichthyosiform erythroderma (BCIE)
+C    H00693  Ichthyosis bullosa of Siemens
+C    H00707  Ichthyosis hystrix
+C    H02265  Annular epidermolytic ichthyosis
+C    H00710  Erythrokeratodermia variabilis
+C    H00738  Ichthyosis with confetti
+C    H02449  Autosomal dominant lamellar ichthyosis
+C    H00737  Peeling skin syndrome
+C    H00714  Vohwinkel syndrome
+C    H00722  Epidermolytic palmoplantar keratoderma
+C    H00717  Striate palmoplantar keratoderma
+C    H01796  Uncombable hair syndrome
+C    H00784  Localized autosomal recessive hypotrichosis
+C    H00644  Ectodermal dysplasia/skin fragility syndrome
+C    H00739  Ichthyosis with hypotrichosis
+C    H00741  Ichthyosis prematurity syndrome
+C    H02675  Ichthyotic keratoderma, spasticity, hypomyelination, and dysmorphic facial features
+C    H02935  Ichthyosis, spastic quadriplegia, and impaired intellectual development
+AImmune system
+B  nt06513  Complement cascade
+C    H00365  Herpes simplex virus infection
+C    H00041  Kaposi sarcoma
+C    H01434  Atypical hemolytic uremic syndrome
+C    H00104  Alternative complement pathway component defects
+C    H00102  Classic complement pathway component defects
+C    H00103  Late complement pathway defects
+C    H00105  Mannose-binding lectin pathway component defects
+C    H00106  Complement regulatory protein defects
+C    H02108  Basal laminar drusen
+C    H00821  Age-related macular degeneration
+C    H02240  Ehlers-Danlos syndrome periodontal type
+C    H01887  3MC syndrome
+C    H02579  C3 glomerulopathy
+C    H02398  COVID-19
+B  nt06514  Coagulation cascade
+C    H00219  Hemophilia
+C    H02092  von Willebrand disease
+C    H00938  Factor XI deficiency
+C    H01254  Congenital prothrombin deficiency
+C    H00222  Congenital fibrinogen deficiency
+C    H02257  Factor X deficiency
+C    H02256  Factor VII deficiency
+C    H00220  Factor V deficiency
+C    H00945  Factor XIII deficiency
+C    H00941  Factor XII deficiency
+C    H01078  Fletcher factor deficiency
+C    H00983  Alpha-2-plasmin inhibitor (a2-PI) deficiency
+C    H01106  Plasminogen activator inhibitor type 1 deficiency
+C    H01206  Plasminogen deficiency
+C    H00223  Inherited thrombophilia
+C    H01381  Antithrombin III deficiency
+C    H01235  Bleeding disorder platelet-type
+C    H02093  Platelet-type von Willebrand disease
+C    H01740  Macrothrombocytopenia
+C    H00225  Thrombotic thrombocytopenic purpura
+C    H01006  Hereditary angioedema
+C    H00106  Complement regulatory protein defects
+C    H01103  Alpha-1-antitrypsin deficiency
+C    H00845  Familial amyloidosis
+C    H01730  Myocardial infarction
+C    H01714  Chronic obstructive pulmonary disease (COPD)
+C    H01433  Budd-Chiari syndrome
+B  nt06517  TLR signaling
+C    H00299  Shigellosis
+C    H00278  Enteropathogenic Escherichia coli (EPEC) infection
+C    H00277  Enterohemorrhagic Escherichia coli (EHEC) infection
+C    H00298  Yersiniosis
+C    H00365  Herpes simplex virus infection
+C    H00342  Tuberculosis
+C    H00344  Leprosy
+C    H00297  Plague
+C    H00311  Legionellosis
+C    H00317  Melioidosis
+C    H01563  HIV infection
+C    H02536  Infection-induced acute encephalopathy
+C    H00398  Influenza
+C    H00394  Measles
+C    H00008  Burkitt lymphoma
+C    H00007  Hodgkin lymphoma
+C    H00041  Kaposi sarcoma
+C    H00054  Nasopharyngeal cancer
+C    H00048  Hepatocellular carcinoma
+C    H00030  Cervical cancer
+C    H00096  Defects of toll-like receptor signaling
+C    H00080  Systemic lupus erythematosus
+C    H00821  Age-related macular degeneration
+C    H02398  COVID-19
+B  nt06521  NLR signaling
+C    H00299  Shigellosis
+C    H00278  Enteropathogenic Escherichia coli (EPEC) infection
+C    H00277  Enterohemorrhagic Escherichia coli (EHEC) infection
+C    H00298  Yersiniosis
+C    H00113  Salmonellosis
+C    H00365  Herpes simplex virus infection
+C    H00297  Plague
+C    H00398  Influenza
+C    H00048  Hepatocellular carcinoma
+C    H01725  Primary immunodeficiency disease
+C    H02588  NLRP1-associated autoinflammation with arthritis and dyskeratosis
+C    H00288  Familial Mediterranean fever
+C    H02159  Familial cold autoinflammatory syndrome
+C    H02555  Muckle-Wells syndrome
+C    H02556  CINCA syndrome
+C    H00285  Blau syndrome
+C    H00287  Pyogenic sterile arthritis, pyoderma gangrenosum, and acne syndrome
+C    H01748  NLRC4 inflammasomopathy
+C    H00604  Deafness, autosomal dominant
+C    H01227  Inflammatory bowel disease (IBD)
+C    H02590  Acute febrile neutrophilic dermatosis
+C    H01372  Vitiligo
+B  nt06519  RLR signaling
+C    H00365  Herpes simplex virus infection
+C    H02536  Infection-induced acute encephalopathy
+C    H00398  Influenza
+C    H00394  Measles
+C    H00008  Burkitt lymphoma
+C    H00007  Hodgkin lymphoma
+C    H00054  Nasopharyngeal cancer
+C    H00048  Hepatocellular carcinoma
+C    H02525  Disorders of innate immunity
+C    H00290  Aicardi-Goutieres syndrome
+C    H00880  Dyschromatosis symmetrica hereditaria
+C    H01571  Singleton-Merten syndrome
+C    H01806  Tenorio syndrome
+C    H02398  COVID-19
+B  nt06520  CGAS-STING signaling
+C    H00299  Shigellosis
+C    H00365  Herpes simplex virus infection
+C    H01563  HIV infection
+C    H00368  Cytomegalovirus infection
+C    H02608  Autoinflammatory-pancytopenia syndrome
+C    H00080  Systemic lupus erythematosus
+C    H00290  Aicardi-Goutieres syndrome
+C    H01000  Retinal vasculopathy with cerebral leukodystrophy
+C    H00291  Familial chilblain lupus (FCL)
+C    H01746  STING-associated vasculopathy with onset in infancy
+B  nt06537  TCR/BCR signaling
+C    H00298  Yersiniosis
+C    H00297  Plague
+C    H00394  Measles
+C    H00008  Burkitt lymphoma
+C    H00009  Adult T-cell leukemia
+C    H00007  Hodgkin lymphoma
+C    H00054  Nasopharyngeal cancer
+C    H01725  Primary immunodeficiency disease
+C    H02526  Disorders of adaptive immunity
+C    H00085  Agammaglobulinemias
+C    H00088  Common variable immunodeficiency
+C    H00093  Combined immunodeficiency
+C    H00091  T-B+Severe combined immunodeficiency
+C    H01387  Activated PI3K-delta syndrome
+C    H02585  Roifman-Chitayat syndrome
+C    H00108  Autoimmune lymphoproliferative syndromes
+C    H00080  Systemic lupus erythematosus
+C    H02540  Infantile-onset multisystem autoimmune disease
+C    H02159  Familial cold autoinflammatory syndrome
+C    H01743  Autoinflammation and PLCG2-associated antibody deficiency and immune dysregulation
+C    H00081  Hashimoto thyroiditis
+C    H00254  Growth hormone deficiency
+C    H01370  SHORT syndrome
+B  nt06533  Chemokine signaling
+C    H01563  HIV infection
+C    H00368  Cytomegalovirus infection
+C    H00041  Kaposi sarcoma
+C    H00097  WHIM syndrome
+AEndocrine system
+B  nt06310  CRH-ACTH-cortisol signaling
+C    H01102  Pituitary adenomas
+C    H01431  Cushing syndrome
+C    H00260  Pigmented micronodular adrenocortical disease
+C    H02049  Bilateral macronodular adrenal hyperplasia
+C    H01702  Glucocorticoid resistance syndrome
+C    H00602  Glucocorticoid-remediable aldosteronism (GRA)
+C    H00256  Familial glucocorticoid deficiency
+C    H02316  Adrenal insufficiency, NR5A1 related
+C    H01772  Adrenal hypoplasia, congenital
+B  nt06322  TRH-TSH-TH signaling
+C    H00251  Thyroid dyshormonogenesis
+C    H00249  Thyroid hormone resistance syndrome
+C    H00250  Congenital nongoitrous hypothyroidism (CHNG)
+C    H00650  Allan-Herndon-Dudley syndrome
+C    H01269  Congenital hyperthyroidism
+B  nt06323  KISS1-GnRH-LH/FSH-E2 signaling
+C    H01253  Isolated follicle-stimulating hormone deficiency
+C    H00255  Hypogonadotropic hypogonadism
+C    H02061  Estrogen resistance syndrome
+C    H00937  Precocious puberty
+B  nt06324  GHRH-GH-IGF signaling
+C    H01483  Acromegaly
+C    H01274  Growth delay due to insulin-like growth factor I resistance
+C    H02035  Isolated growth hormone deficiency
+C    H02036  Combined pituitary hormone deficiency
+C    H02037  Laron syndrome
+C    H02040  Insulin-like growth factor I deficiency
+C    H00254  Growth hormone deficiency
+C    H02106  Genetic obesity
+B  nt06318  CaSR-PTH signaling
+C    H01862  Hypoparathyroidism
+C    H00244  Pseudohypoparathyroidism
+C    H00246  Primary hyperparathyroidism
+C    H02030  Neonatal hyperparathyroidism
+B  nt06316  Renin-angiotensin-aldosterone signaling
+C    H01603  Primary aldosteronism
+C    H00575  Renal tubular dysgenesis
+B  nt06325  Hormone/cytokine signaling
+C    H00250  Congenital nongoitrous hypothyroidism (CHNG)
+C    H00408  Type 1 diabetes mellitus
+C    H00410  Maturity onset diabetes of the young (MODY)
+C    H01228  Insulin-resistant diabetes mellitus with acanthosis nigricans
+C    H00719  Leprechaunism
+C    H00942  Rabson-Mendenhall syndrome
+C    H01267  Familial hyperinsulinemic hypoglycemia
+C    H01388  Hyperprolactinemia
+C    H01294  Nephrogenic syndrome of inappropriate antidiuresis
+C    H00255  Hypogonadotropic hypogonadism
+C    H00253  Neurohypophyseal diabetes insipidus
+C    H02059  Leptin deficiency
+C    H02060  Leptin receptor deficiency
+C    H01193  Familial tumoral calcinosis
+C    H00967  Adiponectin deficiency
+C    H00214  Hypophosphatemic rickets
+C    H00240  Gitelman syndrome
+C    H01371  Hypercalcemia infantile
+C    H01293  Narcolepsy
+C    H00809  Familial epilepsy temporal lobe (ETL)
+C    H00265  Hereditary sensory and autonomic neuropathy
+C    H02674  Atrial standstill
+C    H00731  Atrial fibrillation
+C    H00801  Familial thoracic aortic aneurysm and dissection
+C    H00759  Waardenburg syndrome
+C    H01198  Fanconi renotubular syndrome
+C    H00243  Hyperkalemic distal renal tubular acidosis (RTA type 4)
+C    H00888  Nephrolithiasis/osteoporosis, hypophosphatemic
+C    H00512  Permanent neonatal diabetes mellitus
+C    H00910  Hirschsprung disease
+C    H02185  Spondylometaphyseal dysplasia
+C    H02543  Acromesomelic dysplasia
+C    H01884  Auriculocondylar syndrome
+C    H02679  Miura-type epiphyseal chondrodysplasia
+C    H02126  Mandibulofacial dysostosis with alopecia
+C    H00823  ABCD syndrome
+C    H02681  Short stature with nonspecific skeletal abnormalities
+B  nt06320  APOB-LDLR signaling
+C    H01635  Hyperlipidemia
+C    H00155  Familial hypercholesterolemia
+C    H01918  Familial autosomal recessive hypercholesterolemia
+!
+#
+#[ DISEASE | BRITE | KEGG2 | KEGG ]
+#Last updated: July 4, 2025
+#&raquo; Japanese version

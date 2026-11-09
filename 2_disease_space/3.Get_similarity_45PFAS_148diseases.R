@@ -4,8 +4,6 @@
 # no duplicate diseases #
 #########################
 set.seed(123)  # for reproducibility
-library(readxl)
-library(openxlsx)
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
@@ -20,14 +18,6 @@ min_max_norm <- function(x) {
 
 ### 1. load ##############################################################
 load("./path/to/intermediate/data/df_dist_45PFAS_disease.dat")
-
-in_d  <- "/path/to/your/local/directory/original_data"
-in_f3 <- "hsPPARalpha_PFASs_wash_descriptors_Sscore_IC50_data.xlsx"
-
-discriptors <- read.xlsx(paste0(in_d, in_f3))
-
-in_f <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
-abbri <- read.xlsx(in_f)
 
 ### 2. Make z matrix ####################################################
 df_z <- df_dist[which(!duplicated(sapply(strsplit(rownames(df_dist), "_"), function(x){x[length(x)]}))),]
