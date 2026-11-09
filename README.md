@@ -65,6 +65,7 @@ PFAS-network-characterization/
 │
 └── 4_figures_tables/                   # Figure and table generation scripts
     ├── figures/                        # Main figures (Figure 1–5)
+    ├── tables/                         # Main tables (Table 1–2)
     ├── supplementary_figures/          # Supplementary figures
     ├── supplementary_tables/           # Supplementary tables
     └── supplementary_data/             # Supplementary data scripts
