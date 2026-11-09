@@ -40,7 +40,7 @@ PFAS-network-characterization/
 │       ├── 4.Enrichment_anaysis_ICD-11.R                   # ICD-11 disease enrichment
 │       └── 5.Enrichment_anaysis_KEGG_pathway.R             # KEGG pathway enrichment
 │
-├── 3_ml_classification/                # Machine learning classification of PFAS by drug-space cluster
+├── 3_ml_classification_drug/           # ML classification of PFAS by drug-space cluster (Random Forest)
 │   ├── 0.Get_SMILES.py                 # Retrieve SMILES from PubChem (uses list_cluster.csv)
 │   ├── 1.Get_structure.py              # Draw chemical structures by cluster
 │   ├── 2.Onehotencoding_Morgan_fingerprint_2048.py   # Morgan fingerprints (radius=2, 2048-bit) → pkl + CSV
@@ -53,6 +53,15 @@ PFAS-network-characterization/
 │   ├── 6.Visualization_Morgan.py                     # Highlight important substructures
 │   ├── 7.Get_Morgan_finger_print_PFASmasterlist.py   # Fingerprints for EPA PFAS Master List
 │   └── 8.Prediction_Morgan_fingerprint_PFASmasterlist.py  # Large-scale prediction
+│
+├── 3_ml_classification_disease/        # ML classification of PFAS by disease-space cluster (XGBoost)
+│   ├── 0.Get_SMILES.py                 # Retrieve SMILES from PubChem (uses list_cluster_disease.csv)
+│   ├── 1.Get_Morgan_fingerprint_chem.py  # Morgan fingerprints + 23 toxicity descriptors → pkl
+│   ├── 2.Classification_XGBoost_Morgan_chems.py  # XGBoost classifier (CV=0.772) → model pkl
+│   ├── 3.SHAP_XGBoost_Morgan_chems.py            # SHAP analysis on all features
+│   ├── 4.Visualization_Morgan.py                 # Highlight important substructures → Figs S7, S8
+│   ├── 5.Get_Morgan_fingerprint_PFASmasterlist.py  # Fingerprints + descriptors for EPA Master List
+│   └── 6.Prediction_XGBoost_PFASmasterlist.py     # Large-scale prediction
 │
 └── 4_figures_tables/                   # Figure and table generation scripts
     ├── figures/                        # Main figures (Figure 1–5)
@@ -69,7 +78,7 @@ PFAS-network-characterization/
 - `ggplot2`, `dplyr`, `umap`, `Rtsne`, `reshape2`, `cowplot`, `lemon`, `stringr`, `igraph`, `openxlsx`, `jsonlite`, `randomForest`, `caret`
 
 ### Python packages
-- `rdkit`, `scikit-learn`, `shap`, `pandas`, `numpy`, `matplotlib`, `seaborn`, `pubchempy`
+- `rdkit`, `scikit-learn`, `xgboost`, `shap`, `pandas`, `numpy`, `matplotlib`, `seaborn`, `pubchempy`
 
 ---
 
@@ -87,15 +96,15 @@ Input data used in this study are obtained from publicly available sources:
 | Drug ATC codes / targets | KEGG, DrugBank |
 | Disease classifications | ICD-11, KEGG Disease (br08402, br08403) |
 
-### EPA PFAS Master List (required for `3_ml_classification/7.` and `8.`)
+### EPA PFAS Master List (required for `3_ml_classification_drug/7.`, `8.` and `3_ml_classification_disease/5.`, `6.`)
 
 Download the PFAS Master List from the EPA CompTox Chemicals Dashboard:
 
 1. Go to: https://comptox.epa.gov/dashboard/chemical-lists/PFASMASTER
 2. Click **Export** → **CSV**
-3. Save the file and update the path in `7.Get_Morgan_finger_print_PFASmasterlist.py`:
+3. Save the file and update the path in the relevant scripts:
    ```python
-   masterlist = pd.read_csv('/path/to/your/local/directory/Chemical List pfasmaster-YYYY-MM-DD.csv')
+   masterlist = pd.read_csv('/path/to/your/local/directory/Chemical_List_pfasmaster.csv')
    ```
 
 The prediction results for all EPA PFAS compounds are provided as `data/Supplementary_Data_9_Classification_results_for_all_EPA_PFAS.txt`.
@@ -111,8 +120,9 @@ Run scripts in the following order to reproduce the full analysis:
 1. `0_data_preparation/` (1→4) — build PPI network and gene lists
 2. `1_drug_space/` (1→3, then enrichment_analysis/) — drug proximity and clustering
 3. `2_disease_space/` (1→3, then enrichment_analysis/) — disease proximity and clustering
-4. `3_ml_classification/` (0→8) — fingerprints, classification, SHAP, prediction
-5. `4_figures_tables/` — generate figures and tables
+4. `3_ml_classification_drug/` (0→8) — Random Forest classifier using drug-space clusters
+5. `3_ml_classification_disease/` (0→6) — XGBoost classifier using disease-space clusters
+6. `4_figures_tables/` — generate figures and tables
 
 Intermediate `.dat` files are saved to a local directory of your choice; update `./path/to/intermediate/data/` placeholders in each script accordingly.
 
