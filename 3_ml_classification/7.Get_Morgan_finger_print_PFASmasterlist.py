@@ -11,7 +11,7 @@ from rdkit import DataStructs
 from rdkit.Chem.rdFingerprintGenerator import GetMorganGenerator
 
 ### 1. load data ##########################
-masterlist = pd.read_csv('/path/to/your/local/directory/Chemical List pfasmaster-2025-05-08.csv')
+masterlist = pd.read_csv('/path/to/your/local/directory/Chemical_List_pfasmaster.csv')
 
 ### 2. Convert SMILES to Morgan fingerprints ########
 # Get SMILES and CAS columns

@@ -13,42 +13,52 @@ Kyushu Institute of Technology, Fukuoka, Japan
 
 ```
 PFAS-network-characterization/
-├── function.R                        # Shared R functions (network proximity calculation)
-├── function.py                       # Shared Python utilities
+├── function.R                          # Shared R functions (network proximity calculation)
+├── function.py                         # Shared Python utilities
 │
-├── 0_data_preparation/               # Input data construction (run in order 1→5; 2–4 can run in parallel)
-│   ├── 1_ppi/                        # [Step 1] Human PPI network construction (reads data/g_PPI_ext.dat)
-│   ├── 2_pfas_genes/                 # [Step 2] PFAS-associated gene retrieval (CTD, LINCS)
-│   ├── 3_disease_genes/              # [Step 3] Disease-associated gene retrieval (OMIM, ClinVar, GWAS, PheWAS)
-│   ├── 4_drug_genes/                 # [Step 4] Drug-associated gene data (CTD)
-│   └── 5_modules/                    # [Step 5] Gene module construction (requires steps 1–3)
+├── data/                               # Input data files (Supplementary Data 1–9, KEGG BRITE)
 │
-├── 1_drug_space/                     # Drug-space analysis
-│   ├── 2.Calculate_45PFAS_on_900drug_space.R   # Network proximity: PFAS vs. drugs
-│   └── enrichment_analysis/          # ATC and target enrichment
+├── 0_data_preparation/                 # Input data construction (run in order 1→4; 2–4 can run in parallel)
+│   ├── 1.PPI_data_load.R               # [Step 1] Human PPI network → g_comp.dat
+│   ├── 2.PFAS_genes_load.R             # [Step 2] PFAS-associated genes → list_PFAS_genes.dat
+│   ├── 3.drug_data_load.R              # [Step 3] Drug-associated genes → df_ctd_drugs.dat
+│   └── 4.disease_data_load.R           # [Step 4] Disease-associated genes → list_disease_genes.dat
 │
-├── 2_disease_space/                  # Disease-space analysis
-│   ├── 1.compute_network_proximity_between_PFAS_disease.R
-│   ├── 2.Get_proximity_of_45PFAS.R
-│   ├── 3.Get_similarity_45PFAS_148diseases.R
-│   └── enrichment_analysis/          # ICD-11 and KEGG enrichment
+├── 1_drug_space/                       # Drug-space analysis
+│   ├── 1.compute_network_proximity_between_PFAS_drug.R   # Network proximity → list_dist_mat_drug_PFAS.dat
+│   ├── 2.Get_proximity_of_45PFAS_drug.R                  # z-score matrix + UMAP → list_umap_PFAS_drug.dat
+│   ├── 3.Clustering.R                                    # Hierarchical clustering → list_cluster.dat / list_cluster.csv
+│   └── enrichment_analysis/
+│       ├── 4.Enrichment_analysis_ATC.R                   # ATC drug class enrichment
+│       └── 5.Enrichment_analysis_target.R                # Drug target enrichment
 │
-├── 3_ml_classification/              # Machine learning classification
-│   ├── 0.Get_SMILES.py               # Retrieve SMILES from EPA CompTox
-│   ├── 1_get_structure/              # Structure retrieval
-│   ├── 2_make_fingerprint/           # Morgan fingerprint generation (radius=2, 2048-bit)
-│   ├── 3_full_model/                 # Random forest / XGBoost classifiers
-│   ├── 4_feature_selection/          # Recursive feature elimination (RFE)
-│   ├── 5_shap/                       # SHAP analysis
-│   ├── 6_visualization/              # Visualization
+├── 2_disease_space/                    # Disease-space analysis
+│   ├── 1.compute_network_proximity_between_PFAS_disease.R  # Network proximity → list_dist_mat_disease_PFAS.dat
+│   ├── 2.Get_proximity_of_45PFAS_disease.R                 # z-score matrix + UMAP → list_umap_45PFAS_148disease.dat
+│   ├── 3.Clustering.R                                      # Hierarchical clustering → list_cluster_disease.dat
+│   └── enrichment_analysis/
+│       ├── 4.Enrichment_anaysis_ICD-11.R                   # ICD-11 disease enrichment
+│       └── 5.Enrichment_anaysis_KEGG_pathway.R             # KEGG pathway enrichment
+│
+├── 3_ml_classification/                # Machine learning classification of PFAS by drug-space cluster
+│   ├── 0.Get_SMILES.py                 # Retrieve SMILES from PubChem (uses list_cluster.csv)
+│   ├── 1.Get_structure.py              # Draw chemical structures by cluster
+│   ├── 2.Onehotencoding_Morgan_fingerprint_2048.py   # Morgan fingerprints (radius=2, 2048-bit) → pkl + CSV
+│   ├── 3.Classification_RF_Morgan.py                 # Random Forest classifier (all features)
+│   ├── 4_feature_selection/
+│   │   ├── 4.1.Feature_Selection_cor_Morgan.py       # Remove zero-variance and correlated features
+│   │   ├── 4.2.Feature_Selection_RFE_Morgan.py       # Recursive Feature Elimination (RFE)
+│   │   └── 4.3.Feature_Selection_RFE_Morgan_accuracy.py  # 5-fold CV accuracy by feature count
+│   ├── 5.SHAP_Morgan_classification.py               # SHAP analysis on selected features
+│   ├── 6.Visualization_Morgan.py                     # Highlight important substructures
 │   ├── 7.Get_Morgan_finger_print_PFASmasterlist.py   # Fingerprints for EPA PFAS Master List
 │   └── 8.Prediction_Morgan_fingerprint_PFASmasterlist.py  # Large-scale prediction
 │
-└── 4_figures_tables/                 # Figure and table generation scripts
-    ├── figures/                      # Main figures (Figure 1–5)
-    ├── supplementary_figures/        # Supplementary figures (S1–S10)
-    ├── supplementary_tables/         # Supplementary tables (S1–S4)
-    └── supplementary_data/           # Supplementary data scripts (Data S1–S6, S9)
+└── 4_figures_tables/                   # Figure and table generation scripts
+    ├── figures/                        # Main figures (Figure 1–5)
+    ├── supplementary_figures/          # Supplementary figures
+    ├── supplementary_tables/           # Supplementary tables
+    └── supplementary_data/             # Supplementary data scripts
 ```
 
 ---
@@ -56,10 +66,10 @@ PFAS-network-characterization/
 ## Requirements
 
 ### R packages
-- `ggplot2`, `dplyr`, `umap`, `reshape2`, `cowplot`, `lemon`, `stringr`, `openxlsx`, `igraph`
+- `ggplot2`, `dplyr`, `umap`, `Rtsne`, `reshape2`, `cowplot`, `lemon`, `stringr`, `igraph`, `openxlsx`, `jsonlite`, `randomForest`, `caret`
 
 ### Python packages
-- `rdkit`, `scikit-learn`, `xgboost`, `shap`, `pandas`, `numpy`, `matplotlib`, `umap-learn`, `requests`
+- `rdkit`, `scikit-learn`, `shap`, `pandas`, `numpy`, `matplotlib`, `seaborn`, `pubchempy`
 
 ---
 
@@ -73,24 +83,38 @@ Input data used in this study are obtained from publicly available sources:
 | PFAS-associated genes | CTD, LINCS |
 | Drug-associated genes | CTD |
 | Disease-associated genes | OMIM, ClinVar, GWAS Catalog, PheWAS Catalog |
-| PFAS structures | EPA CompTox Chemicals Dashboard |
+| PFAS structures (45 compounds) | EPA CompTox Chemicals Dashboard |
 | Drug ATC codes / targets | KEGG, DrugBank |
-| Disease classifications | ICD-11, KEGG Disease |
+| Disease classifications | ICD-11, KEGG Disease (br08402, br08403) |
+
+### EPA PFAS Master List (required for `3_ml_classification/7.` and `8.`)
+
+Download the PFAS Master List from the EPA CompTox Chemicals Dashboard:
+
+1. Go to: https://comptox.epa.gov/dashboard/chemical-lists/PFASMASTER
+2. Click **Export** → **CSV**
+3. Save the file and update the path in `7.Get_Morgan_finger_print_PFASmasterlist.py`:
+   ```python
+   masterlist = pd.read_csv('/path/to/your/local/directory/Chemical List pfasmaster-YYYY-MM-DD.csv')
+   ```
+
+The prediction results for all EPA PFAS compounds are provided as `data/Supplementary_Data_9_Classification_results_for_all_EPA_PFAS.txt`.
 
 Intermediate data files (network proximity scores, UMAP coordinates, clustering results) required to run the visualization scripts are available from the corresponding author upon request.
 
 ---
 
-## Notes on File Paths
+## Execution Order
 
-Scripts in `4_figures_tables/` load pre-computed intermediate data (`.dat` files) from local paths.  
-To reproduce the full analysis pipeline, run scripts in the following order:
+Run scripts in the following order to reproduce the full analysis:
 
-1. `0_data_preparation/` → PPI construction, gene retrieval, module building
-2. `1_drug_space/` → network proximity calculation (PFAS vs. drugs)
-3. `2_disease_space/` → network proximity calculation (PFAS vs. diseases)
-4. `3_ml_classification/` → fingerprints → classification → SHAP
-5. `4_figures_tables/` → generate figures and tables
+1. `0_data_preparation/` (1→4) — build PPI network and gene lists
+2. `1_drug_space/` (1→3, then enrichment_analysis/) — drug proximity and clustering
+3. `2_disease_space/` (1→3, then enrichment_analysis/) — disease proximity and clustering
+4. `3_ml_classification/` (0→8) — fingerprints, classification, SHAP, prediction
+5. `4_figures_tables/` — generate figures and tables
+
+Intermediate `.dat` files are saved to a local directory of your choice; update `./path/to/intermediate/data/` placeholders in each script accordingly.
 
 ---
 
