@@ -32,7 +32,7 @@ X_train, X_test, y_train, y_test, idx_train, idx_test = train_test_split(
     test_size=0.3, random_state=42, stratify=y_binary
 )
 
-# 3. Best hyperparameters (from GridSearchCV in Analysis_251010)
+# 3. Best hyperparameters (tuned by GridSearchCV)
 best_params = {
     'colsample_bytree': 1.0,
     'learning_rate': 0.3,
@@ -44,20 +44,22 @@ best_params = {
     'eval_metric': 'logloss',
 }
 
-# 4. Train final model
+# 4. 5-fold CV on full data (before final fit)
+cv_model = XGBClassifier(**best_params)
+cv_scores = cross_val_score(cv_model, X_combined, y_binary, cv=5)
+print(f"5-fold CV accuracy: {cv_scores.mean():.3f} (+/- {cv_scores.std():.3f})")
+
+# 5. Train final model on train split
 final_model = XGBClassifier(**best_params)
 final_model.fit(X_train, y_train)
-
-cv_scores = cross_val_score(final_model, X_combined, y_binary, cv=5)
-print(f"5-fold CV accuracy: {cv_scores.mean():.3f} (+/- {cv_scores.std():.3f})")
 print(f"Train accuracy: {final_model.score(X_train, y_train):.3f}")
 print(f"Test accuracy:  {final_model.score(X_test, y_test):.3f}")
 
-# 5. Save model
+# 6. Save model
 with open("./path/to/intermediate/data/Final_xgboost_model_disease.pkl", "wb") as f:
     pickle.dump(final_model, f)
 
-# 6. Evaluation
+# 7. Evaluation
 y_pred  = final_model.predict(X_test)
 y_proba = final_model.predict_proba(X_test)[:, 1]
 auc_score = roc_auc_score(y_test, y_proba)
@@ -67,7 +69,7 @@ print(classification_report(y_test, y_pred,
                             target_names=['Low-toxicity (cl2)', 'High-toxicity (cl1)']))
 print(f"ROC-AUC: {auc_score:.3f}")
 
-# 7. Confusion matrix
+# 8. Confusion matrix
 cm = confusion_matrix(y_test, y_pred)
 plt.figure(figsize=(6, 5))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
@@ -80,7 +82,7 @@ plt.tight_layout()
 plt.savefig("./path/to/intermediate/data/confusion_matrix_disease.png", dpi=300)
 plt.close()
 
-# 8. ROC curve
+# 9. ROC curve
 fpr, tpr, _ = roc_curve(y_test, y_proba)
 plt.figure(figsize=(6, 5))
 plt.plot(fpr, tpr, label=f'XGBoost (AUC = {auc_score:.3f})', linewidth=2)
@@ -93,7 +95,7 @@ plt.tight_layout()
 plt.savefig("./path/to/intermediate/data/roc_curve_disease.png", dpi=300)
 plt.close()
 
-# 9. Save predictions
+# 10. Save predictions
 df_test = df.iloc[idx_test].copy()
 df_test['true_label']      = y_test
 df_test['predicted_label'] = y_pred

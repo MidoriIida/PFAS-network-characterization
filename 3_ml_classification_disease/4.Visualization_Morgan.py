@@ -22,30 +22,26 @@ cas_cl2  = df_cl2['CAS'].tolist()
 # 2. SHAP-important bits
 important_bits = [1398, 1917]  # bit 1398: F-C-F-C-F, bit 1917: C=O
 
-def get_highlight_lists(mols):
+def get_highlight_atoms(mols):
     atom_lists = []
-    bond_lists = []
     for mol in mols:
         bit_info = {}
         AllChem.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048, bitInfo=bit_info)
         highlight_atoms = set()
-        highlight_bonds = set()
         for bit in important_bits:
             if bit in bit_info:
                 for atom_idx, radius in bit_info[bit]:
                     env = Chem.FindAtomEnvironmentOfRadiusN(mol, radius, atom_idx)
-                    highlight_bonds.update(env)
                     for bidx in env:
                         bond = mol.GetBondWithIdx(bidx)
                         highlight_atoms.add(bond.GetBeginAtomIdx())
                         highlight_atoms.add(bond.GetEndAtomIdx())
                     highlight_atoms.add(atom_idx)
         atom_lists.append(list(highlight_atoms))
-        bond_lists.append(list(highlight_bonds))
-    return atom_lists, bond_lists
+    return atom_lists
 
-hl_atoms_cl1, hl_bonds_cl1 = get_highlight_lists(mols_cl1)
-hl_atoms_cl2, hl_bonds_cl2 = get_highlight_lists(mols_cl2)
+hl_atoms_cl1 = get_highlight_atoms(mols_cl1)
+hl_atoms_cl2 = get_highlight_atoms(mols_cl2)
 
 # 3. Draw and save
 img_cl1 = Draw.MolsToGridImage(

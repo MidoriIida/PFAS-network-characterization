@@ -55,8 +55,20 @@ df_pred['prediction_prob_cls2'] = df_prob.iloc[:, 1]
 df_feature = pd.DataFrame(df_selected)
 df_pred = pd.concat([df_pred, df_feature], axis=1)
 
-# Save
+# Save full output (no header, for downstream R scripts)
 output_path = "./path/to/intermediate/data/Prediction_pfas_masterlist.csv"
 df_pred.to_csv(output_path, index=False, header=False)
+
+# Save clean summary for merging (Supplementary Data 9)
+df_summary = pd.DataFrame({
+    'CASRN':             df.iloc[:, 2050].values,
+    'SMILES':            df.iloc[:, 2049].values,
+    'pred_drug_cluster': predicted,                    # 1 or 2
+    'prob_drug_cl1':     df_prob.iloc[:, 0].values,
+})
+df_summary.to_csv(
+    "./path/to/intermediate/data/Prediction_pfas_masterlist_drug.csv",
+    index=False
+)
 
 
