@@ -16,7 +16,7 @@ import pandas as pd
 # ============================================================
 
 df = pd.read_csv(
-    "/path/to/your/local/directory/cas_to_smiles.csv"
+    "./path/to/intermediate/data/cas_to_smiles.csv"
 )
 
 df_cl2    = df[df['label'] == 2]

@@ -13,7 +13,7 @@ library(dplyr)
 # ============================================================
 
 df_pred <- read.csv(
-  "/path/to/your/local/directory/Prediction_pfas_masterlist.csv",
+  "./path/to/intermediate/data/Prediction_pfas_masterlist.csv",
   header = FALSE
 )
 df_pred <- df_pred[, 1:6]

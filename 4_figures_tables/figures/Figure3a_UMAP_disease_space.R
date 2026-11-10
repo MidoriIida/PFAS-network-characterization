@@ -16,18 +16,22 @@ library(openxlsx)
 # ============================================================
 
 ## Disease-space UMAP results
-load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
+load("./path/to/intermediate/data/list_umap_45PFAS_148disease.dat")
 
 ## PFAS abbreviations
-in_f  <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
+in_f  <- "../../data/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri   <- read.xlsx(in_f)
 Acronym <- setNames(abbri$Acronym, abbri$CASRN)
 
-## Number of fluorine atoms (nF)
-in_d  <- "/path/to/your/local/directory/original_data"
-in_f3 <- "hsPPARalpha_PFASs_wash_descriptors_Sscore_IC50_data.xlsx"
-discriptors <- read.xlsx(paste0(in_d, in_f3))
-nF <- setNames(discriptors$a_nF, discriptors$CASRN)
+## Number of fluorine atoms (nF): computed from MOLECULAR.FORMULA in PFOA abbreviation xlsx
+count_F <- function(formula) {
+  if (is.na(formula) || formula == "") return(NA_integer_)
+  m <- regmatches(formula, regexpr("F(\\d+)", formula))
+  if (length(m) > 0) return(as.integer(sub("F", "", m)))
+  if (grepl("F", formula)) return(1L)
+  return(0L)
+}
+nF <- setNames(sapply(abbri$MOLECULAR.FORMULA, count_F), abbri$CASRN)
 
 # ============================================================
 # 2. Hierarchical clustering (k = 2)
@@ -46,8 +50,6 @@ print(table(clusters))
 umap_df          <- as.data.frame(list_umap$distnon$layout)
 umap_df$cluster  <- as.factor(clusters)
 umap_df$nF       <- nF[rownames(umap_df)]
-# Impute nF if missing (same values as original script)
-umap_df[is.na(umap_df$nF), "nF"] <- c(5, 6, 9, 5, 4, 6, 5, 6, 17, 4, 6, 6)
 umap_df$acronym  <- Acronym[rownames(umap_df)]
 umap_df$accolors <- ifelse(umap_df$cluster == 1, "#577a00", "#9159ba")
 

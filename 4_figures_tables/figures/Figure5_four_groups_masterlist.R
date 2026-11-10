@@ -17,15 +17,12 @@ library(dplyr)
 # 1. Load data
 # ============================================================
 
-base <- "/path/to/your/local/directory/Human_PPI_PFAS"
-
-df_M <- read.csv(file.path(base, "Analysis_250412/Prediction_pfas_masterlist.csv"),
+df_M <- read.csv("./path/to/intermediate/data/Prediction_pfas_masterlist.csv",
                  header = FALSE)
 colnames(df_M) <- c("label", "SMILES", "CASRN",
                     "pred_MOA", "prob_cl1_MOA", "prob_cl2_MOA", "c6", "c7", "c8")
 
-df_O <- read.csv(file.path(base,
-                 "Analysis_251010/final_predictions_XGBoost_Morgan_chems_PFASmastelist.csv"))
+df_O <- read.csv("./path/to/intermediate/data/final_predictions_XGBoost_Morgan_chems_PFASmastelist.csv")
 df_O$pred_outcome <- df_O$predicted_label + 1   # 0/1 → 1/2
 
 # ============================================================

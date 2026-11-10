@@ -18,7 +18,6 @@ library(igraph)
 library(ggraph)
 library(tidygraph)
 library(dplyr)
-library(readxl)
 library(stringr)
 library(ggrepel)
 
@@ -27,10 +26,10 @@ library(ggrepel)
 # ============================================================
 
 ## --- Path settings ---
-in_f_ppi      <- "/path/to/your/local/directory/g_comp.dat"   # LCC from 1_ppi/1.PPI_data_make.R
-in_f_pfas     <- "/path/to/your/local/directory/list_PFAS_genes.dat"
-in_f_zscore   <- "/path/to/your/local/directory/summary_PFAS_appdrug_iidaData_20230716.xlsx"
-in_f_ctd      <- "/path/to/your/local/directory/df_ctd_drugs.dat"
+in_f_ppi      <- "./path/to/intermediate/data/g_comp.dat"
+in_f_pfas     <- "./path/to/intermediate/data/list_PFAS_genes.dat"
+in_f_zscore   <- "../../data/Supplementary_Data_5_Zdc_PFAS_Drug.txt"
+in_f_ctd      <- "./path/to/intermediate/data/df_ctd_drugs.dat"
 
 ## --- 1-1. PPI network (igraph object) ---
 load(in_f_ppi)   # loads g_comp
@@ -42,7 +41,9 @@ load(in_f_pfas)   # loads list_PFAS_genes
 # list_PFAS_genes$Merged: list of gene IDs keyed by CAS number
 
 ## --- 1-3. PFAS-drug z-score data ---
-zscore_data <- read_excel(in_f_zscore)
+# Supplementary_Data_5 columns: ID Name dc_real mean(dc_null) sd(dc_null) Zdc(dc_null)
+zscore_data <- read.table(in_f_zscore, sep = "\t", header = TRUE,
+                          quote = "", stringsAsFactors = FALSE)
 colnames(zscore_data)[c(5, 6)] <- c("sd_dc_null", "Zdc")
 
 ## --- 1-4. CTD drug-gene interaction data (900 approved drugs) ---

@@ -17,15 +17,15 @@ library(tibble)
 # ============================================================
 
 ## Disease-space UMAP results
-load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
+load("./path/to/intermediate/data/list_umap_45PFAS_148disease.dat")
 
 ## PFAS abbreviations
-in_f  <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
+in_f  <- "../../data/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri   <- read.xlsx(in_f)
 Acronym <- setNames(abbri$Acronym, abbri$CASRN)
 
 ## PFAS-associated gene data
-load("/path/to/your/local/directory/list_PFAS_genes.dat")
+load("./path/to/intermediate/data/list_PFAS_genes.dat")
 
 # ============================================================
 # 2. Hierarchical clustering (k = 2)

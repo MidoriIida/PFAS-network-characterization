@@ -23,16 +23,16 @@ library(openxlsx)
 # ============================================================
 
 ## Drug-space UMAP
-load("/path/to/your/local/directory/list_umap_PFAS_drug.dat")
+load("./path/to/intermediate/data/list_umap_PFAS_drug.dat")
 list_umap_drug <- list_umap
 
 ## Disease-space UMAP
-load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
+load("./path/to/intermediate/data/list_umap_45PFAS_148disease.dat")
 list_umap_dis <- list_umap
 
 ## Pre-computed clusters (hierarchical clustering not re-run)
-drug_cl_dat  <- get(load("/path/to/your/local/directory/list_cluster.dat"))
-dis_cl_dat   <- get(load("/path/to/your/local/directory/list_cluster_2.dat"))
+drug_cl_dat  <- get(load("./path/to/intermediate/data/list_cluster.dat"))
+dis_cl_dat   <- get(load("./path/to/intermediate/data/list_cluster_disease.dat"))
 
 clusters_drug    <- drug_cl_dat$clusters    # named vector, 35 PFAS
 clusters_disease <- dis_cl_dat$clusters     # named vector, 44 PFAS
@@ -41,7 +41,7 @@ cat("Drug-space cluster sizes:\n");    print(table(clusters_drug))
 cat("Disease-space cluster sizes:\n"); print(table(clusters_disease))
 
 ## PFAS abbreviations
-in_f  <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
+in_f  <- "../../data/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri <- read.xlsx(in_f)
 abbri <- abbri[!is.na(abbri$Acronym), ]
 abbri <- abbri[!duplicated(abbri$CASRN), ]

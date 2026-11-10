@@ -13,7 +13,7 @@ library(dplyr)
 # ============================================================
 
 df_pred <- read.csv(
-  "/path/to/your/local/directory/final_predictions_XGBoost_Morgan_chems_PFASmastelist.csv"
+  "./path/to/intermediate/data/final_predictions_XGBoost_Morgan_chems_PFASmastelist.csv"
 )
 
 cat("Total PFAS:", nrow(df_pred), "\n")

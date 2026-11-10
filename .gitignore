@@ -24,6 +24,7 @@ __pycache__/
 # Allow data files in data/ folder
 !data/*.txt
 !data/*.dat
+!data/*.xlsx
 
 # macOS
 .DS_Store

@@ -6,21 +6,25 @@
 set.seed(123)  # for reproducibility
 library(ggplot2)
 library(dplyr)
-library(umap)
-library(dplyr)
-library(lemon)
-library(reshape2)
-library(cowplot)
 library(openxlsx)
 
 ### 1. load ###################################################################
-load("/path/to/your/local/directory/list_umap_PFAS_drug.dat")
-load("/path/to/your/local/directory/umap_data_non.dat")
+load("./path/to/intermediate/data/list_umap_PFAS_drug.dat")
 
-in_f <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
+in_f <- "../../data/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri <- read.xlsx(in_f)
 Acronym <- abbri$Acronym
 names(Acronym) <- abbri$CASRN
+
+# nF: number of fluorine atoms, computed from MOLECULAR.FORMULA
+count_F <- function(formula) {
+  if (is.na(formula) || formula == "") return(NA_integer_)
+  m <- regmatches(formula, regexpr("F(\\d+)", formula))
+  if (length(m) > 0) return(as.integer(sub("F", "", m)))
+  if (grepl("F", formula)) return(1L)
+  return(0L)
+}
+nF_all <- setNames(sapply(abbri$MOLECULAR.FORMULA, count_F), abbri$CASRN)
 
 ### 3. Hierarchical clustering #################################################################
 # Apply k-means clustering to dimensionality-reduced data
@@ -37,16 +41,8 @@ list_cluster <- list(hc = hc, clusters = clusters)
 
 ### 4. Color-coded plot of clustering results ###############################################
 umap_df         <- as.data.frame(list_umap$distnon$layout)
-
-merged_df <- left_join(
-  umap_df    %>% tibble::rownames_to_column("id"),
-  umap_data_non %>% tibble::rownames_to_column("id"),
-  by = "id"
-)
-
-umap_df         <- as.data.frame(list_umap$distnon$layout)
 umap_df$cluster <- as.factor(clusters)
-umap_df$nF      <- merged_df$nF
+umap_df$nF      <- nF_all[rownames(umap_df)]
 umap_df$acronym <- Acronym[rownames(umap_df)]
 umap_df$accolors <- ifelse(umap_df$cluster == 1, "#9e4a44", "#006669")
 

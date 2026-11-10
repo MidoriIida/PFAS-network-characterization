@@ -19,16 +19,15 @@ library(tibble)
 # ============================================================
 
 ## UMAP and clustering results
-load("/path/to/your/local/directory/list_umap_PFAS_drug.dat")
-load("/path/to/your/local/directory/umap_data_non.dat")
+load("./path/to/intermediate/data/list_umap_PFAS_drug.dat")
 
 ## PFAS abbreviations
-in_f <- "/path/to/your/local/directory/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
+in_f <- "../../data/PFOA_abbrivation_list_pfasmaster-2023-01-31.xlsx"
 abbri   <- read.xlsx(in_f)
 Acronym <- setNames(abbri$Acronym, abbri$CASRN)
 
 ## PFAS-associated gene data
-load("/path/to/your/local/directory/list_PFAS_genes.dat")
+load("./path/to/intermediate/data/list_PFAS_genes.dat")
 
 # ============================================================
 # 2. Hierarchical clustering
@@ -43,7 +42,7 @@ list_cluster <- list(hc = hc, clusters = clusters)
 # 3. Compute number of PFAS-associated genes
 # ============================================================
 
-cas_35 <- rownames(umap_data_non)   # CAS numbers for 35 PFAS
+cas_35 <- rownames(list_umap$distnon$layout)   # CAS numbers for PFAS
 
 n_genes <- sapply(cas_35, function(cas) {
   length(unique(list_PFAS_genes$Merged[list_PFAS_genes$Merged$CASRN == cas, "GeneID"]))

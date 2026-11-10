@@ -15,11 +15,10 @@ library(stringr)
 # library(umap)   # excluded (not used)
 
 ### 1. load ###################################################################
-load("/path/to/your/local/directory/list_cluster.dat")
+load("./path/to/intermediate/data/list_cluster.dat")
 
-in_d2 <- "/path/to/your/local/directory/orignail_data"
-in_f2 <- "/20230830/result_enrichment_ATC_code_KEGGdrugBackground_20230825.csv"
-ATC   <- read.csv(paste0(in_d2, in_f2), row.names = 1)
+# Supplementary_Data_7 produced by 1_drug_space/enrichment_analysis/4.Enrichment_analysis_ATC.R
+ATC <- read.csv("../../data/Supplementary_Data_7_Enrichment_ATC.txt", row.names = 1)
 
 ### 2. cluster ################################################################
 clusters <- list_cluster$clusters

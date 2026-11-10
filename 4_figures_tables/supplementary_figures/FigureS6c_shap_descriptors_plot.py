@@ -9,13 +9,13 @@ import pickle
 import matplotlib.pyplot as plt
 
 # 1. Load data and model
-with open('/path/to/your/local/directory/Final_xgboost_model_Morgan_2048_chem.pkl', 'rb') as f:
+with open('./path/to/intermediate/data/Final_xgboost_model_Morgan_2048_chem.pkl', 'rb') as f:
     final_model = pickle.load(f)
 
-with open('/path/to/your/local/directory/Fingerprint_Morgan_2048.pkl', 'rb') as f:
+with open('./path/to/intermediate/data/Fingerprint_Morgan_2048.pkl', 'rb') as f:
     data = pickle.load(f)
 
-with open('/path/to/your/local/directory/Fingerprint_Morgan_2048_chem.pkl', 'rb') as f:
+with open('./path/to/intermediate/data/Fingerprint_Morgan_2048_chem.pkl', 'rb') as f:
     data2 = pickle.load(f)
 
 df = data['df']

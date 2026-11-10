@@ -25,19 +25,19 @@ import pickle
 # 1. Load data (train + test)
 # ============================================================
 
-base = "/path/to/your/local/directory/Human_PPI_PFAS"
+base = "./path/to/intermediate/data/4.Feature_Selection"
 
-with open(f"{base}/Analysis_250412/4.Feature_Selection/X_train_filtered_Morgan.pkl", "rb") as f:
+with open(f"{base}/X_train_filtered_Morgan.pkl", "rb") as f:
     X_train = pickle.load(f)
-with open(f"{base}/Analysis_250412/4.Feature_Selection/y_train_filtered_Morgan.pkl", "rb") as f:
+with open(f"{base}/y_train_filtered_Morgan.pkl", "rb") as f:
     y_train = pickle.load(f)
-with open(f"{base}/Analysis_250412/4.Feature_Selection/X_test_filtered_Morgan.pkl", "rb") as f:
+with open(f"{base}/X_test_filtered_Morgan.pkl", "rb") as f:
     X_test = pickle.load(f)
-with open(f"{base}/Analysis_250412/4.Feature_Selection/y_test_filtered_Morgan.pkl", "rb") as f:
+with open(f"{base}/y_test_filtered_Morgan.pkl", "rb") as f:
     y_test = pickle.load(f)
-with open(f"{base}/Analysis_250412/4.Feature_Selection/rfe_results_Morgan.pkl", "rb") as f:
+with open(f"{base}/rfe_results_Morgan.pkl", "rb") as f:
     rfe_results = pickle.load(f)
-with open(f"{base}/Analysis_250412/4.Feature_Selection/feature_names_filtered_Morgan.pkl", "rb") as f:
+with open(f"{base}/feature_names_filtered_Morgan.pkl", "rb") as f:
     feature_names_filtered = pickle.load(f)
 
 # ============================================================

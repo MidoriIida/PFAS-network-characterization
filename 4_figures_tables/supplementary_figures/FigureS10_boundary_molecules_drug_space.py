@@ -20,7 +20,7 @@ random.seed(42)
 # ============================================================
 
 df = pd.read_csv(
-    "/path/to/your/local/directory/Prediction_pfas_masterlist.csv",
+    "./path/to/intermediate/data/Prediction_pfas_masterlist.csv",
     header=None
 )
 df.columns = ['url', 'SMILES', 'CASRN',

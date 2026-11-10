@@ -18,10 +18,10 @@ library(stringr)
 # ============================================================
 
 ## KEGG pathway enrichment results (rows = PFAS, cols = KEGG pathways)
-load("/path/to/your/local/directory/df_results_enrichment_KEGG_pathway.dat")
+load("./path/to/intermediate/data/df_results_enrichment_KEGG_pathway.dat")
 
 ## UMAP + clustering (same settings as Figure 3a)
-load("/path/to/your/local/directory/list_umap_45PFAS_148disease.dat")
+load("./path/to/intermediate/data/list_umap_45PFAS_148disease.dat")
 hc       <- hclust(dist(list_umap$distnon$layout), method = "complete")
 clusters <- cutree(hc, k = 2)
 umap_df  <- as.data.frame(list_umap$distnon$layout)
